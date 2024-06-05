@@ -17,9 +17,10 @@ __pycache__/
 
 # Ignore specific files
 .env
+.dvcignore
 
 # Ignore data files, if applicable
-./data/*
+data/
 
 # Ignore checkpoint files 
 checkpoints/
