@@ -1,33 +1,61 @@
+```markdown
 # Algerian Forest Fire Prediction
 
 This repository contains code and resources for predicting forest fires in Algeria using machine learning.
 
-### Project Overview
+## 🚩 Table of Contents
+
+- [Project Overview](#-project-overview)
+- [Getting Started](#-getting-started)
+    - [Prerequisites](#-prerequisites)
+    - [Installation](#-installtion)
+- [Project Structure](#-project-structure)
+- [Contributing](#-contributions)
+- [License](#-license)
+- [Acknowledgments](#-acknowledgments)
+
+## Project Overview
 
 Forest fires pose a significant threat to the environment and human safety. This project aims to develop a machine learning model that can predict the likelihood of forest fires in Algeria, using historical data and environmental factors.
 
-### Data
+<!-- ### Data
 
 The dataset used in this project is sourced from [source of dataset] and consists of [brief description of the dataset, including features]. 
 
 ### Model
 
-We implemented [mention the machine learning model used] for predicting forest fire probability. The model was trained and evaluated using [mention training and evaluation metrics].
+We implemented [mention the machine learning model used] for predicting forest fire probability. The model was trained and evaluated using [mention training and evaluation metrics]. -->
 
-### Usage
+## Getting Started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+
+### Installation
 
 1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your_username/Algerian-Forest-Fire-Prediction.git
-   ```
-2. **Install dependencies:**
+    ```bash
+    $ git clone https://github.com/your-username/algerian-forest-fire-prediction.git
+    ```
+2. **Create a conda environment:**
+    ```bash
+    $ conda create -n forest-fire-env python=3.9 # Adjust python version as needed
+    ```
+3. **Activate the environment:**
+    ```bash
+    $ conda activate forest-fire-env
+    ```
+4. **Install the required dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
-3. **Run the prediction script:**
+5. **Setup your command line interface for better readability (Optional):**
    ```bash
-   python predict_fire.py
+   export PS1="\[\033[01;32m\]\u@\h:\w\n\[\033[00m\]\$ "
    ```
+
+---
+
+## Project Structure
 
 ```
 Algerian-Forest-Fire-Prediction
@@ -76,6 +104,8 @@ Algerian-Forest-Fire-Prediction
 
 ```
 
+---
+
 ### Contributions
 
 Contributions to this project are welcome! Please feel free to fork the repository, make changes, and submit a pull request.
@@ -83,3 +113,10 @@ Contributions to this project are welcome! Please feel free to fork the reposito
 ### License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Acknowledgments
+
+<!-- - [Dataset Source] - For providing the Algerian forest fire dataset.
+- [Library Name] - For providing the machine learning library used. -->
+```
+
