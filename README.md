@@ -1,4 +1,3 @@
-```markdown
 # Algerian Forest Fire Prediction
 
 This repository contains code and resources for predicting forest fires in Algeria using machine learning.
