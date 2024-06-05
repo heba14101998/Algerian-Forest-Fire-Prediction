@@ -4,3 +4,5 @@
     url = gdrive://1zkqgCdnxeSjvG_4KZaohKiTHn5OITJu1
     gdrive_use_service_account = true
     gdrive_service_account_user_email = hebamohamed14101998@gmail.com
+['remote "github"']
+    url = ../heba14101998@github.com

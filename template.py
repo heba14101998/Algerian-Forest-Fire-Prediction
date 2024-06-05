@@ -8,21 +8,28 @@ list_of_files = [
     "data/processed/",
     "checkpoints/",
     "artifacts/",
+
     "src/__init__.py",
     "src/utils.py",
     "src/logger.py",
     "src/exception.py",
+
     "src/components/__init__.py",
+    "src/components/data_ingestion.py",
+    
     "src/pipeline/__init__.py",
     "src/pipeline/train_pipline.py",
     "src/pipeline/predict_pipline.py",
+    
     "tests/__init__.py",
     "tests/unit/__init__.py",
     "tests/unit/unit_test.py",
     "tests/integration/__init__.py",
     "tests/integration/init_test.py",
+    
     "requirements.txt",
     "params.yaml",
+    "dvc.yaml",
     "setup.py",
     ".gitignore",
     ".env",
