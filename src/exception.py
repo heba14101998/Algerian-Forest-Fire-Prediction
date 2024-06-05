@@ -1,11 +1,10 @@
 import sys
+<<<<<<< HEAD
 import os
 from colorama import Fore, Style
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_root)
 from src.logger import logging
-
-
 
 def get_error_msg(error_custom_msg:str, error:Exception):
     """
@@ -34,9 +33,10 @@ class CustomException(Exception):
         return Fore.MAGENTA + self.error_message + Style.RESET_ALL
 
 # EXample for testing the code
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    try:
-        result = 10 / 0 # This will cause a ZeroDivisionError
-    except Exception as e:
-        raise CustomException("Error in division operation", e)
+#     try:
+#         result = 10 / 0 # This will cause a ZeroDivisionError
+#     except Exception as e:
+#         raise CustomException("Error in division operation", e)
+
