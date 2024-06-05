@@ -13,6 +13,6 @@ os.makedirs(os.path.dirname(LOG_FILE_PATH), exist_ok=True)
 # Configure basic logging setup
 logging.basicConfig(
     filename=LOG_FILE_PATH,
-    format='[%(asctime)s] - %(levelname)s - %(filename)s - %(lineno)d - %(message)s',
+    format='[%(asctime)s] - %(levelname)s - %(lineno)d - %(message)s',
     level=logging.INFO,
 )

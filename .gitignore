@@ -11,6 +11,7 @@
 # Ignore build artifacts
 build/
 dist/
+logs/
 *.egg-info/
 __pycache__/
 *.ipynb_checkpoints/
