@@ -21,6 +21,7 @@ list_of_files = [
     "tests/integration/init_test.py",
     "requirements.txt",
     "setup.py",
+    ".gitignore",
     ".env",
     ".env.example",
     "README.md",
