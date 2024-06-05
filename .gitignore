@@ -19,8 +19,7 @@ __pycache__/
 .env
 
 # Ignore data files, if applicable
-data/raw/
-data/processed/
+./data/*
 
 # Ignore checkpoint files 
 checkpoints/
