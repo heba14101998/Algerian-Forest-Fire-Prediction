@@ -7,7 +7,7 @@
 *.log
 *.csv
 *.pkl
-
+forme.txt
 # Ignore build artifacts
 build/
 dist/

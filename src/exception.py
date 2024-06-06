@@ -1,5 +1,4 @@
 import sys
-<<<<<<< HEAD
 import os
 from colorama import Fore, Style
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))

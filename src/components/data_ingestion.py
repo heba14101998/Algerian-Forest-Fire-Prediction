@@ -1,46 +1,55 @@
 import os
 import sys
+# import argparse
+# import yaml
+import pandas as pd
 from src.exception import CustomException
 from src.logger import logging
-import pandas as pd
+from src.utils import save_artifact, read_yaml
 from sklearn.model_selection import train_test_split
-from dataclasses import dataclass
 
+SEED = 42
 
-@dataclass
-class DataIngestionConfig:
-    raw_data_path: str=os.path.join('./data/raw', "Algerian_forest_fires.csv")
-    train_data_path: str=os.path.join('./data/precessed', "train_data.csv")
-    test_data_path: str=os.path.join('./data/precessed', "test_data.csv")
+class DataIngestor:
+    def __init__(self, configs, params):
+        self.configs = configs
+        self.params  = params
 
-class DataIngestion:
-    def __init__(self):
-        self.ingestion_config=DataIngestionConfig()
-
-    def init_data_ingestion(self):
+    def data_ingestion(self):
         logging.info("Entered the data ingestion method or component")
         try:
-            df=pd.read_csv(self.ingestion_config.raw_data_path)
-            logging.info('Read the dataset as dataframe')
-            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
-            df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True)
+            df = pd.read_csv(self.configs.raw_data_path)
+            logging.info(f"Data read successfully. Shape: {df.shape}")
+            
+            # Create output directories if they don't exist
+            os.makedirs(os.path.dirname(self.configs.train_data_path), exist_ok=True)
+            os.makedirs(os.path.dirname(self.configs.eval_data_path), exist_ok=True)
+            
+            train_set, eval_set = train_test_split(df, test_size=self.params.test_size, random_state=SEED)
+            logging.info(f"Splitted raw data to training set with shape: {train_set.shape} ; and evaluation set with shape: {eval_set.shape}")
+            
+            # Save the training and evaluation sets
+            train_set.to_csv(self.configs.train_data_path, index=False, header=True)
+            eval_set.to_csv(self.configs.eval_data_path, index=False, header=True)
 
-            logging.info("Train test split initiated")
-            train_set,test_set=train_test_split(df,test_size=0.2,random_state=42)
+            logging.info("Ingestion of the data is completed")
 
-            train_set.to_csv(self.ingestion_config.train_data_path,index=False,header=True)
-            test_set.to_csv(self.ingestion_config.test_data_path,index=False,header=True)
+        except FileNotFoundError as e:
+            raise CustomException("Raw data file not found!") from e
+        except ValueError as e:
+            raise CustomException(f"Error while reading data: {e}") from e
 
-            logging.info("Inmgestion of the data iss completed")
+        return self.configs.train_data_path, self.configs.eval_data_path
 
-            return(
-                self.ingestion_config.train_data_path,
-                self.ingestion_config.test_data_path)
+if __name__ == '__main__':
 
-        except Exception as e:
-            raise CustomException(e,sys)
-        
-# if __name__ == '__main__':
-#     obj = DataIngestion()
-#     train_data, test_data = obj.init_data_ingestion()
-#     print(train_data)
+    try:
+        args_paths, args_params = read_yaml('params.yaml')
+        print(args_params)
+        run = DataIngestor(args_paths, args_params)
+        train_data, eval_data = run.data_ingestion()
+        print(f"Training data saved at: {train_data}")
+        print(f"Evaluation data saved at: {eval_data}")
+
+    except Exception as e:
+        raise CustomException("Error during data ingestion", e)
