@@ -2,14 +2,15 @@
 
 Build a machine learning model that can accurately predict whether a forest fire will occur based on input features based on environmental and weather data. This is a binary classification problem, where the model needs to learn the patterns that distinguish between instances where a fire occurred ("fire") and instances where no fire occurred ("not fire").
 
+
+This notebook explores a dataset of forest fire occurrences, including meteorological data, fuel characteristics, and date information. It performs EDA, hypothesis testing, and builds a machine learning model to predict fire occurrence.
+
 **Key Considerations:**
 
 * **Data Availability:** The dataset provides historical information on weather and environmental conditions and whether fires occurred.
 * **Feature Importance:**  Determining which features have the strongest impact on fire occurrence is crucial for model accuracy.
 * **Model Performance:**  The model's performance will be evaluated based on its ability to correctly classify future fire events.
 
-
-This repository contains code and resources for predicting forest fires in Algeria using machine learning.
 
 ## 🚩 Table of Contents
 

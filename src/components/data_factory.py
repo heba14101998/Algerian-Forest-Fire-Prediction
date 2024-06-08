@@ -10,14 +10,13 @@ from src.utils import save_artifact, read_yaml
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, LabelEncoder
 
 class DataPreprocessor:
 
-    def __init__(self, configs, params):
+    def __init__(self, configs,):
 
         self.configs = configs
-        self.params = params
         self.cat_cols = []
         self.num_cols = []
         self.X_train = None
@@ -25,6 +24,7 @@ class DataPreprocessor:
         self.y_train = None
         self.y_eval = None
         self.preprocessor = None
+        # self.label_encoder = LabelEncoder()
 
     def seperate_data(self):
 
@@ -32,11 +32,11 @@ class DataPreprocessor:
         eval_df = pd.read_csv(self.configs.eval_data_path)
         logging.info("Read train and evaluation sets completed")
 
-        self.X_train = train_df.drop(columns = [self.params.target_column], index=1) 
-        self.y_train = train_df[self.params.target_column]
+        self.X_train = train_df.drop(columns = [self.configs.target_column], index=1) 
+        self.y_train = train_df[self.configs.target_column]
 
-        self.X_eval = train_df.drop(columns = [self.params.target_column], index=1) 
-        self.y_eval = train_df[self.params.target_column]
+        self.X_eval = train_df.drop(columns = [self.configs.target_column], index=1) 
+        self.y_eval = train_df[self.configs.target_column]
 
         # Identify categorical and numerical columns
         self.cat_cols = self.X_train.select_dtypes(include=['object', 'category']).columns.tolist()
@@ -50,7 +50,7 @@ class DataPreprocessor:
                                          ('scalar', StandardScaler())])
         # Preprocessing for categorical data: Impute missing values and one-hot encode
         categorical_transformer = Pipeline(steps=[('imputer', SimpleImputer(strategy='most_frequent')),
-                                                 ('imputer', OneHotEncoder(handle_unknown='ignore'))])
+                                                 ('encode', OneHotEncoder(handle_unknown='ignore'))])
         
         self.preprocessor = ColumnTransformer(transformers= [('num', numerical_transformer, self.num_cols), 
                                                             ('cat', categorical_transformer, self.cat_cols )])
@@ -60,10 +60,16 @@ class DataPreprocessor:
         self.seperate_data()
         self.create_pipline()
         
+        # Encode the target variable
+        # self.y_train = self.label_encoder.fit_transform(self.y_train)
+        # self.y_eval = self.label_encoder.transform(self.y_eval)
+
         X_train_arr= self.preprocessor.fit_transform(self.X_train)
         X_eval_arr = self.preprocessor.transform(self.X_eval)
+        
         # Save the model to a pickle file
         save_artifact('preprocessor.pkl', self.preprocessor)
+        
         # Save processed data as numpy
         np.save(os.path.join(self.configs.artifacts_path,'X_train.npy'), X_train_arr)
         np.save(os.path.join(self.configs.artifacts_path,'X_eval.npy'), X_eval_arr)
@@ -75,8 +81,8 @@ class DataPreprocessor:
 
 if __name__=='__main__':
     try:
-        args_paths, args_params = read_yaml('params.yaml')
-        run = DataPreprocessor(args_paths, args_params)
+        args = read_yaml('params.yaml')
+        run = DataPreprocessor(args)
         X_train, X_eval, y_train, y_eval = run.preprocess()
     
     except Exception as e:

@@ -11,9 +11,8 @@ from sklearn.model_selection import train_test_split
 SEED = 42
 
 class DataIngestor:
-    def __init__(self, configs, params):
+    def __init__(self, configs):
         self.configs = configs
-        self.params  = params
 
     def data_ingestion(self):
         logging.info("Entered the data ingestion method or component")
@@ -25,7 +24,7 @@ class DataIngestor:
             os.makedirs(os.path.dirname(self.configs.train_data_path), exist_ok=True)
             os.makedirs(os.path.dirname(self.configs.eval_data_path), exist_ok=True)
             
-            train_set, eval_set = train_test_split(df, test_size=self.params.test_size, random_state=SEED)
+            train_set, eval_set = train_test_split(df, test_size=self.configs.test_size, random_state=SEED)
             logging.info(f"Splitted raw data to training set with shape: {train_set.shape} ; and evaluation set with shape: {eval_set.shape}")
             
             # Save the training and evaluation sets
@@ -44,9 +43,8 @@ class DataIngestor:
 if __name__ == '__main__':
 
     try:
-        args_paths, args_params = read_yaml('params.yaml')
-        print(args_params)
-        run = DataIngestor(args_paths, args_params)
+        args = read_yaml('params.yaml')
+        run = DataIngestor(args)
         train_data, eval_data = run.data_ingestion()
         print(f"Training data saved at: {train_data}")
         print(f"Evaluation data saved at: {eval_data}")

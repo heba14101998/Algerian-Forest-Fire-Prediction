@@ -8,3 +8,13 @@ stages:
     outs:
       - data/processed/train.csv
       - data/processed/test.csv
+
+    ingestion:
+    cmd: python <>.py
+    deps:
+      -
+      -
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+      

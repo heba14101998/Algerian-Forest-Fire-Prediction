@@ -1,1 +1,0 @@
-python src/components//data_ingestion.py --raw_data_path ./data/raw/Algerian_forest_fires.csv --train_data_path ./data/processed/train_data.csv --test_data_path ./data/processed/test_data.csv --test_size 0.3
