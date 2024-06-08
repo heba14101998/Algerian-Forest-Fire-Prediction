@@ -1,21 +1,20 @@
 configs:
-    raw_data_path: ./data/raw/Algerian_forest_fires.csv
-    train_data_path: ./data/processed/train_data.csv
-    eval_data_path: ./data/processed/eval_data.csv
-    artifacts_path: './artifacts'
-    checkpoints_path: './checkpoints'
+    raw_data_dir: ./data/raw
+    data_file_name: algerian_forest_fires_dataset.csv
+    processed_data_dir: ./data/processed
+    artifacts_path: ./artifacts
+    checkpoints_path: ./checkpoints
     test_size: 0.2
     target_column: 'classes'
     scoring: 'auc_roc'
     cv: 5
 
 model_params:
-    - name: "RandomForestClassifier"
-      params:
-        n_estimators: 50
-        max_depth: 5
-        min_samples_split: 5
-    
+    model_name: "RandomForestClassifier"
+    n_estimators: 50
+    max_depth: 5
+    min_samples_split: 5
+
   # - name: "DecisionTreeClassifier"
   #   params:
   #     n_estimators: 50
