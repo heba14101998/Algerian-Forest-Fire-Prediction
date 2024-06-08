@@ -102,5 +102,9 @@ if __name__=='__main__':
         exp.run()
     
     except Exception as e:
+<<<<<<< HEAD
         raise CustomException("Error during data transformation", e)
 
+=======
+        raise CustomException("Error during data transformation", e)
+>>>>>>> working_on_notebook

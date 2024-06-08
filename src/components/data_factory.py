@@ -86,4 +86,8 @@ if __name__=='__main__':
         X_train, X_eval, y_train, y_eval = run.preprocess()
     
     except Exception as e:
+<<<<<<< HEAD
         raise CustomException("Error during data transformation", e)
+=======
+        raise CustomException("Error during data transformation", e)
+>>>>>>> working_on_notebook

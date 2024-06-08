@@ -18,6 +18,7 @@ This notebook explores a dataset of forest fire occurrences, including meteorolo
 - [Getting Started](#-getting-started)
     - [Prerequisites](#-prerequisites)
     - [Installation](#-installtion)
+- [Dataset](#-dataset)
 - [Project Structure](#-project-structure)
 - [Contributing](#-contributions)
 - [License](#-license)
@@ -27,17 +28,13 @@ This notebook explores a dataset of forest fire occurrences, including meteorolo
 
 Forest fires pose a significant threat to the environment and human safety. This project aims to develop a machine learning model that can predict the likelihood of forest fires in Algeria, using historical data and environmental factors.
 
-<!-- ### Data
-
-The dataset used in this project is sourced from [source of dataset] and consists of [brief description of the dataset, including features]. 
-
-### Model
-
-We implemented [mention the machine learning model used] for predicting forest fire probability. The model was trained and evaluated using [mention training and evaluation metrics]. -->
-
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
+### Prerequisites
+
+- Python 3.9 (or compatible)
+- Conda (optional, but recommended)
 
 ### Installation
 
@@ -62,6 +59,60 @@ These instructions will get you a copy of the project up and running on your loc
    export PS1="\[\033[01;32m\]\u@\h:\w\n\[\033[00m\]\$ "
    ```
 
+## Dataset
+
+This dataset contains information about forest fires in Algeria, focusing on two specific regions:
+
+* **Bejaia region:** Located in the northeast of Algeria.
+* **Sidi Bel-abbes region:** Located in the northwest of Algeria.
+
+The dataset includes data collected between **June 2012 and September 2012**.
+
+**Key Features:**
+
+* **Instances:** 244 (122 for each region)
+* **Attributes:** 11 attributes (features)
+* **Output Attribute:** 1 output attribute (class)
+* **Classes:**
+    * **Fire:** 138 instances
+    * **Not fire:** 106 instances
+
+**Attributes:**
+
+* **Date:** The date of the observation (DD/MM/YYYY).
+* **Temp:** Temperature in Celsius.
+* **RH:** Relative Humidity in percentage.
+* **Ws:** Wind speed in km/h.
+* **Rain:** Total amount of rainfall in mm.
+* **FFMC:** Fine Fuel Moisture Code, representing the moisture content of fine fuels (0-100).
+* **DMC:** Duff Moisture Code, representing the moisture content of decaying organic matter (0-100).
+* **DC:** Drought Code, representing the overall drought level (0-100).
+* **ISI:** Initial Spread Index, representing the ease of fire ignition (0-100).
+* **BUI:** Buildup Index, representing the total amount of fuel available (0-100).
+* **FWI:** Fire Weather Index, representing the overall fire danger (0-100).
+* **Classes:** The output class, indicating whether a fire occurred (1) or not (0).
+
+
+**Attributes Description:**
+
+| Feature           | Description                                          | Data Type |
+|--------------------|---------------------------------------------------|-----------|
+| **Classes**        | Fire or not fire (target variable)                 | Categorical |
+| **month**         | Month of the year (1-12)                            | Integer   |
+| **RH**            | Relative humidity (%)                               | Integer   |
+| **Temperature**    | Temperature (Celsius)                               | Integer   |
+| **Ws**            | Wind speed (km/h)                                   | Integer   |
+| **year**          | Year of the observation                              | Integer   |
+| **DC**            | Drought Code Index                                    | Float     |
+| **Rain**          | Total amount of precipitation (mm)                   | Float     |
+| **DMC**           | Drought Code Index                                    | Float     |
+| **FFMC**          | Fine Fuel Moisture Code                              | Float     |
+| **BUI**           | Buildup Index                                       | Float     |
+| **ISI**           | Initial Spread Index                                | Float     |
+| **FWI**           | Fire Weather Index                                   | Float     |
+| **day**           | Day of the month (1-31)                             | Integer   |
+
+
 ---
 
 ## Project Structure
@@ -78,35 +129,28 @@ Algerian-Forest-Fire-Prediction
 │   ├── raw
 │   │   └── Algerian_forest_fires.csv
 │   └── processed
-│       └── processed_data.csv
+<!-- │       └── processed_data.csv -->
 ├── checkpoints
 ├── artifacts
 ├── src
-│   ├── __init__.py
 │   ├── utils.py
 │   ├── logger.py
 │   ├── exception.py
 │   ├── components
-│   │   ├── __init__.py
 │   │   ├── data_ingestion.py
 │   │   ├── data_validation.py
 │   │   ├── data_transformation.py
 │   │   ├── model_trainer.py
-│   │   ├── model_evaluation.py
+<!-- │   │   ├── model_evaluation.py -->
 │   └── pipeline
-│       ├── __init__.py
 │       └── training_pipeline.py
 │       └── evaluation_pipeline.py
 ├── tests
-│   ├── __init__.py
 │   ├── unit
-│   │   ├── __init__.py
 │   │   └── test_utils.py
 │   └── integration
-│       ├── __init__.py
 │       └── test_training_pipeline.py
 ├── requirements.txt
-├── setup.py
 ├── .env
 ├── .env.example
 └── README.md
@@ -127,5 +171,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 <!-- - [Dataset Source] - For providing the Algerian forest fire dataset.
 - [Library Name] - For providing the machine learning library used. -->
-```
-
+``` 

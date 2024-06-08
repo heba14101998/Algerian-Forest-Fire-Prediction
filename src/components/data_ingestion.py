@@ -81,4 +81,8 @@ if __name__ == '__main__':
         # print(f"Evaluation data saved at: {eval_data}")
 
     except Exception as e:
+<<<<<<< HEAD
         raise CustomException("Error during data ingestion", e)
+=======
+        raise CustomException("Error during data ingestion", e)
+>>>>>>> working_on_notebook
