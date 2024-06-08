@@ -16,10 +16,10 @@ def read_yaml(file_path):
         raise CustomException(f"Error during loading configuration from {file_path}", e)
 
     configs = SimpleNamespace(**args['configs'])
-    model = SimpleNamespace(**args['model'])
+    model_params = SimpleNamespace(**args['model_params'])
     logging.info(f"Configuration and Hyperparameters loaded successfully from {file_path}")
     
-    return configs, model
+    return configs, model_params
 
 def save_artifact(filename, artifact):
     
@@ -34,15 +34,26 @@ def save_artifact(filename, artifact):
         raise CustomException(e, sys)
 
 
-def model_evaluate(X_true, y_pred, y_pred_proba=None, task='classification'):
-    pass
+def model_evaluate(X_true, y_pred, y_pred_proba=None):
+    try:
+        # Check if predicted probabilities are available (for AUC-ROC calculation)
+        if y_pred_proba is not None:
+            auc_roc = roc_auc_score(X_true, y_pred_proba[:, 1])  # Assuming binary classification
+        else:
+            auc_roc = None
 
-# def evaluate_model(self, model):
-#         try:
-#             y_pred = model.predict(self.X_eval)
-#             y_pred_proba = model.predict_proba(self.X_eval) if hasattr(model, 'predict_proba') else None
-#             eval_performance = model_evaluate(self.X_eval, y_pred, y_pred_proba, self.configs['task'])
-#             return eval_performance
+        accuracy = accuracy_score(X_true, y_pred)
+        precision = precision_score(X_true, y_pred)
+        recall = recall_score(X_true, y_pred)
+        f1 = f1_score(X_true, y_pred)
+        eval_metrics = {
+            "accuracy": accuracy,
+            "precision": precision,
+            "recall": recall,
+            "f1_score": f1,
+            "auc_roc": auc_roc
+        }
+        return eval_metrics
 
-#         except Exception as e:
-#             raise CustomException("Error during model evaluation", e)
+    except Exception as e:
+        raise CustomException(f"Error during model evaluation for classification: {e}")
