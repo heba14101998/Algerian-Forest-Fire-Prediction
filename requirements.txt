@@ -1,10 +1,12 @@
 # Data Handling and Manipulation
-pandas>=2.2.2
+pandas==2.2.2
 numpy==1.26.0
 
 # Machine Learning
 scikit-learn==1.5.0 
-# xgboost>=1.7.0
+statsmodels==0.14.2
+bayesian-optimization==1.4.3
+xgboost==2.0.3
 # lightgbm>=3.3.2
 # catboost>=1.0.6
 
@@ -21,7 +23,6 @@ seaborn>=0.12.0
 
 # For testing
 pytest>=7.1.0
-colorama==0.4.6
 
 # Version Controling and experiment tracking 
 dvc==3.51.2
@@ -30,6 +31,11 @@ dvc-gdrive==3.0.1
 # Additional Useful Libraries
 # requests>=2.31.0
 # dotenv>=0.21.0
-# pickle>=5.0
+pickles==0.1.1
 # joblib>=1.2.0 
-
+argparse==1.4.0
+simple-namespace==1.0.0
+colorama==0.4.6
+PyYAML==6.0.1
+kaggle==1.6.14
+python-dotenv==1.0.1

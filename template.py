@@ -16,11 +16,14 @@ list_of_files = [
 
     "src/components/__init__.py",
     "src/components/data_ingestion.py",
-    
+    "src/components/data_factory.py",
+    "src/components/model_traning.py",
+
     "src/pipeline/__init__.py",
     "src/pipeline/train_pipline.py",
     "src/pipeline/predict_pipline.py",
-    
+    "src/pipeline/inference_pipline.py",
+
     "tests/__init__.py",
     "tests/unit/__init__.py",
     "tests/unit/unit_test.py",
