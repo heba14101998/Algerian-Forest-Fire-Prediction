@@ -62,27 +62,3 @@ def save_artifact(filename, artifact, artifact_type="pkl"):
     except Exception as e:
         raise CustomException(e, sys)
 
-
-def model_evaluate(X_true, y_pred, y_pred_proba=None):
-    try:
-        # Check if predicted probabilities are available (for AUC-ROC calculation)
-        if y_pred_proba is not None:
-            auc_roc = roc_auc_score(X_true, y_pred_proba[:, 1])  # Assuming binary classification
-        else:
-            auc_roc = None
-
-        accuracy = accuracy_score(X_true, y_pred)
-        precision = precision_score(X_true, y_pred)
-        recall = recall_score(X_true, y_pred)
-        f1 = f1_score(X_true, y_pred)
-        eval_metrics = {
-            "accuracy": accuracy,
-            "precision": precision,
-            "recall": recall,
-            "f1_score": f1,
-            "auc_roc": auc_roc
-        }
-        return eval_metrics
-
-    except Exception as e:
-        raise CustomException(f"Error during model evaluation for classification: {e}")

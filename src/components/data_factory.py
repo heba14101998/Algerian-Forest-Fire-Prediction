@@ -101,8 +101,8 @@ class DataPreprocessor:
         
         return X_train_arr, X_test_arr, np.array(y_train), np.array(y_test)
 
-if __name__=='__main__':
-    run = DataPreprocessor()
-    df = pd.read_csv("data/raw/Algerian_forest_fires_dataset.csv")
-    X_train, X_test, y_train, y_test = run.preprocess(df)
+# if __name__=='__main__':
+#     run = DataPreprocessor()
+#     df = pd.read_csv("data/raw/Algerian_forest_fires_dataset.csv")
+#     X_train, X_test, y_train, y_test = run.preprocess(df)
     

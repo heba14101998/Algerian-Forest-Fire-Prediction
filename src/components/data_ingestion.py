@@ -73,13 +73,9 @@ class DataIngestor:
 
     #     return self.configs.train_data_path, self.configs.eval_data_path
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    try:
-        run = DataIngestor()
-        # train_data, eval_data = run.data_ingestion()
-        # print(f"Training data saved at: {train_data}")
-        # print(f"Evaluation data saved at: {eval_data}")
-
-    except Exception as e:
-        raise CustomException("Error during data ingestion", e)
+#     run = DataIngestor()
+#     train_data, eval_data = run.data_ingestion()
+#     print(f"Training data saved at: {train_data}")
+#     print(f"Evaluation data saved at: {eval_data}")
