@@ -2,7 +2,7 @@ import sys
 import pandas as pd
 from src.components.data_ingestion import DataIngestor
 from src.components.data_factory import DataPreprocessor
-from src.components.model_traning import ModelTrainer
+from src.components.model_training import ModelTrainer
 from src.logger import logging
 from src.exception import CustomException
 from src.utils import read_yaml
@@ -14,8 +14,8 @@ class TrainPipeline:
 
     def run_pipeline(self):
         try:
-            logging.info(f"Data Ingestion")
-            data_ingestion = DataIngestor(self.configs)
+            # logging.info(f"Data Ingestion")
+            # data_ingestion = DataIngestor(self.configs)
 
             logging.info(f"Data Preparation")
             data_process = DataPreprocessor(self.configs)

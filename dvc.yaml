@@ -1,20 +1,49 @@
 stages:
-
   ingestion:
-    cmd: python <>.py
+    cmd: python src/components/data_ingestion.py
     deps:
-      -
-      -
+      - src/components/data_ingestion.py  # Order matters for dependency resolution
+      - src/logger.py
+      - src/exception.py
+      - params.yaml
     outs:
-      - data/processed/train.csv
-      - data/processed/test.csv
+      - data/raw/Algerian_forest_fires_dataset.csv
 
-    ingestion:
-    cmd: python <>.py
+  prepare:
+    cmd: python src/components/data_factory.py
     deps:
-      -
-      -
+      - src/components/data_factory.py 
+      - src/utils.py
+      - src/logger.py
+      - src/exception.py
+      - params.yaml
+      - data/raw/Algerian_forest_fires_dataset.csv  # Dependency on the ingested data
     outs:
-      - data/processed/train.csv
-      - data/processed/test.csv
-      
+      - data/cleaned/cleaned_algerian_forest_fires_dataset.csv
+      - artifacts/X_train.npy  # Corrected spelling to "artifacts"
+      - artifacts/X_test.npy
+      - artifacts/y_train.npy
+      - artifacts/y_test.npy
+      - artifacts/preprocessor_pipline.pkl
+      - artifacts/selected_features.json
+
+  training:
+    cmd: python src/components/model_training.py
+    deps:
+      - src/components/model_training.py # Corrected spelling
+      - src/utils.py 
+      - src/logger.py 
+      - src/exception.py 
+      - params.yaml 
+      - artifacts/X_train.npy 
+      - artifacts/X_test.npy 
+      - artifacts/y_train.npy 
+      - artifacts/y_test.npy 
+    outs:
+      - artifacts/classifier.pkl  
+      - artifacts/classification_report.txt 
+      # - artifacts/metrics.json 
+      - artifacts/confusion_matrix.png
+    metrics:
+      - artifacts/metrics.json:
+          cache: false

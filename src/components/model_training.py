@@ -7,7 +7,7 @@ import seaborn as sns
 
 from src.logger import logging
 from src.exception import CustomException
-from src.utils import save_artifact
+from src.utils import save_artifact, read_yaml
 
 import xgboost as xgb
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
@@ -19,10 +19,9 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticD
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score, precision_recall_fscore_support
 
 class ModelTrainer:
-    def __init__(self, configs , model_params):
+    def __init__(self, configs,  model_params):
 
-        self.configs = configs 
-        self.model_params = model_params 
+        self.configs, self.model_params = configs,  model_params        
         self.model = None
 
         logging.info(f"Model type: {self.configs.model_name}")
@@ -45,10 +44,13 @@ class ModelTrainer:
             self.model.fit(X_train, y_train)
             logging.info(f"Training model: {self.configs.model_name} with parameters: {self.model_params}")
 
-            save_artifact(f'{self.configs.model_name}.pkl', self.model)
-            model_path = os.path.join(self.configs.artifacts_path, f"{self.configs.model_name}.pkl")
-            logging.info(f"Model saved as pickle file in {model_path}")
+            save_artifact(f'classifier.pkl', self.model)
+            # model_path = os.path.join(self.configs.artifacts_path, f'classifier.pkl')
+            logging.info(f"Model saved as pickle file in Artifacts")
         
+            # logging.info(f"Calculating performance on training dataset")
+            # metrics, cm, classification_rep = self.evaluate(self.X_train, self.y_train)
+
         except Exception as e:
             raise CustomException(e, sys)
 
@@ -87,14 +89,17 @@ class ModelTrainer:
         
         return metrics, cm, classification_rep
 
-# if __name__=='__main__':
+if __name__=='__main__':
 
-#     X_train = np.load(os.path.join('./artifacts', f'X_train.npy'))
-#     X_test  = np.load(os.path.join('./artifacts', f'X_test.npy'))
-#     y_train = np.load(os.path.join('./artifacts', f'y_train.npy'))
-#     y_test  = np.load(os.path.join('./artifacts', f'y_test.npy'))
-#     logging.info("Data loaded successfully")
+    logging.info(f"Training Model")
+    configs, model_params = read_yaml('params.yaml')
+    X_train = np.load(os.path.join(configs.artifacts_path,'X_train.npy'))
+    X_test = np.load(os.path.join(configs.artifacts_path,'X_test.npy'))
+    y_train = np.load(os.path.join(configs.artifacts_path,'y_train.npy'))
+    y_test = np.load(os.path.join(configs.artifacts_path,'y_test.npy'))
+    logging.info(f"Loading data in four numpy files completed")
 
-#     exp = ModelTrainer()   
-#     exp.train(X_train, y_train) 
-#     exp.test(X_test, y_test) 
+    exp = ModelTrainer(configs, model_params)   
+    exp.train(X_train, y_train) 
+    metrics, cm, classification_rep = exp.evaluate(X_train, y_train) 
+    metrics, cm, classification_rep = exp.evaluate(X_test, y_test) 

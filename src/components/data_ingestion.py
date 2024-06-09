@@ -6,8 +6,7 @@ from dotenv import load_dotenv
 
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_artifact
-from sklearn.model_selection import train_test_split
+from src.utils import read_yaml
 
 # Load environment variables
 load_dotenv()
@@ -17,6 +16,7 @@ SEED = os.environ.get("SEED")
 
 class DataIngestor:
     def __init__(self, configs):
+
         self.configs = configs
         self.download_dataset()
 
@@ -46,36 +46,10 @@ class DataIngestor:
 
         logging.info(f"Dataset '{DATASET_API}' downloaded to '{self.configs.raw_data_dir}'")
 
-    # def data_ingestion(self):
 
-    #     logging.info("Entered the data ingestion method or component")
+if __name__ == '__main__':
 
-    #     try:
-    #         file_path = os.path.join(self.configs.raw_data_dir, self.configs.data_file_name)
-    #         df = pd.read_csv(file_path)
-    #         logging.info(f"Data read successfully. Shape: {df.shape}")
-            
-    #         # Create output directories if they don't exist
-    #         os.makedirs(os.path.dirname(self.configs.processed_data_dir), exist_ok=True)            
-    #         train_set, eval_set = train_test_split(df, test_size=self.configs.test_size, random_state=SEED)
-    #         logging.info(f"Splitted raw data to training set with shape: {train_set.shape} ; and evaluation set with shape: {eval_set.shape}")
-            
-    #         # Save the training and evaluation sets
-    #         train_set.to_csv(self.configs.train_data_path, index=False, header=True)
-    #         eval_set.to_csv(self.configs.eval_data_path, index=False, header=True)
-
-    #         logging.info("Ingestion of the data is completed")
-
-    #     except FileNotFoundError as e:
-    #         raise CustomException("Raw data file not found!") from e
-    #     except ValueError as e:
-    #         raise CustomException(f"Error while reading data: {e}") from e
-
-    #     return self.configs.train_data_path, self.configs.eval_data_path
-
-# if __name__ == '__main__':
-
-#     run = DataIngestor()
-#     train_data, eval_data = run.data_ingestion()
-#     print(f"Training data saved at: {train_data}")
-#     print(f"Evaluation data saved at: {eval_data}")
+    configs, _ = read_yaml('params.yaml')
+    run = DataIngestor(configs)
+    run.download_dataset()
+    

@@ -20,14 +20,17 @@ jobs:
     - run: 
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        python <script.py>
+        python template.py
+        dvc repro
 
     - name: Generate CML Report
       env: 
           REPO TOKEN: ${{ secrets.GITHUB TOKEN}}
       run:
-        echo "" >> report.md
-        cat "results.txt" >> report.md
-        echo "![](./artifacts/.png)"
+        echo "## Reproduce Results" >> report.md
+        echo "Use this parameters compination" >> report.md
+        cat "params.yaml" >> report.md
+        cat "classification_report.txt" >> report.md
+        echo "![](./artifacts/confusion_matrix.png)"
 
         

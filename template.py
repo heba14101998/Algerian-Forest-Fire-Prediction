@@ -20,8 +20,8 @@ list_of_files = [
     "src/components/model_traning.py",
 
     "src/pipeline/__init__.py",
-    "src/pipeline/train_pipline.py",
-    "src/pipeline/inference_pipline.py",
+    "src/pipeline/train_pipeline.py",
+    "src/pipeline/inference_pipeline.py",
 
     "tests/__init__.py",
     "tests/unit/__init__.py",

@@ -5,7 +5,7 @@ import numpy as np
 
 from src.logger import logging
 from src.exception import CustomException
-from src.utils import save_artifact
+from src.utils import save_artifact, read_yaml
 from dotenv import load_dotenv
 
 from sklearn.linear_model import LogisticRegression
@@ -36,7 +36,6 @@ class DataPreprocessor:
         df = df.dropna()
         df[self.configs.target_column] = df[self.configs.target_column].str.strip()
         df[self.configs.target_column] = df[self.configs.target_column].map({'not fire': 0, 'fire': 1})
-
         
         os.makedirs(os.path.join(self.configs.cleaned_data_dir), exist_ok=True)
         file_path = os.path.join(os.path.join(self.configs.cleaned_data_dir), f"cleaned_{self.configs.data_file_name}")
@@ -104,7 +103,9 @@ class DataPreprocessor:
         
         return X_train_arr, X_test_arr, np.array(y_train), np.array(y_test)
 
-# if __name__=='__main__':
-#     run = DataPreprocessor()
-#     X_train, X_test, y_train, y_test = run.preprocess(df)
+if __name__=='__main__':
+    logging.info(f"Data Preparation")
+    configs, _ = read_yaml('params.yaml')
+    run = DataPreprocessor(configs)
+    X_train, X_test, y_train, y_test = run.preprocess()
     

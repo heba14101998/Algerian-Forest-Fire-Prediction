@@ -1,17 +1,60 @@
 configs:
     raw_data_dir: ./data/raw
-    data_file_name: algerian_forest_fires_dataset.csv
+    data_file_name: Algerian_forest_fires_dataset.csv
     cleaned_data_dir: ./data/cleaned
     artifacts_path: ./artifacts
-    checkpoints_path: ./checkpoints
     test_size: 0.2
     target_column: 'Classes'
     scoring: 'roc_auc'
     cv: 5
     scaling_method: 'minmax' # or "standard"
-    model_name: "RandomForestClassifier"
+    model_name: "RandomForestClassifier" # Change this to the model you want to use
 
 model_params:
+    # RandomForestClassifier
     n_estimators: 50
     max_depth: 5
     min_samples_split: 5
+
+    # DecisionTreeClassifier
+    # criterion: 'gini'
+    # splitter: 'best' 
+    # max_depth: None  
+    # min_samples_split: 2
+    # min_samples_leaf: 1
+
+    # GradientBoostingClassifier
+    # loss: 'deviance' 
+    # learning_rate: 0.1
+    # n_estimators: 100
+    # max_depth: 3
+    # random_state: 42
+
+    # LogisticRegression
+    # C: 1.0
+    # penalty: 'l2'
+    # solver: 'lbfgs' 
+    # SVC
+    # C: 1.0
+    # kernel: 'rbf'
+    # gamma: 'scale'
+    # probability: True
+
+    # KNeighborsClassifier
+    # n_neighbors: 5
+    # weights: 'uniform'
+    # algorithm: 'auto'
+    # leaf_size: 30
+    # AdaBoostClassifier
+    # n_estimators: 50
+    # learning_rate: 1.0
+    # random_state: 42
+
+    # LinearDiscriminantAnalysis
+    # solver: 'svd'
+    # store_covariance: True
+    # tol: 0.0001
+    
+    # QuadraticDiscriminantAnalysis
+    # reg_param: 0.0
+    # tol: 0.0001
