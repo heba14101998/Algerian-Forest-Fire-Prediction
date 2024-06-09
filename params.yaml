@@ -1,13 +1,14 @@
 configs:
     raw_data_dir: ./data/raw
     data_file_name: algerian_forest_fires_dataset.csv
-    processed_data_dir: ./data/processed
+    cleaned_data_dir: ./data/cleaned
     artifacts_path: ./artifacts
     checkpoints_path: ./checkpoints
     test_size: 0.2
     target_column: 'Classes'
-    scoring: 'auc_roc'
+    scoring: 'roc_auc'
     cv: 5
+    scaling_method: 'minmax' # or "standard"
 
 model_params:
     model_name: "RandomForestClassifier"

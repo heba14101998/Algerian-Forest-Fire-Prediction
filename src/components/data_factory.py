@@ -6,84 +6,103 @@ import numpy as np
 from src.logger import logging
 from src.exception import CustomException
 from src.utils import save_artifact, read_yaml
+from dotenv import load_dotenv
 
-from sklearn.impute import SimpleImputer
-from sklearn.compose import ColumnTransformer
+from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScaler, LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.feature_selection import RFECV
+
+load_dotenv()
+SEED = int(os.environ.get("SEED"))
 
 class DataPreprocessor:
 
-    def __init__(self, configs,):
+    def __init__(self):
+        self.configs, _ = read_yaml('params.yaml')
 
-        self.configs = configs
-        self.cat_cols = []
-        self.num_cols = []
-        self.X_train = None
-        self.X_eval = None
-        self.y_train = None
-        self.y_eval = None
-        self.preprocessor = None
-        # self.label_encoder = LabelEncoder()
+    def clean_data(self, df):
 
-    def seperate_data(self):
+        """Cleans the data by handling missing values and inconsistencies."""
+        df.columns = df.columns.str.strip()
+        df.iloc[168,-2]=np.NaN
+        df.iloc[168,-1]='fire'
+        df['Region'] = np.NaN
+        df.loc[:122, "Region"]= 0
+        df.loc[125:, "Region"]= 1
+        df = df.dropna()
+        df[self.configs.target_column] = df[self.configs.target_column].str.strip()
+        df[self.configs.target_column] = df[self.configs.target_column].map({'not fire': 0, 'fire': 1})
 
-        train_df = pd.read_csv(self.configs.train_data_path)
-        eval_df = pd.read_csv(self.configs.eval_data_path)
-        logging.info("Read train and evaluation sets completed")
-
-        self.X_train = train_df.drop(columns = [self.configs.target_column], index=1) 
-        self.y_train = train_df[self.configs.target_column]
-
-        self.X_eval = train_df.drop(columns = [self.configs.target_column], index=1) 
-        self.y_eval = train_df[self.configs.target_column]
-
-        # Identify categorical and numerical columns
-        self.cat_cols = self.X_train.select_dtypes(include=['object', 'category']).columns.tolist()
-        self.num_cols = self.X_train.select_dtypes(include=['int64', 'float64']).columns.tolist()
-        logging.info(f"Categorical columns: {self.cat_cols}")
-        logging.info(f"Numerical columns: {self.num_cols}")
-
-    def create_pipline(self):
-        # Preprocessing for numerical data: Impute missing values and scale
-        numerical_transformer = Pipeline([('imputer', SimpleImputer(strategy='mean')),
-                                         ('scalar', StandardScaler())])
-        # Preprocessing for categorical data: Impute missing values and one-hot encode
-        categorical_transformer = Pipeline(steps=[('imputer', SimpleImputer(strategy='most_frequent')),
-                                                 ('encode', OneHotEncoder(handle_unknown='ignore'))])
+        df.to_csv(f"cleaned_{self.configs.data_file_name}", index=False, header=True)
         
-        self.preprocessor = ColumnTransformer(transformers= [('num', numerical_transformer, self.num_cols), 
-                                                            ('cat', categorical_transformer, self.cat_cols )])
+        return df
 
-    def preprocess(self,):
-        
-        self.seperate_data()
-        self.create_pipline()
-        
-        # Encode the target variable
-        # self.y_train = self.label_encoder.fit_transform(self.y_train)
-        # self.y_eval = self.label_encoder.transform(self.y_eval)
+    def select_features(self, X, y):
+        """Selects features using Recursive Feature Elimination (RFE)."""
+        rfecv = RFECV(
+            estimator=LogisticRegression(),
+            step=1,
+            cv=self.configs.cv,
+            scoring=self.configs.scoring,
+            n_jobs=2,
+        )
+        rfecv.fit(X, y)
+        selected_features = X.columns[rfecv.support_]
+        return selected_features
 
-        X_train_arr= self.preprocessor.fit_transform(self.X_train)
-        X_eval_arr = self.preprocessor.transform(self.X_eval)
+    def create_pipeline(self):
+
+        if self.configs.scaling_method == 'minmax':
+            scaler = MinMaxScaler()
+        elif self.configs.scaling_method == 'standard':
+            scaler = StandardScaler()
+        else:
+            raise CustomException(f"Invalid scaling method: {self.scaling_method}")
+
+        pipeline = Pipeline([
+            ('scaling', scaler),
+        ])
+
+        return pipeline
+
+    
+    def preprocess(self, df):
+
+        try:
+            df = self.clean_data(df)
+
+            X = df.drop(self.configs.target_column, axis=1)
+            y = df[self.configs.target_column]
+            X_train, X_test, y_train, y_test = train_test_split(X, y, 
+                                                                test_size=self.configs.test_size, 
+                                                                random_state=SEED)
+            logging.info("Split dataset to train and evaluation completed.")
+            
+            selected_features = self.select_features(X_train, y_train)
+            logging.info(f"The selected features in feature selection process are: {list(selected_features)}")
+            save_artifact("selected_features.txt", list(selected_features))
+
+            pipeline = self.create_pipeline()
+            X_train_arr= pipeline.fit_transform(X_train[selected_features])
+            X_test_arr = pipeline.transform(X_test[selected_features])
+            save_artifact('preprocessor_pipline.pkl', pipeline)
+
+            # Save processed data as numpy
+            np.save(os.path.join(self.configs.artifacts_path,'X_train.npy'), X_train_arr)
+            np.save(os.path.join(self.configs.artifacts_path,'X_test.npy'), X_test_arr)
+            np.save(os.path.join(self.configs.artifacts_path,'y_train.npy'), np.array(y_train))
+            np.save(os.path.join(self.configs.artifacts_path,'y_test.npy'), np.array(y_test))
+            logging.info(f"saving data in four numpy files in artifacts directory")
+
+        except Exception as e:
+            raise CustomException(e, sys)
         
-        # Save the model to a pickle file
-        save_artifact('preprocessor.pkl', self.preprocessor)
-        
-        # Save processed data as numpy
-        np.save(os.path.join(self.configs.artifacts_path,'X_train.npy'), X_train_arr)
-        np.save(os.path.join(self.configs.artifacts_path,'X_eval.npy'), X_eval_arr)
-        np.save(os.path.join(self.configs.artifacts_path,'y_train.npy'), np.array(self.y_train))
-        np.save(os.path.join(self.configs.artifacts_path,'y_test.npy'), np.array(self.y_eval))
-        logging.info(f"saving data in four numpy files in artifacts directory")
-        
-        return X_train_arr, X_eval_arr, np.array(self.y_train), np.array(self.y_eval)
+        return X_train_arr, X_test_arr, np.array(y_train), np.array(y_test)
 
 if __name__=='__main__':
-    try:
-        args = read_yaml('params.yaml')
-        run = DataPreprocessor(args)
-        X_train, X_eval, y_train, y_eval = run.preprocess()
+    run = DataPreprocessor()
+    df = pd.read_csv("data/raw/Algerian_forest_fires_dataset.csv")
+    X_train, X_test, y_train, y_test = run.preprocess(df)
     
-    except Exception as e:
-        raise CustomException("Error during data transformation", e)

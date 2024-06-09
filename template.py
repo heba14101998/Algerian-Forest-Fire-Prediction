@@ -5,7 +5,7 @@ list_of_files = [
     "Notebooks/EDA_and_Feature_Engineering.ipynb",
     "assets/",
     "data/raw/",
-    "data/processed/",
+    "data/cleaned/",
     "checkpoints/",
     "artifacts/",
 
