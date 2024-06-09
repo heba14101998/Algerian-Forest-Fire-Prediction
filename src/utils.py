@@ -40,21 +40,17 @@ def save_artifact(filename, artifact, artifact_type="pkl"):
         if artifact_type == "pkl":
             with open(file_path, "wb") as file:
                 pickle.dump(artifact, file)
-            logging.info(f"Saving {filename} as pickle file in {file_path}")
 
         elif artifact_type == "json":
             with open(file_path, "w") as file:
                 json.dump(artifact, file)
-            logging.info(f"Saving {filename} as JSON file in {file_path}")
 
         elif artifact_type == "png":
             artifact.savefig(file_path)
-            logging.info(f"Saving {filename} as image file in {file_path}")
 
         elif artifact_type == "txt":
             with open(file_path, "w") as file:
                 file.write(artifact)
-            logging.info(f"Saving {filename} as text file in {file_path}")
 
         else:
             raise ValueError(f"Unsupported artifact type: {artifact_type}")

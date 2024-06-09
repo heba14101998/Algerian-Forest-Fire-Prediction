@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_artifact, read_yaml
+from src.utils import save_artifact
 from sklearn.model_selection import train_test_split
 
 # Load environment variables
@@ -16,8 +16,8 @@ SEED = os.environ.get("SEED")
 
 
 class DataIngestor:
-    def __init__(self):
-        self.configs, _ = read_yaml('params.yaml')
+    def __init__(self, configs):
+        self.configs = configs
         self.download_dataset()
 
     def download_dataset(self):

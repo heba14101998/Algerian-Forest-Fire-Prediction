@@ -17,8 +17,6 @@ model_params:
     min_samples_split: 5
 
 
-
-
   # - name: "DecisionTreeClassifier"
   #   params:
   #     n_estimators: 50

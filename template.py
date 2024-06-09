@@ -21,7 +21,6 @@ list_of_files = [
 
     "src/pipeline/__init__.py",
     "src/pipeline/train_pipline.py",
-    "src/pipeline/predict_pipline.py",
     "src/pipeline/inference_pipline.py",
 
     "tests/__init__.py",

@@ -7,7 +7,7 @@ import seaborn as sns
 
 from src.logger import logging
 from src.exception import CustomException
-from src.utils import save_artifact, read_yaml
+from src.utils import save_artifact
 
 import xgboost as xgb
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
@@ -19,9 +19,10 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticD
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score, precision_recall_fscore_support
 
 class ModelTrainer:
-    def __init__(self):
+    def __init__(self, configs , model_params):
 
-        self.configs , self.model_params = read_yaml('params.yaml')
+        self.configs = configs 
+        self.model_params = model_params 
         self.model = None
 
         logging.info(f"Model type: {self.configs.model_name}")
@@ -44,19 +45,19 @@ class ModelTrainer:
             self.model.fit(X_train, y_train)
             logging.info(f"Training model: {self.configs.model_name} with parameters: {self.model_params}")
 
-            save_artifact('classifier.pkl', self.model)
-            logging.info(f"Model saved as pickle file")
+            save_artifact(f'{self.configs.model_name}.pkl', self.model)
+            model_path = os.path.join(self.configs.artifacts_path, f"{self.configs.model_name}.pkl")
+            logging.info(f"Model saved as pickle file in {model_path}")
         
         except Exception as e:
             raise CustomException(e, sys)
-        
 
-    def test(self, X_test, y_test):
+    def evaluate(self, X_test, y_test):
         """Evaluates the trained model on the test set."""
         try:
             y_pred = self.model.predict(X_test)
             y_pred_proba = self.model.predict_proba(X_test)[:, 1]  # For AUC calculation
-
+            
             acc = accuracy_score(y_test, y_pred)
             auc = roc_auc_score(y_test, y_pred_proba)
             precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred, average='weighted')
@@ -83,6 +84,8 @@ class ModelTrainer:
             
         except Exception as e:
             raise CustomException(e, sys)
+        
+        return metrics, cm, classification_rep
 
 # if __name__=='__main__':
 

@@ -5,7 +5,7 @@ import numpy as np
 
 from src.logger import logging
 from src.exception import CustomException
-from src.utils import save_artifact, read_yaml
+from src.utils import save_artifact
 from dotenv import load_dotenv
 
 from sklearn.linear_model import LogisticRegression
@@ -19,8 +19,10 @@ SEED = int(os.environ.get("SEED"))
 
 class DataPreprocessor:
 
-    def __init__(self):
-        self.configs, _ = read_yaml('params.yaml')
+    def __init__(self, configs):
+        self.configs = configs
+        file_path = os.path.join(self.configs.raw_data_dir, self.configs.data_file_name)
+        self.data = pd.read_csv(file_path)
 
     def clean_data(self, df):
 
@@ -35,8 +37,11 @@ class DataPreprocessor:
         df[self.configs.target_column] = df[self.configs.target_column].str.strip()
         df[self.configs.target_column] = df[self.configs.target_column].map({'not fire': 0, 'fire': 1})
 
-        df.to_csv(f"cleaned_{self.configs.data_file_name}", index=False, header=True)
         
+        os.makedirs(os.path.join(self.configs.cleaned_data_dir), exist_ok=True)
+        df.to_csv(f"cleaned_{self.configs.data_file_name}", index=False, header=True)
+        logging.info(f"Saved the cleaned data file: cleaned_{self.configs.data_file_name}")
+
         return df
 
     def select_features(self, X, y):
@@ -61,17 +66,14 @@ class DataPreprocessor:
         else:
             raise CustomException(f"Invalid scaling method: {self.scaling_method}")
 
-        pipeline = Pipeline([
-            ('scaling', scaler),
-        ])
-
+        pipeline = Pipeline([('scaling', scaler),])
         return pipeline
 
     
-    def preprocess(self, df):
+    def preprocess(self):
 
         try:
-            df = self.clean_data(df)
+            df = self.clean_data(self.data)
 
             X = df.drop(self.configs.target_column, axis=1)
             y = df[self.configs.target_column]
@@ -103,6 +105,5 @@ class DataPreprocessor:
 
 # if __name__=='__main__':
 #     run = DataPreprocessor()
-#     df = pd.read_csv("data/raw/Algerian_forest_fires_dataset.csv")
 #     X_train, X_test, y_train, y_test = run.preprocess(df)
     
