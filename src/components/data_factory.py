@@ -39,8 +39,9 @@ class DataPreprocessor:
 
         
         os.makedirs(os.path.join(self.configs.cleaned_data_dir), exist_ok=True)
-        df.to_csv(f"cleaned_{self.configs.data_file_name}", index=False, header=True)
-        logging.info(f"Saved the cleaned data file: cleaned_{self.configs.data_file_name}")
+        file_path = os.path.join(os.path.join(self.configs.cleaned_data_dir), f"cleaned_{self.configs.data_file_name}")
+        df.to_csv(file_path, index=False, header=True)
+        logging.info(f"Saved the cleaned data at: file_path")
 
         return df
 
