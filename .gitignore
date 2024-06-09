@@ -31,3 +31,4 @@ artifacts/
 # Ignore asset files 
 assets/
 .vscode/
+.pytest_cache/

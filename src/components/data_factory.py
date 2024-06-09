@@ -82,7 +82,7 @@ class DataPreprocessor:
             
             selected_features = self.select_features(X_train, y_train)
             logging.info(f"The selected features in feature selection process are: {list(selected_features)}")
-            save_artifact("selected_features.txt", list(selected_features))
+            save_artifact("selected_features.json", {'selected_features':list(selected_features)})
 
             pipeline = self.create_pipeline()
             X_train_arr= pipeline.fit_transform(X_train[selected_features])

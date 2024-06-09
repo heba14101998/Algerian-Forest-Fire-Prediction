@@ -9,12 +9,15 @@ configs:
     scoring: 'roc_auc'
     cv: 5
     scaling_method: 'minmax' # or "standard"
+    model_name: "RandomForestClassifier"
 
 model_params:
-    model_name: "RandomForestClassifier"
     n_estimators: 50
     max_depth: 5
     min_samples_split: 5
+
+
+
 
   # - name: "DecisionTreeClassifier"
   #   params:
