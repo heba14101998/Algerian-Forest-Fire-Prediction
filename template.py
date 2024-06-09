@@ -2,7 +2,7 @@ import os
 
 list_of_files = [
     ".github/workflows/ci.yaml",
-    "Notebooks/Data_Exploration.ipynb",
+    "Notebooks/EDA_and_Feature_Engineering.ipynb",
     "assets/",
     "data/raw/",
     "data/processed/",
