@@ -29,6 +29,13 @@ jobs:
         with:
           dvc_version: "3.0.0"
 
+      - name: Configure DVC Remote (GDrive)
+        env:
+          DVC_GDRIVE_CREDENTIALS: ${{ secrets.DVC_GDRIVE_CREDENTIALS }}
+        run: |
+          echo "$DVC_GDRIVE_CREDENTIALS" > ~/.dvc/config.local
+          dvc remote add -d gdrive gdrive:${DRIVE_URL}
+
       - name: DVC Pull
         run: dvc pull
 
