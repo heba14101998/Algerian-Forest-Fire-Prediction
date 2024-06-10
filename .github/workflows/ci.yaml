@@ -36,14 +36,7 @@ jobs:
         run: |
           # python template.py
           dvc repro
-
-      - name: DVC Add & Commit
-        run: |
-          dvc add ./data/ ./artifacts/
-          dvc commit -m "Update DVC Cache"
-
-      - name: DVC Push
-        run: dvc push
+          dvc push
 
       - name: Generate CML Report
         env:
@@ -55,5 +48,5 @@ jobs:
           cat "artifacts/classification_report.txt" >> report.md
           echo "![](./artifacts/confusion_matrix.png)" >> report.md
           echo "![](./artifacts/auc_plot.png)" >> report.md
-          echo "![](./artifacts/prec_recall.png)" >> report.md
+          echo "![](./artifacts/pr_curve.png)" >> report.md
           cml comment create report.md
