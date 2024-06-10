@@ -29,8 +29,7 @@ jobs:
       run:
         echo "## Reproduce Results" >> report.md
         echo "Use this parameters compination" >> report.md
-        cat "params.yaml" >> report.md
+        dvc metrics diff main
         cat "classification_report.txt" >> report.md
         echo "![](./artifacts/confusion_matrix.png)"
-
-        
+        cml comment create report.md

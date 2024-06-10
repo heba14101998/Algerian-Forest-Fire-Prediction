@@ -16,8 +16,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score, precision_recall_fscore_support
-
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score, precision_recall_fscore_support, roc_auc_score, roc_curve
 class ModelTrainer:
     def __init__(self, configs,  model_params):
 
@@ -65,6 +64,7 @@ class ModelTrainer:
             precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred, average='weighted')
             cm = confusion_matrix(y_test, y_pred)
             classification_rep = classification_report(y_test, y_pred)
+            fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
 
             metrics = {'accuracy': acc, 'auc': auc, 'precision': precision, 
                         'recall': recall, 'f1_score': f1_score}
@@ -92,7 +92,7 @@ class ModelTrainer:
             plt.ylabel('True Positive Rate')
             plt.title('Receiver Operating Characteristic (ROC) Curve')
             plt.legend(loc='lower right')
-            save_artifact('roc_auc.png', fig)
+            save_artifact('auc_plot.png', plt)
             logging.info(f"ROC Curve saved to directory: {self.configs.artifacts_path}")
 
             
