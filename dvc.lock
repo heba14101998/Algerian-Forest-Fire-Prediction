@@ -1,0 +1,90 @@
+schema: '2.0'
+stages:
+  ingestion:
+    cmd: python src/components/data_ingestion.py
+    deps:
+    - path: params.yaml
+      hash: md5
+      md5: 22bcdb0f1c8e6d1647120e472f8b866a
+      size: 1317
+    - path: src/components/data_ingestion.py
+      hash: md5
+      md5: bc70c50c585e0c7291c9e02e0c98f4b6
+      size: 1932
+    - path: src/exception.py
+      hash: md5
+      md5: ca99f2b4e59fb20f43517da0dab81ebc
+      size: 1391
+    - path: src/logger.py
+      hash: md5
+      md5: 15b6a0280af2693891c8b6ee9eb269c4
+      size: 505
+    outs:
+    - path: data/raw/Algerian_forest_fires_dataset.csv
+      hash: md5
+      md5: 4b8bc2d26385c1da25972695477142fe
+      size: 14445
+      isexec: true
+  prepare:
+    cmd: python src/components/data_factory.py
+    deps:
+    - path: data/raw/Algerian_forest_fires_dataset.csv
+      hash: md5
+      md5: 4b8bc2d26385c1da25972695477142fe
+      size: 14445
+    - path: params.yaml
+      hash: md5
+      md5: 22bcdb0f1c8e6d1647120e472f8b866a
+      size: 1317
+    - path: src/components/data_factory.py
+      hash: md5
+      md5: 553630f6949c0906280e7ba5d2a867de
+      size: 4350
+    - path: src/exception.py
+      hash: md5
+      md5: ca99f2b4e59fb20f43517da0dab81ebc
+      size: 1391
+    - path: src/logger.py
+      hash: md5
+      md5: 15b6a0280af2693891c8b6ee9eb269c4
+      size: 505
+    - path: src/utils.py
+      hash: md5
+      md5: 5a23e7c3afb431889a777d3d10780375
+      size: 1879
+    outs:
+    - path: artifacts/X_test.npy
+      hash: md5
+      md5: 3bd549d7fc753255917604a1f7389cb8
+      size: 3656
+      isexec: true
+    - path: artifacts/X_train.npy
+      hash: md5
+      md5: 156fb7a3e0d936e022ae905f8ae12fa8
+      size: 14096
+      isexec: true
+    - path: artifacts/preprocessor_pipline.pkl
+      hash: md5
+      md5: 03740c06b684cb5b8aa528a5011f873f
+      size: 1082
+      isexec: true
+    - path: artifacts/selected_features.json
+      hash: md5
+      md5: 7ac713a3544b0f44367cce0066ccd026
+      size: 99
+      isexec: true
+    - path: artifacts/y_test.npy
+      hash: md5
+      md5: f5935bae35d1c5f2e696ce51f37e1375
+      size: 520
+      isexec: true
+    - path: artifacts/y_train.npy
+      hash: md5
+      md5: dffa7e15cc495cf0981a26714f6f7c9a
+      size: 1680
+      isexec: true
+    - path: data/cleaned/cleaned_algerian_forest_fires_dataset.csv
+      hash: md5
+      md5: 4c2c5c33cf16ac1d6e672eb92a30aefe
+      size: 13119
+      isexec: true

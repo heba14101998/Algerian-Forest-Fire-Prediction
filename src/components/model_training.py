@@ -83,6 +83,18 @@ class ModelTrainer:
             plt.ylabel('True Label')
             save_artifact('confusion_matrix.png', fig)
             logging.info(f"Confusion Matrix saved to directory: {self.configs.artifacts_path}")
+
+            # Plot the AUC Curve
+            plt.figure(figsize=(8, 6))
+            plt.plot(fpr, tpr, label='ROC Curve (AUC = {:.2f})'.format(auc))
+            plt.plot([0, 1], [0, 1], 'k--', label='Random Guess')
+            plt.xlabel('False Positive Rate')
+            plt.ylabel('True Positive Rate')
+            plt.title('Receiver Operating Characteristic (ROC) Curve')
+            plt.legend(loc='lower right')
+            save_artifact('roc_auc.png', fig)
+            logging.info(f"ROC Curve saved to directory: {self.configs.artifacts_path}")
+
             
         except Exception as e:
             raise CustomException(e, sys)
