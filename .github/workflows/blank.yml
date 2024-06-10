@@ -1,0 +1,59 @@
+name: algerian-forest-fire-prediction
+
+on:
+  push:
+    branches:
+      - main
+
+permissions: write-all
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Setup DVC
+        uses: iterative/setup-cml@v1
+        with:
+          dvc_version: "3.0.0"
+
+      - name: DVC Pull
+        run: dvc pull
+
+      - name: Run Project Scripts
+        run: |
+          # python template.py
+          dvc repro
+
+      - name: DVC Add & Commit
+        run: |
+          dvc add ./data/ ./artifacts/
+          dvc commit -m "Update DVC Cache"
+
+      - name: DVC Push
+        run: dvc push
+
+      - name: Generate CML Report
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "## Reproduce Results" >> report.md
+          echo "Use this parameters compination" >> report.md
+          dvc metrics diff main 
+          cat "artifacts/classification_report.txt" >> report.md
+          echo "![](./artifacts/confusion_matrix.png)" >> report.md
+          echo "![](./artifacts/auc_plot.png)" >> report.md
+          echo "![](./artifacts/prec_recall.png)" >> report.md
+          cml comment create report.md
