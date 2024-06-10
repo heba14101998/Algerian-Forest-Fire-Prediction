@@ -26,7 +26,6 @@ dvc-gdrive==3.0.1
 
 # Additional Useful Libraries
 requests==2.31.0
-dotenv==0.21.0
 pickles==0.1.1
 joblib==1.2.0
 argparse==1.4.0
