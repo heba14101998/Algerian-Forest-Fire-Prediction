@@ -5,7 +5,7 @@ list_of_files = [
     "Notebooks/EDA_and_Feature_Engineering.ipynb",
     "assets/",
     "data/raw/",
-    "data/cleaned/",
+    "data/processed/",
     "checkpoints/",
     "artifacts/",
 
@@ -17,7 +17,7 @@ list_of_files = [
     "src/components/__init__.py",
     "src/components/data_ingestion.py",
     "src/components/data_factory.py",
-    "src/components/model_traning.py",
+    "src/components/model_traهning.py",
 
     "src/pipeline/__init__.py",
     "src/pipeline/train_pipeline.py",

@@ -7,7 +7,8 @@ import seaborn as sns
 
 from src.logger import logging
 from src.exception import CustomException
-from src.utils import save_artifact, read_yaml
+from src.utils import (save_artifact, read_yaml, plot_precision_recall_curve,
+                         plot_roc_curve, plot_confusion_matrix)
 
 import xgboost as xgb
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
@@ -16,10 +17,11 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score, precision_recall_fscore_support, roc_auc_score, roc_curve
+from sklearn.metrics import (classification_report, confusion_matrix, accuracy_score, roc_auc_score, roc_curve, 
+precision_recall_fscore_support, precision_recall_curve, auc)
+
 class ModelTrainer:
     def __init__(self, configs,  model_params):
-
         self.configs, self.model_params = configs,  model_params        
         self.model = None
 
@@ -42,8 +44,9 @@ class ModelTrainer:
             self.model.set_params(**self.model_params)  # Set hyperparameters
             self.model.fit(X_train, y_train)
             logging.info(f"Training model: {self.configs.model_name} with parameters: {self.model_params}")
-
-            save_artifact(f'classifier.pkl', self.model)
+            
+            path = os.path.join(self.configs.artifacts_path, 'classifier.pkl')
+            save_artifact(path, self.model)
             # model_path = os.path.join(self.configs.artifacts_path, f'classifier.pkl')
             logging.info(f"Model saved as pickle file in Artifacts")
         
@@ -61,41 +64,40 @@ class ModelTrainer:
             
             acc = accuracy_score(y_test, y_pred)
             auc = roc_auc_score(y_test, y_pred_proba)
-            precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred, average='weighted')
-            cm = confusion_matrix(y_test, y_pred)
+            precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred, average="weighted")
+            
+            # Save metrics as json file
+            metrics = { "accuracy": acc, "auc": auc, "precision": precision, 
+                        "recall": recall, "f1_score": f1_score}            
+            path = os.path.join(self.configs.artifacts_path, "metrics.json")
+            save_artifact(path, metrics)
+            
             classification_rep = classification_report(y_test, y_pred)
+            path = os.path.join(self.configs.artifacts_path, "classification_report.txt")
+            save_artifact(path, classification_rep)
+
+            cm = confusion_matrix(y_test, y_pred)
             fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
+            precision, recall, thresholds = precision_recall_curve(y_test, y_pred_proba)
+            # pr_auc = auc(recall, precision)
 
-            metrics = {'accuracy': acc, 'auc': auc, 'precision': precision, 
-                        'recall': recall, 'f1_score': f1_score}
+            # Save curves data as json files
+            roc_data = { "fpr": fpr.tolist(), "tpr": tpr.tolist(),
+                         "thresholds": thresholds.tolist(), "roc_auc": auc}
+            pr_data = {"precision": precision.tolist(), "recall": recall.tolist(),
+                        "thresholds": thresholds.tolist()}
+                
+            path = os.path.join(self.configs.artifacts_path, "roc_data.json")
+            save_artifact(path, roc_data)
 
-            logging.info(f"Classification Report:\n{classification_rep}")
-            logging.info(f"confusion matrix:\n{cm}")
-            
-            save_artifact("classification_report.txt", classification_rep)
-            save_artifact("metrics.json", metrics)
-            logging.info(f"Metrics saved to directory: {self.configs.artifacts_path}")
+            path = os.path.join(self.configs.artifacts_path, "pr_data.json")
+            save_artifact(path, pr_data)
 
-            fig = plt.figure(figsize=(8, 6))
-            sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',ax=fig.add_subplot(111))
-            plt.title('Confusion Matrix')
-            plt.xlabel('Predicted Label')
-            plt.ylabel('True Label')
-            save_artifact('confusion_matrix.png', fig)
-            logging.info(f"Confusion Matrix saved to directory: {self.configs.artifacts_path}")
+            # Call plotting functions from utils.py
+            plot_confusion_matrix(cm, self.configs.artifacts_path)
+            plot_roc_curve(fpr, tpr, auc, self.configs.artifacts_path)
+            plot_precision_recall_curve(precision, recall, self.configs.artifacts_path)
 
-            # Plot the AUC Curve
-            plt.figure(figsize=(8, 6))
-            plt.plot(fpr, tpr, label='ROC Curve (AUC = {:.2f})'.format(auc))
-            plt.plot([0, 1], [0, 1], 'k--', label='Random Guess')
-            plt.xlabel('False Positive Rate')
-            plt.ylabel('True Positive Rate')
-            plt.title('Receiver Operating Characteristic (ROC) Curve')
-            plt.legend(loc='lower right')
-            save_artifact('auc_plot.png', plt)
-            logging.info(f"ROC Curve saved to directory: {self.configs.artifacts_path}")
-
-            
         except Exception as e:
             raise CustomException(e, sys)
         
@@ -105,10 +107,10 @@ if __name__=='__main__':
 
     logging.info(f"Training Model")
     configs, model_params = read_yaml('params.yaml')
-    X_train = np.load(os.path.join(configs.artifacts_path,'X_train.npy'))
-    X_test = np.load(os.path.join(configs.artifacts_path,'X_test.npy'))
-    y_train = np.load(os.path.join(configs.artifacts_path,'y_train.npy'))
-    y_test = np.load(os.path.join(configs.artifacts_path,'y_test.npy'))
+    X_train = np.load(os.path.join(configs.processed_data_dir,'X_train.npy'))
+    X_test = np.load(os.path.join(configs.processed_data_dir,'X_test.npy'))
+    y_train = np.load(os.path.join(configs.processed_data_dir,'y_train.npy'))
+    y_test = np.load(os.path.join(configs.processed_data_dir,'y_test.npy'))
     logging.info(f"Loading data in four numpy files completed")
 
     exp = ModelTrainer(configs, model_params)   

@@ -1,15 +1,15 @@
 stages:
-  ingestion:
+  Ingestion:
     cmd: python src/components/data_ingestion.py
     deps:
-      - src/components/data_ingestion.py # Order matters for dependency resolution
+      - src/components/data_ingestion.py
       - src/logger.py
       - src/exception.py
       - params.yaml
     outs:
       - data/raw/Algerian_forest_fires_dataset.csv
 
-  prepare:
+  Prepare:
     cmd: python src/components/data_factory.py
     deps:
       - src/components/data_factory.py
@@ -17,32 +17,35 @@ stages:
       - src/logger.py
       - src/exception.py
       - params.yaml
-      - data/raw/Algerian_forest_fires_dataset.csv # Dependency on the ingested data
+      - data/raw/Algerian_forest_fires_dataset.csv
     outs:
-      - data/cleaned/cleaned_algerian_forest_fires_dataset.csv
-      - artifacts/X_train.npy # Corrected spelling to "artifacts"
-      - artifacts/X_test.npy
-      - artifacts/y_train.npy
-      - artifacts/y_test.npy
-      - artifacts/preprocessor_pipline.pkl
+      - data/processed/cleaned_algerian_forest_fires_dataset.csv
+      - data/processed/X_train.npy
+      - data/processed/X_test.npy
+      - data/processed/y_train.npy
+      - data/processed/y_test.npy
+      - artifacts/preprocessor.pkl
       - artifacts/selected_features.json
 
-  training:
+  Training:
     cmd: python src/components/model_training.py
     deps:
-      - src/components/model_training.py # Corrected spelling
+      - src/components/model_training.py
       - src/utils.py
       - src/logger.py
       - src/exception.py
       - params.yaml
-      - artifacts/X_train.npy
-      - artifacts/X_test.npy
-      - artifacts/y_train.npy
-      - artifacts/y_test.npy
+      - data/processed/X_train.npy
+      - data/processed/X_test.npy
+      - data/processed/y_train.npy
+      - data/processed/y_test.npy
     outs:
       - artifacts/classifier.pkl
       - artifacts/classification_report.txt
-      - artifacts/confusion_matrix.png
-      - artifacts/auc_plot.png
     metrics:
       - artifacts/metrics.json
+
+    plots:
+      - artifacts/auc_plot.png
+      - artifacts/confusion_matrix.png
+      - artifacts/pr_curve.png

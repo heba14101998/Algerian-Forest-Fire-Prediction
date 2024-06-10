@@ -37,10 +37,9 @@ class DataPreprocessor:
         df[self.configs.target_column] = df[self.configs.target_column].str.strip()
         df[self.configs.target_column] = df[self.configs.target_column].map({'not fire': 0, 'fire': 1})
         
-        os.makedirs(os.path.join(self.configs.cleaned_data_dir), exist_ok=True)
-        file_path = os.path.join(os.path.join(self.configs.cleaned_data_dir), f"cleaned_{self.configs.data_file_name}")
-        df.to_csv(file_path, index=False, header=True)
-        logging.info(f"Saved the cleaned data at: file_path")
+        # Save the DataFrame as a CSV
+        path = os.path.join(self.configs.processed_data_dir, f"cleaned_{self.configs.data_file_name}")
+        save_artifact(path, df)
 
         return df
 
@@ -84,18 +83,22 @@ class DataPreprocessor:
             
             selected_features = self.select_features(X_train, y_train)
             logging.info(f"The selected features in feature selection process are: {list(selected_features)}")
-            save_artifact("selected_features.json", {'selected_features':list(selected_features)})
+            
+            path = os.path.join(self.configs.artifacts_path, "selected_features.json")
+            save_artifact(path, {'selected_features':list(selected_features)})
 
             pipeline = self.create_pipeline()
             X_train_arr= pipeline.fit_transform(X_train[selected_features])
             X_test_arr = pipeline.transform(X_test[selected_features])
-            save_artifact('preprocessor_pipline.pkl', pipeline)
+
+            path = os.path.join(self.configs.artifacts_path, 'preprocessor.pkl')
+            save_artifact(path, pipeline)
 
             # Save processed data as numpy
-            np.save(os.path.join(self.configs.artifacts_path,'X_train.npy'), X_train_arr)
-            np.save(os.path.join(self.configs.artifacts_path,'X_test.npy'), X_test_arr)
-            np.save(os.path.join(self.configs.artifacts_path,'y_train.npy'), np.array(y_train))
-            np.save(os.path.join(self.configs.artifacts_path,'y_test.npy'), np.array(y_test))
+            np.save(os.path.join(self.configs.processed_data_dir,'X_train.npy'), X_train_arr)
+            np.save(os.path.join(self.configs.processed_data_dir,'X_test.npy'), X_test_arr)
+            np.save(os.path.join(self.configs.processed_data_dir,'y_train.npy'), np.array(y_train))
+            np.save(os.path.join(self.configs.processed_data_dir,'y_test.npy'), np.array(y_test))
             logging.info(f"saving data in four numpy files in artifacts directory")
 
         except Exception as e:
