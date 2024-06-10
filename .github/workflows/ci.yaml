@@ -3,7 +3,7 @@ name: algerian-forest-fire-prediction
 on:
   push:
     branches:
-      - main
+      - develop
 
 permissions: write-all
 
