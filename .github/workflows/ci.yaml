@@ -24,19 +24,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Setup DVC
-        uses: iterative/setup-cml@v1
-        with:
-          dvc_version: "3.0.0"
-
-      - name: DVC Pull
-        run: dvc pull
+      # - name: Setup DVC
+      #   uses: iterative/setup-cml@v1
+      #   with:
+      #     dvc_version: "3.0.0"
 
       - name: Run Project Scripts
         run: |
           # python template.py
           dvc repro
-          dvc push
+          # dvc push
 
       - name: Generate CML Report
         env:

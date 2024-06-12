@@ -158,8 +158,8 @@ stages:
     deps:
     - path: params.yaml
       hash: md5
-      md5: bc7da6fa3439a870dde448cc1e413601
-      size: 1349
+      md5: 02b15d74d7be0b5f1136bec65e50efd6
+      size: 1345
     - path: src/components/data_ingestion.py
       hash: md5
       md5: bc70c50c585e0c7291c9e02e0c98f4b6
@@ -187,8 +187,8 @@ stages:
       size: 14445
     - path: params.yaml
       hash: md5
-      md5: bc7da6fa3439a870dde448cc1e413601
-      size: 1349
+      md5: 02b15d74d7be0b5f1136bec65e50efd6
+      size: 1345
     - path: src/components/data_factory.py
       hash: md5
       md5: f2c168a303a70976dfdc25b85cccf79c
@@ -262,8 +262,8 @@ stages:
       size: 1680
     - path: params.yaml
       hash: md5
-      md5: bc7da6fa3439a870dde448cc1e413601
-      size: 1349
+      md5: 02b15d74d7be0b5f1136bec65e50efd6
+      size: 1345
     - path: src/components/model_training.py
       hash: md5
       md5: c8eab9f654767232b44450188cf1bfe4
@@ -283,31 +283,31 @@ stages:
     outs:
     - path: artifacts/auc_plot.png
       hash: md5
-      md5: 0af12bb91dd09b9f83d03afd5ecd3993
-      size: 36923
+      md5: 3ac834c823a799f4ce693b4c7af0aa7a
+      size: 37354
       isexec: true
     - path: artifacts/classification_report.txt
       hash: md5
-      md5: 7968aafeaa1a558876f16d7e61442e6c
+      md5: 799abad048130cf6628925c943c32f33
       size: 326
       isexec: true
     - path: artifacts/classifier.pkl
       hash: md5
-      md5: 26c71cb52dd7e82968ceea5a4088175d
-      size: 127827
+      md5: 44ca9544ca7b7eed3017376664c3238b
+      size: 786
       isexec: true
     - path: artifacts/confusion_matrix.png
       hash: md5
-      md5: 4d6c8945de57aa5fd94f7e4285aabdf4
-      size: 15608
+      md5: c834c423c46beb0a254e99aa313b744a
+      size: 15518
       isexec: true
     - path: artifacts/metrics.json
       hash: md5
-      md5: a246a45c7485a18b17d14d0acaf7b4f4
-      size: 139
+      md5: 4f7821060ee7f9b7c0b825bf21eceddc
+      size: 154
       isexec: true
     - path: artifacts/pr_curve.png
       hash: md5
-      md5: db4e55517e73b31e719e0be0dc4d05b2
-      size: 14933
+      md5: a2c36b8f907033c23d643c0a6f8671de
+      size: 17948
       isexec: true
