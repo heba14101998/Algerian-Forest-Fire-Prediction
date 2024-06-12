@@ -1,5 +1,4 @@
 name: algerian-forest-fire-prediction
-
 on:
   push:
     branches:
