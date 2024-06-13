@@ -14,6 +14,7 @@ DATASET_API = os.environ.get("DATASET_API")
 SEED = os.environ.get("SEED")
 
 print(f"PYTHONPATH: {os.environ['PYTHONPATH']}") 
+print("sys.path: ", sys.path)
 
 class DataIngestor:
     def __init__(self, configs):

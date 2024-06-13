@@ -13,8 +13,8 @@ stages:
       size: 1370
     - path: src/components/data_ingestion.py
       hash: md5
-      md5: 9d0c751dec8edcd222ab5c535d468a58
-      size: 3228
+      md5: c9a1ac16f016d85c3984016542c4bd11
+      size: 2012
     - path: src/exception.py
       hash: md5
       md5: ca99f2b4e59fb20f43517da0dab81ebc
