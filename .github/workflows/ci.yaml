@@ -36,15 +36,12 @@ jobs:
       run: |
         # Get the current working directory (PWD)
         current_dir=$(pwd)
-        echo $current_dir
         echo "PYTHONPATH=\$PYTHONPATH:$current_dir" >> $GITHUB_ENV
-        echo $GITHUB_ENV
-        chmod 600 assets/kaggle.json 
-        # echo  ${{ inputs.working_directory }}
 
     - name: Run Project Scripts
       run: |
         python template.py
+        chmod 600 assets/kaggle.json 
         dvc repro
         # dvc push
     
