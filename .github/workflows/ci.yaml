@@ -25,8 +25,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     
     - name: Install Poetry
-      run: pip install poetry
-           poetry install --no-dev
+      run: |
+        pip install poetry
+        poetry install --no-dev
 
     - name: Set up DVC
       uses: iterative/setup-dvc@v1
@@ -35,7 +36,7 @@ jobs:
         python template.py
         dvc repro
         # dvc push
-        
+
     - name: Generate CML Report
       env:
         REPO_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
