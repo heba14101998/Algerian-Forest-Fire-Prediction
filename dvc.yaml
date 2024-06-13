@@ -1,5 +1,31 @@
 stages:
-  # ... (your existing stages)
+  Ingestion:
+    cmd: python src/components/data_ingestion.py
+    deps:
+      - src/components/data_ingestion.py
+      - src/logger.py
+      - src/exception.py
+      - params.yaml
+    outs:
+      - data/raw/Algerian_forest_fires_dataset.csv
+
+  Prepare:
+    cmd: python src/components/data_factory.py
+    deps:
+      - src/components/data_factory.py
+      - src/utils.py
+      - src/logger.py
+      - src/exception.py
+      - params.yaml
+      - data/raw/Algerian_forest_fires_dataset.csv
+    outs:
+      - data/processed/cleaned_algerian_forest_fires_dataset.csv
+      - data/processed/X_train.npy
+      - data/processed/X_test.npy
+      - data/processed/y_train.npy
+      - data/processed/y_test.npy
+      - artifacts/preprocessor.pkl
+      - artifacts/selected_features.json
 
   Training:
     cmd: python src/components/model_training.py
@@ -16,16 +42,25 @@ stages:
     outs:
       - checkpoints/${configs.model_name}.pkl
       - artifacts/classification_report.txt
-      - artifacts/y_pred.csv
-      - artifacts/y_test.csv
     metrics:
       - artifacts/metrics.json
-    plots:
-      # - confusion: # different x and y paths
-      #     y: artifacts/y_pred.csv
-      #     x: artifacts/y_test.csv
-      #     template: confusion
 
+    plots:
       - artifacts/auc_plot.png
       - artifacts/confusion_matrix.png
       - artifacts/pr_curve.png
+
+      # - roc_vs_prc: # x dict
+      #     y:
+      #       artifacts/pr_data.json: precision
+      #       artifacts/roc_data.json: tpr
+      #     x:
+      #       artifacts/pr_data.json: recall
+      #       artifacts/roc_data.json: fpr
+
+      # - confusion: # different x and y paths
+      #     y:
+      #       artifacts/y_pred.csv: predicted
+      #     x:
+      #       artifacts/y_test.csv: actual
+      #     template: confusion
