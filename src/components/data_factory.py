@@ -91,7 +91,7 @@ class DataPreprocessor:
             X_train_arr= pipeline.fit_transform(X_train[selected_features])
             X_test_arr = pipeline.transform(X_test[selected_features])
 
-            path = os.path.join(self.configs.artifacts_path, 'preprocessor.pkl')
+            path = os.path.join(self.configs.checkpoints, 'preprocessor.pkl')
             save_artifact(path, pipeline)
 
             # Save processed data as numpy
