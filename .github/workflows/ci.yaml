@@ -27,7 +27,7 @@ jobs:
     - name: Read kaggle.json file 
       run: |
         echo ${{ secrets.ENV_FILE }} | base64 --decode > .env
-        echo ${{ env.USERNAME }}:${{ env.KAGGLE_KEY }} | base64 --encode > assets/kaggle.json
+        echo ${{ secrets.USERNAME }}:${{ secrets.KAGGLE_KEY }} | base64 --encode > assets/kaggle.json
         chmod 600 assets/kaggle.json 
 
     - name: Set up DVC
