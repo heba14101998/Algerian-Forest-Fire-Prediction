@@ -37,13 +37,14 @@ jobs:
         # Get the current working directory (PWD)
         current_dir=$(pwd)
         echo $current_dir
-        tree
         echo "PYTHONPATH=\$PYTHONPATH:$current_dir/src" >> $GITHUB_ENV
-        # cd  ${{ inputs.working_directory }}
+        echo  ${{ inputs.working_directory }}
 
     - name: Run Project Scripts
       run: |
         python template.py
+        echo  ${{ inputs.working_directory }}
+        tree
         dvc repro
         # dvc push # If needed (use a remote)
     
