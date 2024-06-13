@@ -31,9 +31,8 @@ jobs:
 
     - name: Save kaggle.json file
       run: |
-        python template.py
-        echo {\"username\": \"${{ secrets.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"} > assets/kaggle.json
-        chmod 600 assets/kaggle.json
+        echo {\"username\": \"${{ secrets.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"} > kaggle.json
+        chmod 600 kaggle.json
 
     - name: Set up DVC
       uses: iterative/setup-dvc@v1
