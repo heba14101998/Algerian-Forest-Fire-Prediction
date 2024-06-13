@@ -80,23 +80,24 @@ class ModelTrainer:
 
             precision, recall, thresholds = precision_recall_curve(y_test, y_pred_proba)
 
-            pr_data = {"precision": precision.tolist(), "recall": recall.tolist(),
+            pr_data = {"precision": precision.tolist()[1:], "recall": recall.tolist()[1:],
                         "thresholds": thresholds.tolist()}
                 
-            path = os.path.join(self.configs.artifacts_path, "roc_data.json")
-            save_artifact(path, roc_data)
+            path = os.path.join(self.configs.artifacts_path, "roc_data.csv")
+            save_artifact(path, pd.DataFrame(roc_data))
 
-            path = os.path.join(self.configs.artifacts_path, "pr_data.json")
-            save_artifact(path, pr_data)
+            path = os.path.join(self.configs.artifacts_path, "pr_data.csv")
+            save_artifact(path, pd.DataFrame(pr_data))
 
             # Call plotting functions from utils.py
             plot_confusion_matrix(cm, self.configs.artifacts_path)
             plot_roc_curve(fpr, tpr, auc, self.configs.artifacts_path)
 
             plot_precision_recall_curve(precision, recall, thresholds, self.configs.artifacts_path)
+            cm_data= {'actual': y_test.tolist(), 'predicted': y_pred.tolist()}
+            path = os.path.join(self.configs.artifacts_path, 'cm_data.csv')
+            save_artifact(path, pd.DataFrame(cm_data))
 
-            pd.DataFrame(y_test).to_csv(os.path.join(self.configs.artifacts_path, 'y_test.csv'), index=False, header=['actual'])
-            pd.DataFrame(y_pred).to_csv(os.path.join(self.configs.artifacts_path, 'y_pred.csv'), index=False, header=['predicted'])
             logging.info(f"y_test and y_pred saved as CSV in Artifacts")
 
         except Exception as e:
