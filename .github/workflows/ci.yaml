@@ -57,7 +57,7 @@ jobs:
 
     - name: Run Project Scripts
       run: |
-        tree
+        python template.py
         dvc repro
         dvc push
 
