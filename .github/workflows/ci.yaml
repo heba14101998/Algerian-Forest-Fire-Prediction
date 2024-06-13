@@ -38,6 +38,11 @@ jobs:
         dvc remote add -d gdrive dvc://?token=${{ env.DRIVE_URL }}
         dvc remote default gdrive
 
+    - name: Create Conda env
+      run: |
+        conda create -n forest-fire-env
+        conda activate forest-fire-env
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
