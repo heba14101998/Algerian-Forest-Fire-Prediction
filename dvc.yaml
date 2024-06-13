@@ -1,6 +1,6 @@
 stages:
   Ingestion:
-    cmd: python src/components/data_ingestion.py
+    cmd: python -m src.components.data_ingestion #src/components/data_ingestion.py
     deps:
       - src/components/data_ingestion.py
       - src/logger.py
@@ -11,7 +11,7 @@ stages:
       - data/raw/Algerian_forest_fires_dataset.csv
 
   Prepare:
-    cmd: python src/components/data_factory.py
+    cmd: python -m src.components.data_factory.py
     deps:
       - src/components/data_factory.py
       - src/utils.py
@@ -29,7 +29,7 @@ stages:
       - artifacts/selected_features.json
 
   Training:
-    cmd: python src/components/model_training.py
+    cmd: python -m src.components.model_training.py
     deps:
       - src/components/model_training.py
       - src/utils.py
