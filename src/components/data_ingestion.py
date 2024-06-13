@@ -4,10 +4,9 @@ import shutil
 import pandas as pd
 from dotenv import load_dotenv
 
-from .utils import read_yaml
-from .exception import CustomException
-from .logger import logging
-from .utils import read_yaml
+from src.utils import read_yaml
+from src.exception import CustomException
+from src.logger import logging
 
 # Load environment variables
 load_dotenv()
@@ -15,7 +14,6 @@ DATASET_API = os.environ.get("DATASET_API")
 SEED = os.environ.get("SEED")
 
 print(f"PYTHONPATH: {os.environ['PYTHONPATH']}") 
-print("sys.path: ", sys.path)
 
 class DataIngestor:
     def __init__(self, configs):
