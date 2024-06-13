@@ -38,8 +38,8 @@ jobs:
         current_dir=$(pwd)
         echo $current_dir
         tree
-        export "PYTHONPATH=\$PYTHONPATH:$current_dir" 
-        # >> $GITHUB_ENV
+        echo "PYTHONPATH=\$PYTHONPATH:$current_dir/src" >> $GITHUB_ENV
+        # cd  ${{ inputs.working_directory }}
 
     - name: Run Project Scripts
       run: |
