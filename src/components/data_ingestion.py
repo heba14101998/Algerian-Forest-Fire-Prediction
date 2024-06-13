@@ -13,8 +13,6 @@ load_dotenv()
 DATASET_API = os.environ.get("DATASET_API")
 SEED = 42 #os.environ.get("SEED")
 
-print(f"PYTHONPATH: {os.environ['PYTHONPATH']}") 
-
 class DataIngestor:
     def __init__(self, configs):
 

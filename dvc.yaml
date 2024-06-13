@@ -1,6 +1,6 @@
 stages:
   Ingestion:
-    cmd: python -m src.components.data_ingestion #src/components/data_ingestion.py
+    cmd: python -m src.components.data_ingestion
     deps:
       - src/components/data_ingestion.py
       - src/logger.py
@@ -11,7 +11,7 @@ stages:
       - data/raw/Algerian_forest_fires_dataset.csv
 
   Prepare:
-    cmd: python -m src.components.data_factory.py
+    cmd: python -m src.components.data_factory
     deps:
       - src/components/data_factory.py
       - src/utils.py
@@ -25,11 +25,11 @@ stages:
       - data/processed/X_test.npy
       - data/processed/y_train.npy
       - data/processed/y_test.npy
-      - artifacts/preprocessor.pkl
+      - checkpoints/preprocessor.pkl
       - artifacts/selected_features.json
 
   Training:
-    cmd: python -m src.components.model_training.py
+    cmd: python -m src.components.model_training
     deps:
       - src/components/model_training.py
       - src/utils.py
@@ -46,22 +46,24 @@ stages:
     metrics:
       - artifacts/metrics.json
 
-    plots:
-      - artifacts/auc_plot.png
-      - artifacts/confusion_matrix.png
-      - artifacts/pr_curve.png
+plots:
+  - ROC Curve:
+      template: linear
+      x: fpr
+      y:
+        artifacts/roc_data.csv: tpr
 
-      # - roc_vs_prc: # x dict
-      #     y:
-      #       artifacts/pr_data.json: precision
-      #       artifacts/roc_data.json: tpr
-      #     x:
-      #       artifacts/pr_data.json: recall
-      #       artifacts/roc_data.json: fpr
+  - confusion_matrix: # different x and y paths
+      y:
+        artifacts/cm_data.csv: predicted
+      x:
+        artifacts/cm_data.csv: actual
+      template: confusion
 
-      # - confusion: # different x and y paths
-      #     y:
-      #       artifacts/y_pred.csv: predicted
-      #     x:
-      #       artifacts/y_test.csv: actual
-      #     template: confusion
+  - Precision vs Recall:
+      template: linear
+      x: thresholds
+      y:
+        artifacts/pr_data.csv:
+          - recall
+          - precision

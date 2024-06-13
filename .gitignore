@@ -5,9 +5,10 @@
 *.sln
 *.tmp
 *.log
-*.csv
 *.pkl
+*.json
 forme.txt
+
 # Ignore build artifacts
 build/
 dist/
@@ -26,8 +27,14 @@ data/
 # Ignore checkpoint files 
 checkpoints/
 
-# Ignore artifact files 
-artifacts/
-# Ignore asset files 
-.vscode/
+# Ignore everything in artifacts, except for .gitkeep
+/artifacts/*
+!/artifacts/*.csv
+
+# Ignore the .vscode directory
+/.vscode/
+
 .pytest_cache/
+
+# Ignore assets folder and its contents
+/assets/
