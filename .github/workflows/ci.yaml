@@ -24,8 +24,16 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Load environment variables
+      run: echo ${{ secrets.ENV_FILE }} | base64 --decode > .env
+
     - name: Set up DVC
       uses: iterative/setup-dvc@v1 # Use this to set up DVC
+    
+    - name: Configure DVC Remote
+      run: |
+        dvc remote add -d gdrive dvc://?token=${{ env.DRIVE_URL }}
+        dvc remote default gdrive
 
     - name: Install dependencies
       run: |
