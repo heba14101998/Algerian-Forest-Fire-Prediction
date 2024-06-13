@@ -41,7 +41,7 @@ stages:
       - data/processed/y_train.npy
       - data/processed/y_test.npy
     outs:
-      - checkpoints/LogisticRegression.pkl
+      - checkpoints/${configs.model_name}.pkl
       - artifacts/classification_report.txt
     metrics:
       - artifacts/metrics.json
