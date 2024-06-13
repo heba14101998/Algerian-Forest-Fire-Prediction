@@ -38,6 +38,14 @@ jobs:
         dvc repro
         # dvc push # If needed (use a remote)
 
+
+    - name: Set up Environment Variables
+      run: |
+        # Get the current working directory (PWD)
+        current_dir=$(pwd)
+        # Set PYTHONPATH
+        export PYTHONPATH=\$PYTHONPATH:/src:$current_dir
+    
     - name: Generate CML Report
       env:
         REPO_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
