@@ -37,7 +37,8 @@ jobs:
         # Get the current working directory (PWD)
         current_dir=$(pwd)
         echo $current_dir
-        echo "PYTHONPATH=\$PYTHONPATH:$current_dir/src" >> $GITHUB_ENV
+        echo $GITHUB_ENV
+        echo "PYTHONPATH=\$PYTHONPATH:$current_dir" >> $GITHUB_ENV
 
     - name: Run Project Scripts
       run: |
