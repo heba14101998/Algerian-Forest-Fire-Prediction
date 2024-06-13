@@ -24,18 +24,20 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Set up DVC
+      uses: iterative/setup-dvc@v1 # Use this to set up DVC
+
+    - name: Set python path  
+      run: |
+        # Get the current working directory (PWD)
+        current_dir=$(pwd)
+        echo $current_dir
+        echo "PYTHONPATH=\$PYTHONPATH:$current_dir/src" >> $GITHUB_ENV
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        # Get the current working directory (PWD)
-        current_dir=$(pwd)
-        echo current_dir
-        echo "PYTHONPATH=\$PYTHONPATH:$current_dir/src" >> $GITHUB_ENV
-        
-
-    - name: Set up DVC
-      uses: iterative/setup-dvc@v1 # Use this to set up DVC
 
     - name: Run Project Scripts
       run: |
