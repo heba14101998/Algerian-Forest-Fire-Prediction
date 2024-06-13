@@ -21,7 +21,7 @@ setup(
     description="Algerian Forest Fire Prediction Model",
     # long_description=long_description, # Use read README.md
     # long_description_content="text/markdown",
-    author=os.environ.get("USERNAME"),
+    author=os.environ.get("PYPI_USERNAME"),
     author_email=os.environ.get("EMAIL"),
     url=os.environ.get("REMOTE_REPO"),  
     package_dir={"": "src"},

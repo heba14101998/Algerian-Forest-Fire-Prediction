@@ -1,4 +1,4 @@
-name:  CI Prediction Model
+name: CI Prediction Model
 
 on:
   push:
@@ -12,34 +12,37 @@ permissions:
 
 jobs:
   experiment:
-    runs-on: ubuntu-latest # Only use ubuntu-latest 
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.9"]  # Only Python 3.9
+        python-version: ["3.9"]
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Save kaggle.json file 
+    # - name: Save .env file
+    #   run: echo ${{ secrets.ENV_FILE }} | base64 --decode > .env
+
+    - name: Save kaggle.json file
       run: |
-        echo ${{ secrets.ENV_FILE }} | base64 --decode > .env
-        echo ${{ secrets.USERNAME }}:${{ secrets.KAGGLE_KEY }} | base64 -w 0 | tr -d '\n' > assets/kaggle.json
-        chmod 600 assets/kaggle.json 
+        echo '{"username": "'${{ secrets.KAGGLE_USERNAME }}'", "key": "'${{ secrets.KAGGLE_KEY }}'"}' > assets/kaggle.json
+        chmod 600 assets/kaggle.json
 
     - name: Set up DVC
       uses: iterative/setup-dvc@v1
-    
+
     - name: Configure DVC Remote
       run: |
-        dvc remote add -d gdrive dvc://?token=${{ env.DRIVE_URL }}
+        dvc remote add -d gdrive dvc://?token=${{ secrets.DRIVE_URL }}
         dvc remote default gdrive
 
-    - name: Create Conda env
+    - name: Create Conda environment
       uses: conda-incubator/setup-miniconda@v2
       with:
         miniconda-version: 'latest'
@@ -57,16 +60,16 @@ jobs:
         tree
         dvc repro
         dvc push
-    
+
     - name: Generate CML Report
       env:
         REPO_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
       run: |
         echo "## Reproduce Results" >> report.md
-        echo "Use this parameters compination" >> report.md
-        dvc metrics diff main 
-        cat "artifacts/classification_report.txt" >> report.md
+        echo "Use this parameters combination" >> report.md
+        dvc metrics diff main >> report.md
+        cat artifacts/classification_report.txt >> report.md
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md
         echo "![](./artifacts/pr_curve.png)" >> report.md
-        cml comment create report.md 
+        cml comment create report.md
