@@ -19,8 +19,8 @@ setup(
     name=os.environ.get("PAKAGE_NAME"),  
     version=os.environ.get("APP_VERSION"), 
     description="Algerian Forest Fire Prediction Model",
-    long_description=long_description, # Use read README.md
-    long_description_content="text/markdown",
+    # long_description=long_description, # Use read README.md
+    # long_description_content="text/markdown",
     author=os.environ.get("USERNAME"),
     author_email=os.environ.get("EMAIL"),
     url=os.environ.get("REMOTE_REPO"),  
@@ -35,4 +35,9 @@ setup(
         # "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
+    entry_points={
+        'console_scripts': [
+            'train=src.pipeline.train_pipeline:main',  # Define your entry points
+        ]
+    },
 )
