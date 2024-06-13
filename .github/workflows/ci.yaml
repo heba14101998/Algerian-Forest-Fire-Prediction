@@ -15,27 +15,39 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest] 
-        python-version: ["3.7", "3.8", "3.9"]
+        python-version: ["3.8", "3.9"] #"3.7", 
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-    
+
+    - name: Cache Poetry and dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/pypoetry/virtualenvs
+          ~/.cache/pip
+        key: ${{ runner.os }}-poetry-${{ hashFiles('**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-poetry-
+
     - name: Install Poetry
       run: |
-        pip install poetry
+        python -m pip install poetry
         poetry install --no-dev
 
     - name: Set up DVC
-      uses: iterative/setup-dvc@v1
+      uses: iterative/setup-dvc@v1 # Use this to set up DVC
+
     - name: Run Project Scripts
       run: |
         python template.py
         dvc repro
-        # dvc push
+        # dvc push # If needed (use a remote)
 
     - name: Generate CML Report
       env:
@@ -49,3 +61,5 @@ jobs:
         echo "![](./artifacts/auc_plot.png)" >> report.md
         echo "![](./artifacts/pr_curve.png)" >> report.md
         cml comment create report.md
+
+    # ... other steps 
