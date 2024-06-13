@@ -37,7 +37,7 @@ jobs:
         # Get the current working directory (PWD)
         current_dir=$(pwd)
         echo $current_dir
-        echo $GITHUB_ENV
+        tree
         export "PYTHONPATH=\$PYTHONPATH:$current_dir" 
         # >> $GITHUB_ENV
 
