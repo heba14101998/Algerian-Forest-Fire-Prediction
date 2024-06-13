@@ -24,7 +24,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Read kaggle.json file 
+    - name: Save kaggle.json file 
       run: |
         echo ${{ secrets.ENV_FILE }} | base64 --decode > .env
         echo ${{ secrets.USERNAME }}:${{ secrets.KAGGLE_KEY }} | base64 -w 0 | tr -d '\n' > assets/kaggle.json
