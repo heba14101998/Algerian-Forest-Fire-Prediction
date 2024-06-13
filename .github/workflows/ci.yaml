@@ -24,35 +24,24 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Set up DVC
-      uses: iterative/setup-dvc@v1 
-      
-    # Securely load environment variables 
-    - name: Load environment variables
-      uses: actions/python-dotenv@v1
-      with:
-        dotenv_file: .env
+    - name: Read kaggle.json file 
+      run: |
+        echo ${{ secrets.ENV_FILE }} | base64 --decode > .env
+        echo ${{ env.USERNAME }}:${{ env.KAGGLE_KEY }} | base64 --encode > assets/kaggle.json
+        chmod 600 assets/kaggle.json 
 
+    - name: Set up DVC
+      uses: iterative/setup-dvc@v1 # Use this to set up DVC
+    
     - name: Configure DVC Remote
       run: |
         dvc remote add -d gdrive dvc://?token=${{ env.DRIVE_URL }}
         dvc remote default gdrive
 
-    - name: Create Conda environment
-      run: |
-        conda env create -n forest-fire-env
-        conda activate forest-fire-env
-    
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        pip install .
-
-    # - name: Install dependencies
-    #   run: |
-    #     python -m pip install --upgrade pip
-    #     pip install -r requirements.txt
 
     # - name: Set python path  
     #   run: |
