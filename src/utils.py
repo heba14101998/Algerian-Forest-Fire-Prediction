@@ -105,15 +105,16 @@ def plot_roc_curve(fpr, tpr, auc, artifacts_path):
     except Exception as e:
         raise CustomException(e, sys)
 
-def plot_precision_recall_curve(precision, recall, artifacts_path):
+def plot_precision_recall_curve(precision, recall, thresholds, artifacts_path):
     """Plots and saves the Precision-Recall curve."""
     try:
-
-        plt.figure(figsize=(8, 6))
-        plt.plot(recall, precision)
-        plt.xlabel("Recall")
-        plt.ylabel("Precision")
+        plt.figure(figsize=(10, 4))
+        plt.plot(thresholds, precision[1:], label="Precision")
+        plt.plot(thresholds, recall[1:], label="Recall")
+        plt.xlabel("Threshold")
+        plt.ylabel("Precsion/Recall")
         plt.title("Precision-Recall Curve")
+        plt.legend(loc="lower right")
         save_artifact(os.path.join(artifacts_path, "pr_curve.png"), plt, artifact_type="png")
         logging.info(f"Precision-Recall Curve saved to directory: {artifacts_path}/pr_curve.png")
     except Exception as e:

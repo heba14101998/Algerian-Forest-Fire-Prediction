@@ -74,11 +74,12 @@ class ModelTrainer:
 
             cm = confusion_matrix(y_test, y_pred)
             fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
-            precision, recall, thresholds = precision_recall_curve(y_test, y_pred_proba)
-
             # Save curves data as json files
             roc_data = { "fpr": fpr.tolist(), "tpr": tpr.tolist(),
                          "thresholds": thresholds.tolist(), "roc_auc": auc}
+
+            precision, recall, thresholds = precision_recall_curve(y_test, y_pred_proba)
+
             pr_data = {"precision": precision.tolist(), "recall": recall.tolist(),
                         "thresholds": thresholds.tolist()}
                 
@@ -91,7 +92,8 @@ class ModelTrainer:
             # Call plotting functions from utils.py
             plot_confusion_matrix(cm, self.configs.artifacts_path)
             plot_roc_curve(fpr, tpr, auc, self.configs.artifacts_path)
-            plot_precision_recall_curve(precision, recall, self.configs.artifacts_path)
+
+            plot_precision_recall_curve(precision, recall, thresholds, self.configs.artifacts_path)
 
             pd.DataFrame(y_test).to_csv(os.path.join(self.configs.artifacts_path, 'y_test.csv'), index=False, header=['actual'])
             pd.DataFrame(y_pred).to_csv(os.path.join(self.configs.artifacts_path, 'y_pred.csv'), index=False, header=['predicted'])

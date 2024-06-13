@@ -1,4 +1,4 @@
-name: Continous Integration for Prediction Model
+name:  CI Prediction Model
 
 on:
   push:

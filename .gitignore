@@ -31,5 +31,3 @@ artifacts/
 # Ignore asset files 
 .vscode/
 .pytest_cache/
-assests/forme.txt
-assests/KaggleDownloadData.md
