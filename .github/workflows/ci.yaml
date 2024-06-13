@@ -29,7 +29,7 @@ jobs:
       
     # Securely load environment variables 
     - name: Load environment variables
-      uses: actions/python-dotenv@v2 
+      uses: actions/python-dotenv@v1
       with:
         dotenv_file: .env
 
