@@ -158,12 +158,12 @@ stages:
     deps:
     - path: params.yaml
       hash: md5
-      md5: 02b15d74d7be0b5f1136bec65e50efd6
-      size: 1345
+      md5: 033a9ba47133f812feb6685e555816d5
+      size: 1366
     - path: src/components/data_ingestion.py
       hash: md5
-      md5: bc70c50c585e0c7291c9e02e0c98f4b6
-      size: 1932
+      md5: 5abe0cbe79d93da55f548e77ca93d4a3
+      size: 1982
     - path: src/exception.py
       hash: md5
       md5: ca99f2b4e59fb20f43517da0dab81ebc
@@ -187,8 +187,8 @@ stages:
       size: 14445
     - path: params.yaml
       hash: md5
-      md5: 02b15d74d7be0b5f1136bec65e50efd6
-      size: 1345
+      md5: 033a9ba47133f812feb6685e555816d5
+      size: 1366
     - path: src/components/data_factory.py
       hash: md5
       md5: f2c168a303a70976dfdc25b85cccf79c
@@ -262,12 +262,12 @@ stages:
       size: 1680
     - path: params.yaml
       hash: md5
-      md5: 02b15d74d7be0b5f1136bec65e50efd6
-      size: 1345
+      md5: 033a9ba47133f812feb6685e555816d5
+      size: 1366
     - path: src/components/model_training.py
       hash: md5
-      md5: c8eab9f654767232b44450188cf1bfe4
-      size: 5642
+      md5: c164f4f0f8c82516fc406b27003df0e7
+      size: 5690
     - path: src/exception.py
       hash: md5
       md5: ca99f2b4e59fb20f43517da0dab81ebc
@@ -283,7 +283,7 @@ stages:
     outs:
     - path: artifacts/auc_plot.png
       hash: md5
-      md5: 3ac834c823a799f4ce693b4c7af0aa7a
+      md5: d1aecc2c24ca53610f978bb505373199
       size: 37354
       isexec: true
     - path: artifacts/classification_report.txt
@@ -291,14 +291,9 @@ stages:
       md5: 799abad048130cf6628925c943c32f33
       size: 326
       isexec: true
-    - path: artifacts/classifier.pkl
-      hash: md5
-      md5: 44ca9544ca7b7eed3017376664c3238b
-      size: 786
-      isexec: true
     - path: artifacts/confusion_matrix.png
       hash: md5
-      md5: c834c423c46beb0a254e99aa313b744a
+      md5: 768bea14c3a943bbbc19383931b522d5
       size: 15518
       isexec: true
     - path: artifacts/metrics.json
@@ -308,6 +303,21 @@ stages:
       isexec: true
     - path: artifacts/pr_curve.png
       hash: md5
-      md5: a2c36b8f907033c23d643c0a6f8671de
+      md5: 8f77643debc7f4c054d3dc98dc2b0b60
       size: 17948
+      isexec: true
+    - path: artifacts/y_pred.csv
+      hash: md5
+      md5: ecc144bed22291a8e305a09eec097159
+      size: 108
+      isexec: true
+    - path: artifacts/y_test.csv
+      hash: md5
+      md5: f034c64cb65efa010d315e96053838bc
+      size: 105
+      isexec: true
+    - path: checkpoints/LogisticRegression.pkl
+      hash: md5
+      md5: 44ca9544ca7b7eed3017376664c3238b
+      size: 786
       isexec: true

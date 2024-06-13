@@ -16,7 +16,7 @@ list_of_files = [
     "src/components/__init__.py",
     "src/components/data_ingestion.py",
     "src/components/data_factory.py",
-    "src/components/model_traهning.py",
+    "src/components/model_training.py",
 
     "src/pipeline/__init__.py",
     "src/pipeline/train_pipeline.py",

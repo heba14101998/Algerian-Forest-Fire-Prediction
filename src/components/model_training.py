@@ -93,6 +93,10 @@ class ModelTrainer:
             plot_roc_curve(fpr, tpr, auc, self.configs.artifacts_path)
             plot_precision_recall_curve(precision, recall, self.configs.artifacts_path)
 
+            pd.DataFrame(y_test).to_csv(os.path.join(self.configs.artifacts_path, 'y_test.csv'), index=False, header=['actual'])
+            pd.DataFrame(y_pred).to_csv(os.path.join(self.configs.artifacts_path, 'y_pred.csv'), index=False, header=['predicted'])
+            logging.info(f"y_test and y_pred saved as CSV in Artifacts")
+
         except Exception as e:
             raise CustomException(e, sys)
         
