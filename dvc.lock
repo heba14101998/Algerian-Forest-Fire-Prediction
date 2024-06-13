@@ -42,8 +42,8 @@ stages:
       size: 1370
     - path: src/components/data_factory.py
       hash: md5
-      md5: a79cf45e2b714848cc50d72a0c82d79f
-      size: 4366
+      md5: 47e4c382bee029c161e5ad56b7a785c7
+      size: 4363
     - path: src/exception.py
       hash: md5
       md5: ca99f2b4e59fb20f43517da0dab81ebc
@@ -57,15 +57,15 @@ stages:
       md5: a86143473dd73f8647c37cba8aab8731
       size: 4648
     outs:
-    - path: artifacts/preprocessor.pkl
-      hash: md5
-      md5: 03740c06b684cb5b8aa528a5011f873f
-      size: 1082
-      isexec: true
     - path: artifacts/selected_features.json
       hash: md5
       md5: 7ac713a3544b0f44367cce0066ccd026
       size: 99
+      isexec: true
+    - path: checkpoints/preprocessor.pkl
+      hash: md5
+      md5: 03740c06b684cb5b8aa528a5011f873f
+      size: 1082
       isexec: true
     - path: data/processed/X_test.npy
       hash: md5

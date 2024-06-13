@@ -25,7 +25,7 @@ stages:
       - data/processed/X_test.npy
       - data/processed/y_train.npy
       - data/processed/y_test.npy
-      - artifacts/preprocessor.pkl
+      - checkpoints/preprocessor.pkl
       - artifacts/selected_features.json
 
   Training:
