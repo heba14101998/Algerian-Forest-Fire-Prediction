@@ -31,8 +31,7 @@ jobs:
 
     - name: Save kaggle.json file
       run: |
-        touch assets/kaggle.json
-        echo "{\"username\": \"${{ secrets.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > assets/kaggle.json
+        echo {\"username\": \"${{ secrets.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"} > assets/kaggle.json
         chmod 600 assets/kaggle.json
 
     - name: Set up DVC
