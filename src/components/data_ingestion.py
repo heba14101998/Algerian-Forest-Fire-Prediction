@@ -11,7 +11,7 @@ from src.logger import logging
 # Load environment variables
 load_dotenv()
 DATASET_API = os.environ.get("DATASET_API")
-SEED = os.environ.get("SEED")
+SEED = 42 #os.environ.get("SEED")
 
 print(f"PYTHONPATH: {os.environ['PYTHONPATH']}") 
 
