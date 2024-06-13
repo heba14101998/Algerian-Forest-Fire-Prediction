@@ -39,10 +39,9 @@ jobs:
         dvc remote default gdrive
 
     - name: Create Conda env
-      run: |
-        conda create -n forest-fire-env
-        conda init
-        conda activate /usr/share/miniconda/envs/forest-fire-env
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniconda-version: 'latest'
 
     - name: Install dependencies
       run: |
