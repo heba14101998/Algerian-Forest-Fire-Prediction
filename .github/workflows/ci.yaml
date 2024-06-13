@@ -31,7 +31,7 @@ jobs:
 
     - name: Save kaggle.json file
       run: |
-        echo "{\"username\": \"${{ secrets.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > assets/kaggle.json
+        echo "{\"username\": \"${{ vars.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > assets/kaggle.json
         chmod 600 assets/kaggle.json
         cat kaggle.json
 
