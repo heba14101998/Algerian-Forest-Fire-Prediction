@@ -37,16 +37,15 @@ jobs:
         # Get the current working directory (PWD)
         current_dir=$(pwd)
         echo $current_dir
-        echo "PYTHONPATH=\$PYTHONPATH:$current_dir/src" >> $GITHUB_ENV
-        echo  ${{ inputs.working_directory }}
+        echo "PYTHONPATH=\$PYTHONPATH:$current_dir" >> $GITHUB_ENV
+        echo $GITHUB_ENV
+        # echo  ${{ inputs.working_directory }}
 
     - name: Run Project Scripts
       run: |
         python template.py
-        echo  ${{ inputs.working_directory }}
-        tree
         dvc repro
-        # dvc push # If needed (use a remote)
+        # dvc push
     
     - name: Generate CML Report
       env:
