@@ -39,7 +39,7 @@ jobs:
         echo $current_dir
         echo "PYTHONPATH=\$PYTHONPATH:$current_dir" >> $GITHUB_ENV
         echo $GITHUB_ENV
-        chmod 600 assests/kaggle.json 
+        chmod 600 assets/kaggle.json 
         # echo  ${{ inputs.working_directory }}
 
     - name: Run Project Scripts
