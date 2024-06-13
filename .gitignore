@@ -29,6 +29,7 @@ checkpoints/
 # Ignore artifact files 
 artifacts/
 # Ignore asset files 
-assets/
 .vscode/
 .pytest_cache/
+assests/forme.txt
+assests/KaggleDownloadData.md

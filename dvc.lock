@@ -156,14 +156,18 @@ stages:
   Ingestion:
     cmd: python src/components/data_ingestion.py
     deps:
+    - path: assets/kaggle.json
+      hash: md5
+      md5: 841c245a647b06d9691eed2cc8fd2ebf
+      size: 71
     - path: params.yaml
       hash: md5
       md5: 033a9ba47133f812feb6685e555816d5
       size: 1366
     - path: src/components/data_ingestion.py
       hash: md5
-      md5: 5abe0cbe79d93da55f548e77ca93d4a3
-      size: 1982
+      md5: 9d0c751dec8edcd222ab5c535d468a58
+      size: 3228
     - path: src/exception.py
       hash: md5
       md5: ca99f2b4e59fb20f43517da0dab81ebc

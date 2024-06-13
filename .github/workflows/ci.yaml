@@ -40,10 +40,11 @@ jobs:
 
     - name: Run Project Scripts
       run: |
+        dvc pull
         python template.py
         chmod 600 assets/kaggle.json 
         dvc repro
-        # dvc push
+        dvc push
     
     - name: Generate CML Report
       env:
