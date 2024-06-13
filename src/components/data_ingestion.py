@@ -10,7 +10,7 @@ from src.logger import logging
 
 # Load environment variables
 load_dotenv()
-DATASET_API = os.environ.get("DATASET_API")
+
 SEED = 42 #os.environ.get("SEED")
 
 class DataIngestor:
@@ -23,6 +23,13 @@ class DataIngestor:
         # Download the dataset
         os.makedirs(self.configs.raw_data_dir, exist_ok=True)  # Create the output directory if it doesn't exist
         try:
+            DATASET_API = os.environ.get("DATASET_API")
+            
+            if DATASET_API is None:
+                logging.error("DATASET_API environment variable is not set.")
+                sys.exit(1)
+
+            logging.info(f"DATASET_API: {DATASET_API}")
             os.system(f"kaggle datasets download -d {DATASET_API} -p {self.configs.raw_data_dir} -f {self.configs.data_file_name}")
 
         except:
