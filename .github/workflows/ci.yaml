@@ -33,7 +33,7 @@ jobs:
       run: |
         echo {\"username\": \"${{ secrets.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"} > kaggle.json
         chmod 600 kaggle.json
-        echo kaggle.json
+        cat kaggle.json
 
     - name: Set up DVC
       uses: iterative/setup-dvc@v1

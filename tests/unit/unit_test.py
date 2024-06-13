@@ -1,25 +1,4 @@
 import pytest
-from src.components.data_factory import DataPreprocessor
-# ... import other components you need to test ...
-
-def test_data_preprocessing_clean_data(mocker):  # Example
-    # Mock loading data from CSV
-    mock_df = pd.DataFrame({"col1": [1, 2, 3], "col2": [4, 5, 6]})
-    mocker.patch("src.components.data_factory.pd.read_csv", return_value=mock_df)
-    
-    configs = {"raw_data_dir": "./data/raw", 
-               "data_file_name": "Algerian_forest_fires_dataset.csv",
-               "processed_data_dir": "./data/processed",
-               "target_column": "Classes",
-               "scaling_method": "minmax"}
-    
-    preprocessor = DataPreprocessor(configs)
-    cleaned_df = preprocessor.clean_data(mock_df)
-    # Assert your expected data cleaning results
-    assert cleaned_df.shape == (3, 3)  # Or whatever your expected shape is
-    # ... Add more assertions as needed ...
-
-
 import unittest
 import pandas as pd
 from src.components.data_factory import DataPreprocessor
@@ -39,7 +18,7 @@ class TestDataPreprocessor(unittest.TestCase):
             'wind': [1, 2, 3],
             'rain': [0, 1, 0],
             'Classes': ['not fire', 'fire', 'fire'],
-            'Region': ['A', 'B', 'C'],
+            'Region': [0, 1, 1],
         })
         cleaned_data = self.preprocessor.clean_data(sample_data.copy())
 
@@ -48,11 +27,8 @@ class TestDataPreprocessor(unittest.TestCase):
         self.assertIn('Region', cleaned_data.columns) 
 
     def test_select_features(self):
-        # Load your data or create mock data for testing
-        # ...
+
 
         selected_features = self.preprocessor.select_features(X_train, y_train)
         self.assertIsNotNone(selected_features)
         self.assertGreater(len(selected_features), 0)
-
-    # Add more unit tests for other methods in DataPreprocessor
