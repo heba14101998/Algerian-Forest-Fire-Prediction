@@ -1,7 +1,6 @@
 import os
 
 list_of_files = [
-    ".github/workflows/ci.yaml",
     "Notebooks/EDA_and_Feature_Engineering.ipynb",
     "assets/",
     "data/raw/",
@@ -27,12 +26,18 @@ list_of_files = [
     "tests/unit/__init__.py",
     "tests/unit/unit_test.py",
     "tests/integration/__init__.py",
-    "tests/integration/init_test.py",
+    "tests/integration/integration_test.py",
     
+    ".github/workflows/ci.yaml",
+    ".github/workflows/publish.yaml",
+
     "requirements.txt",
     "params.yaml",
     "dvc.yaml",
     "setup.py",
+    "setup.cfg",
+    "tox.ini",
+    "pyproject.toml",
     ".gitignore",
     ".env",
     ".env.example",

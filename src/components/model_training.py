@@ -45,14 +45,10 @@ class ModelTrainer:
             self.model.fit(X_train, y_train)
             logging.info(f"Training model: {self.configs.model_name} with parameters: {self.model_params}")
             
-            path = os.path.join(self.configs.artifacts_path, 'classifier.pkl')
+            path = os.path.join(self.configs.checkpoints, f'{self.configs.model_name}.pkl')
             save_artifact(path, self.model)
-            # model_path = os.path.join(self.configs.artifacts_path, f'classifier.pkl')
             logging.info(f"Model saved as pickle file in Artifacts")
         
-            # logging.info(f"Calculating performance on training dataset")
-            # metrics, cm, classification_rep = self.evaluate(self.X_train, self.y_train)
-
         except Exception as e:
             raise CustomException(e, sys)
 
@@ -79,7 +75,6 @@ class ModelTrainer:
             cm = confusion_matrix(y_test, y_pred)
             fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
             precision, recall, thresholds = precision_recall_curve(y_test, y_pred_proba)
-            # pr_auc = auc(recall, precision)
 
             # Save curves data as json files
             roc_data = { "fpr": fpr.tolist(), "tpr": tpr.tolist(),

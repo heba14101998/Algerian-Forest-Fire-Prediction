@@ -3,12 +3,13 @@ configs:
     data_file_name: Algerian_forest_fires_dataset.csv
     processed_data_dir: ./data/processed
     artifacts_path: ./artifacts
+    checkpoints: ./checkpoints
     test_size: 0.2
-    target_column: "Classes"
-    scoring: "roc_auc"
+    target_column: Classes
+    scoring: roc_auc
     cv: 5
-    scaling_method: "minmax" # or "standard"
-    model_name: "LogisticRegression" # Change this to the model you want to use
+    scaling_method: minmax # or standard
+    model_name: LogisticRegression # Change this to the model you want to use
 
 model_params:
     # RandomForestClassifier

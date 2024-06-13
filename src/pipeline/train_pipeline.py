@@ -14,8 +14,8 @@ class TrainPipeline:
 
     def run_pipeline(self):
         try:
-            # logging.info(f"Data Ingestion")
-            # data_ingestion = DataIngestor(self.configs)
+            logging.info(f"Data Ingestion")
+            data_ingestion = DataIngestor(self.configs)
 
             logging.info(f"Data Preparation")
             data_process = DataPreprocessor(self.configs)
