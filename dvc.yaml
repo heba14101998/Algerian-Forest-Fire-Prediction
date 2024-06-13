@@ -1,0 +1,67 @@
+stages:
+  Ingestion:
+    cmd: python -m src.components.data_ingestion #src/components/data_ingestion.py
+    deps:
+      - src/components/data_ingestion.py
+      - src/logger.py
+      - src/exception.py
+      - params.yaml
+      - assets/kaggle.json
+    outs:
+      - data/raw/Algerian_forest_fires_dataset.csv
+
+  Prepare:
+    cmd: python -m src.components.data_factory.py
+    deps:
+      - src/components/data_factory.py
+      - src/utils.py
+      - src/logger.py
+      - src/exception.py
+      - params.yaml
+      - data/raw/Algerian_forest_fires_dataset.csv
+    outs:
+      - data/processed/cleaned_algerian_forest_fires_dataset.csv
+      - data/processed/X_train.npy
+      - data/processed/X_test.npy
+      - data/processed/y_train.npy
+      - data/processed/y_test.npy
+      - artifacts/preprocessor.pkl
+      - artifacts/selected_features.json
+
+  Training:
+    cmd: python -m src.components.model_training.py
+    deps:
+      - src/components/model_training.py
+      - src/utils.py
+      - src/logger.py
+      - src/exception.py
+      - params.yaml
+      - data/processed/X_train.npy
+      - data/processed/X_test.npy
+      - data/processed/y_train.npy
+      - data/processed/y_test.npy
+    outs:
+      - checkpoints/${configs.model_name}.pkl
+      - artifacts/classification_report.txt
+    metrics:
+      - artifacts/metrics.json
+
+    plots:
+      - artifacts/auc_plot.png
+      - artifacts/confusion_matrix.png
+      - artifacts/pr_curve.png
+
+      # - roc_vs_prc: # x dict
+      #     y:
+      #       artifacts/pr_data.json: precision
+      #       artifacts/roc_data.json: tpr
+      #     x:
+      #       artifacts/pr_data.json: recall
+      #       artifacts/roc_data.json: fpr
+
+      # - confusion: # different x and y paths
+      #     y:
+      #       artifacts/y_pred.csv: predicted
+      #     x:
+      #       artifacts/y_test.csv: actual
+      #     template: confusion
