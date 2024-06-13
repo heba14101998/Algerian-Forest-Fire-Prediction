@@ -4,9 +4,9 @@ import shutil
 import pandas as pd
 from dotenv import load_dotenv
 
-from src.utils import read_yaml
-from src.exception import CustomException
-from src.logger import logging
+from ..utils import read_yaml
+from ..exception import CustomException
+from ..logger import logging
 
 # Load environment variables
 load_dotenv()
