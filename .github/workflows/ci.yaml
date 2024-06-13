@@ -30,8 +30,9 @@ jobs:
         pip install -r requirements.txt
         # Get the current working directory (PWD)
         current_dir=$(pwd)
-        # Set PYTHONPATH
-        export PYTHONPATH=\$PYTHONPATH:/src:$current_dir
+        echo current_dir
+        echo "PYTHONPATH=\$PYTHONPATH:$current_dir/src" >> $GITHUB_ENV
+        
 
     - name: Set up DVC
       uses: iterative/setup-dvc@v1 # Use this to set up DVC
