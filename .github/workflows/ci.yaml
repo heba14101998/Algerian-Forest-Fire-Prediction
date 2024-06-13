@@ -27,12 +27,12 @@ jobs:
         python-version: ${{ matrix.python-version }}
 
     - name: Save .env file
-      run: echo ${{ secrets.ENV_FILE }} | base64 --decode > .env
+      run: echo ${{ secrets.env }} | base64 --decode > .env
 
     - name: Save kaggle.json file
       run: |
-        echo {\"username\": \"${{ secrets.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"} > kaggle.json
-        chmod 600 kaggle.json
+        echo "{\"username\": \"${{ secrets.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > assets/kaggle.json
+        chmod 600 assets/kaggle.json
         cat kaggle.json
 
     - name: Set up DVC
