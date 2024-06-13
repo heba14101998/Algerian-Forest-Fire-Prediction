@@ -3,7 +3,6 @@ import sys
 import shutil
 import pandas as pd
 from dotenv import load_dotenv
-from kaggle.api.kaggle_api_extended import KaggleApi
 
 from src.exception import CustomException
 from src.logger import logging
