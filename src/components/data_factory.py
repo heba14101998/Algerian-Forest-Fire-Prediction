@@ -15,7 +15,7 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.feature_selection import RFECV
 
 load_dotenv()
-SEED = int(os.environ.get("SEED"))
+SEED = 42 #int(os.environ.get("SEED"))
 
 class DataPreprocessor:
 
