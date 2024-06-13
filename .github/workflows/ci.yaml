@@ -40,8 +40,8 @@ jobs:
 
     - name: Create Conda env
       run: |
-        conda init
         conda create -n forest-fire-env
+        conda init
         conda activate forest-fire-env
 
     - name: Install dependencies
