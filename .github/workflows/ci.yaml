@@ -59,7 +59,8 @@ jobs:
 
     - name: Run Project Scripts
       run: |
-        # python template.py
+        python template.py
+        chmod -R 755 data/raw
         export PYTHONPATH=$PWD/src
         echo $PYTHONPATH
         dvc repro
