@@ -11,7 +11,7 @@
 # import kaggle
 # from dotenv import load_dotenv
 
-# from src.utils import read_yaml
+from src.utils import read_yaml
 # from src.exception import CustomException
 # from src.logger import logging
 
@@ -58,9 +58,9 @@
 #         except CustomException as e:
 #             logging.error(f"An unexpected error occurred during download: {e}")
 
-# if __name__ == '__main__':
-#     configs, _ = read_yaml('params.yaml')
+if __name__ == '__main__':
+    configs, _ = read_yaml('params.yaml')
 #     run = DataIngestor(configs)
 #     run.download_dataset()
     
-print("HEllO")
+    print("HEllO")
