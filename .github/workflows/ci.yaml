@@ -61,6 +61,7 @@ jobs:
       run: |
         python template.py
         chmod -R 755 data/raw
+        chmod -R 755 src
         export PYTHONPATH=$PWD/src
         echo $PYTHONPATH
         dvc repro
