@@ -60,13 +60,12 @@ jobs:
     - name: Run Project Scripts
       run: |
         python template.py
-        # export PYTHONPATH=$PYTHONPATH:./src:$PWD
         export PYTHONPATH=$PWD/src
         echo $PYTHONPATH
         python -m src.components.data_ingestion
 
         # dvc repro
-        dvc push
+        # dvc push
 
     - name: Generate CML Report
       env:
