@@ -5,6 +5,9 @@ on:
     branches:
       # - develop
       # - main
+defaults:
+      run:
+        working-directory: src
 
 permissions:
   contents: read
@@ -59,7 +62,7 @@ jobs:
 
     - name: Run Project Scripts
       run: |
-        python template.py
+        # python template.py
         export PYTHONPATH=$PWD/src
         echo $PYTHONPATH
         python -m src.components.data_ingestion

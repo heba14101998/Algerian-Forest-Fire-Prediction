@@ -15,13 +15,6 @@ from src.utils import read_yaml
 from src.exception import CustomException
 from src.logger import logging
 
-# Load environment variables
-# Remove 'src.components.data_ingestion' from sys.modules if it exists:
-if 'src.components.data_ingestion' in sys.modules:
-    del sys.modules['src.components.data_ingestion']
-
-# from src.components import data_ingestion  # Import the package first
-
 load_dotenv()
 
 class DataIngestor:
