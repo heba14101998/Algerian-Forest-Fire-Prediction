@@ -61,8 +61,8 @@ jobs:
         # python template.py
         export PYTHONPATH=$PWD/src
         echo $PYTHONPATH
-        python path.py
-        # python -m components.data_ingestion
+        # python path.py
+        python -m src/components/data_ingestion
 
         # dvc repro
         # dvc push
@@ -73,7 +73,7 @@ jobs:
       run: |
         echo "## Reproduce Results" >> report.md
         echo "Use this parameters combination" >> report.md
-        dvc metrics diff main >> report.md
+        dvc metrics diff master >> report.md
         cat artifacts/classification_report.txt >> report.md
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md
