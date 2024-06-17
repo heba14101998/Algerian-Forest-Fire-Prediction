@@ -16,14 +16,14 @@ with open('requirements.txt') as file:
     requirements = [line.strip() for line in file if not line.startswith('#') and line.strip()]
 
 setup(
-    name=os.environ.get("PAKAGE_NAME"),  
-    version=os.environ.get("APP_VERSION"), 
+    name=os.environ.get("PAKAGE_NAME"),
+    version=os.environ.get("APP_VERSION"),
     description="Algerian Forest Fire Prediction Model",
     # long_description=long_description, # Use read README.md
     # long_description_content="text/markdown",
     author=os.environ.get("PYPI_USERNAME"),
     author_email=os.environ.get("EMAIL"),
-    url=os.environ.get("REMOTE_REPO"),  
+    url=os.environ.get("REMOTE_REPO"),
     package_dir={"": "src"},
     packages=find_packages(where=["src"]),
     install_requires=requirements,  # Use read requirements
