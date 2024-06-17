@@ -45,15 +45,19 @@ class DataIngestor:
             if dataset_api is None:
                 logging.error("DATASET_API environment variable is not set.")
                 sys.exit(1)
+                print("if")
             else:
                 logging.info(f"Using dataset API: {dataset_api}")
+                print("else")
 
             kaggle.api.authenticate()
+            print("auth")
             kaggle.api.dataset_download_files(
                 dataset_api,  # This is the full dataset URL
                 self.configs.raw_data_dir,
                 unzip=True,
             )
+            print("download")
 
         except CustomException as e:
             logging.error(f"An unexpected error occurred during download: {e}")
@@ -62,5 +66,3 @@ if __name__ == '__main__':
     configs, _ = read_yaml('params.yaml')
     run = DataIngestor(configs)
     run.download_dataset()
-    
-    print("HEllO")
