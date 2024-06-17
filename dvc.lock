@@ -3,22 +3,22 @@ stages:
   Ingestion:
     cmd: python -m src.components.data_ingestion
     deps:
-    - path: assets/kaggle.json
+    - path: kaggle.json
       hash: md5
-      md5: 841c245a647b06d9691eed2cc8fd2ebf
-      size: 71
+      md5: b9613b23978816b12d754fd229b711a6
+      size: 84
     - path: params.yaml
       hash: md5
       md5: a54004687c0806908c25f999752b6580
       size: 1370
     - path: src/components/data_ingestion.py
       hash: md5
-      md5: d7750b208aa0875c9b6e106d447b51e7
-      size: 1935
+      md5: 5d86dfd7e96f745363ee295f02cb17eb
+      size: 2329
     - path: src/exception.py
       hash: md5
-      md5: ca99f2b4e59fb20f43517da0dab81ebc
-      size: 1391
+      md5: e01a236fee3a43143eedd36c4c48a394
+      size: 2001
     - path: src/logger.py
       hash: md5
       md5: 15b6a0280af2693891c8b6ee9eb269c4
@@ -42,12 +42,12 @@ stages:
       size: 1370
     - path: src/components/data_factory.py
       hash: md5
-      md5: 47e4c382bee029c161e5ad56b7a785c7
-      size: 4363
+      md5: 44e8ea665d5e03c8de96b65c61c60ece
+      size: 6882
     - path: src/exception.py
       hash: md5
-      md5: ca99f2b4e59fb20f43517da0dab81ebc
-      size: 1391
+      md5: e01a236fee3a43143eedd36c4c48a394
+      size: 2001
     - path: src/logger.py
       hash: md5
       md5: 15b6a0280af2693891c8b6ee9eb269c4
@@ -121,8 +121,8 @@ stages:
       size: 5687
     - path: src/exception.py
       hash: md5
-      md5: ca99f2b4e59fb20f43517da0dab81ebc
-      size: 1391
+      md5: e01a236fee3a43143eedd36c4c48a394
+      size: 2001
     - path: src/logger.py
       hash: md5
       md5: 15b6a0280af2693891c8b6ee9eb269c4
@@ -139,11 +139,11 @@ stages:
       isexec: true
     - path: artifacts/metrics.json
       hash: md5
-      md5: e1d654fa2e2fff4d8a10f2be12f7ecbe
-      size: 153
+      md5: 054a9851194b490718a51b5dcd745f22
+      size: 139
       isexec: true
     - path: checkpoints/RandomForestClassifier.pkl
       hash: md5
-      md5: 07c0f254bc01195a86e3f3eaa7ee61de
-      size: 14929
+      md5: fbdd7d25401c708ad4673968a7de512c
+      size: 11560
       isexec: true
