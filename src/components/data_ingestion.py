@@ -67,6 +67,7 @@ class DataIngestor:
 
 if __name__ == '__main__':
     configs, _ = read_yaml('params.yaml')
-    # run = DataIngestor(configs)
-    # run.download_dataset()
+    run = DataIngestor(configs)
+    print("main down")
+    run.download_dataset()
     print("hello")
