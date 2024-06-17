@@ -32,9 +32,9 @@ jobs:
     - name: Save kaggle.json file
       run: |
         base64 .env
-        echo "{\"username\": \"${{ vars.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > kaggle.json
+        echo "{\"username\": \"${{ vars.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > .kaggle\kaggle.json
         tree
-        chmod 600 kaggle.json
+        chmod 600 .kaggle\kaggle.json
         
     - name: Set up DVC
       uses: iterative/setup-dvc@v1
