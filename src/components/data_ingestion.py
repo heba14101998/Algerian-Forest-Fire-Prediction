@@ -16,6 +16,12 @@ from src.exception import CustomException
 from src.logger import logging
 
 # Load environment variables
+# Remove 'src.components.data_ingestion' from sys.modules if it exists:
+if 'src.components.data_ingestion' in sys.modules:
+    del sys.modules['src.components.data_ingestion']
+
+# from src.components import data_ingestion  # Import the package first
+
 load_dotenv()
 
 class DataIngestor:
@@ -46,13 +52,14 @@ class DataIngestor:
             if dataset_api is None:
                 logging.error("DATASET_API environment variable is not set.")
                 sys.exit(1)
+            else:
+                logging.info(f"Using dataset API: {dataset_api}")
 
             kaggle.api.authenticate()
             kaggle.api.dataset_download_files(
                 dataset_api,  # This is the full dataset URL
                 self.configs.raw_data_dir,
                 unzip=True,
-                # owner_slug=dataset_api.split('/')[0] # Get the owner slug from the dataset_api
             )
 
         except CustomException as e:

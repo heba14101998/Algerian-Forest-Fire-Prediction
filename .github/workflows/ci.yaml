@@ -36,8 +36,6 @@ jobs:
         chmod 600 kaggle.json
         mkdir ~/.kaggle
         cp kaggle.json ~/.kaggle/kaggle.json
-        # export KAGGLE_USERNAME=your_kaggle_username
-        # export KAGGLE_KEY=your_kaggle_api_key
         
     - name: Set up DVC
       uses: iterative/setup-dvc@v1
