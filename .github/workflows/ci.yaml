@@ -54,7 +54,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install --upgrade setuptools
         pip install -r requirements.txt
-        pip install wheel
         python setup.py sdist bdist_wheel
         pip install .
 
@@ -63,9 +62,7 @@ jobs:
         # python template.py
         export PYTHONPATH=$PWD/src
         echo $PYTHONPATH
-        python -m src.components.data_ingestion
-
-        # dvc repro
+        dvc repro
         # dvc push
 
     - name: Generate CML Report

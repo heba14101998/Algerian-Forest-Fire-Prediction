@@ -29,6 +29,7 @@ PyYAML==6.0.1
 kaggle==1.6.14
 python-dotenv
 setuptools
+wheel==0.43.0
 # tox==4.11.4
 
 # Data Handling and Manipulation
