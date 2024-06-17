@@ -43,7 +43,8 @@ class DataIngestor:
         os.makedirs(self.configs.raw_data_dir, exist_ok=True)
         print("makdir")
         try:
-            dataset_api = os.environ.get("DATASET_API")
+            dataset_api = "nitinchoudhary012/algerian-forest-fires-dataset"
+            #os.environ.get("DATASET_API")
             print(dataset_api)
             if dataset_api is None:
                 logging.error("DATASET_API environment variable is not set.")
