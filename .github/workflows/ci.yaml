@@ -33,8 +33,9 @@ jobs:
       run: |
         base64 .env
         echo "{\"username\": \"${{ vars.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > .kaggle\kaggle.json
-        tree
         chmod 600 .kaggle\kaggle.json
+        # export KAGGLE_USERNAME=your_kaggle_username
+        # export KAGGLE_KEY=your_kaggle_api_key
         
     - name: Set up DVC
       uses: iterative/setup-dvc@v1

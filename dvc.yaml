@@ -6,7 +6,7 @@ stages:
       - src/logger.py
       - src/exception.py
       - params.yaml
-      - kaggle.json
+      # - kaggle.json
     outs:
       - data/raw/Algerian_forest_fires_dataset.csv
 
