@@ -5,10 +5,6 @@ on:
     branches:
       # - develop
       # - main
-defaults:
-      run:
-        working-directory: Algerian Forest Fire Prediction
-
 permissions:
   contents: read
   id-token: write
