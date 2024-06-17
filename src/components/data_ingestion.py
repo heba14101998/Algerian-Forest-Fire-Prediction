@@ -48,7 +48,12 @@ class DataIngestor:
                 sys.exit(1)
 
             kaggle.api.authenticate()
-            kaggle.api.dataset_download_files(dataset_api, self.configs.raw_data_dir, unzip=True)
+            kaggle.api.dataset_download_files(
+                dataset_api,  # This is the full dataset URL
+                self.configs.raw_data_dir,
+                unzip=True,
+                # owner_slug=dataset_api.split('/')[0] # Get the owner slug from the dataset_api
+            )
 
         except CustomException as e:
             logging.error(f"An unexpected error occurred during download: {e}")
