@@ -61,7 +61,8 @@ jobs:
         # python template.py
         export PYTHONPATH=$PWD/src
         echo $PYTHONPATH
-        python -m src.components.data_ingestion
+        python path.py
+        # python -m components.data_ingestion
 
         # dvc repro
         # dvc push
