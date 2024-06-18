@@ -43,6 +43,10 @@ stages:
     outs:
       - checkpoints/${configs.model_name}.pkl
       - artifacts/classification_report.txt
+      - artifacts/pr_curve.png
+      - artifacts/auc_plot.png
+      - artifacts/confusion_matrix.png
+
     metrics:
       - artifacts/metrics.json
 

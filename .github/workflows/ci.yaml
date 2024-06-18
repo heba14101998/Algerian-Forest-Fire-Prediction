@@ -81,20 +81,9 @@ jobs:
       run: |
         echo "## Reproduce Results" >> report.md
         echo "Use this parameters combination" >> report.md
+        # dvc metrics diff main >> report.md
         cat artifacts/classification_report.txt >> report.md
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md
         echo "![](./artifacts/pr_curve.png)" >> report.md
         cml comment create report.md
-    # - name: Generate CML Report
-    #   env:
-    #     REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   run: |
-    #     echo "## Reproduce Results" >> report.md
-    #     echo "Use this parameters combination" >> report.md
-    #     # dvc metrics diff master >> report.md
-    #     cat artifacts/classification_report.txt >> report.md
-    #     echo "![](./artifacts/confusion_matrix.png)" >> report.md
-    #     echo "![](./artifacts/auc_plot.png)" >> report.md
-    #     echo "![](./artifacts/pr_curve.png)" >> report.md
-    #     cml comment create report.md
