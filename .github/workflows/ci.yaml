@@ -65,32 +65,23 @@ jobs:
         dvc repro
         # dvc push
 
-  generate-report:
-      needs: experiment
-      runs-on: ubuntu-latest
+    - name: Install CML
+      run: |
+        npm install -g @dvcorg/cml
 
-      steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install CML
-        run: |
-          npm install -g @dvcorg/cml
-
-      - name: Generate CML Report
-        env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "## Reproduce Results" >> report.md
-          echo "Use this parameters combination" >> report.md
-          cat artifacts/classification_report.txt >> report.md
-          echo "![](./artifacts/confusion_matrix.png)" >> report.md
-          echo "![](./artifacts/auc_plot.png)" >> report.md
-          echo "![](./artifacts/pr_curve.png)" >> report.md
-          cml comment create report.md
+    - name: Generate CML Report
+      env:
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "## Reproduce Results" >> report.md
+        echo "Use this parameters combination" >> report.md
+        cat artifacts/classification_report.txt >> report.md
+        echo "![](./artifacts/confusion_matrix.png)" >> report.md
+        echo "![](./artifacts/auc_plot.png)" >> report.md
+        echo "![](./artifacts/pr_curve.png)" >> report.md
+        cml comment create report.md
     # - name: Generate CML Report
     #   env:
-    #     # REPO_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
     #     REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     #   run: |
     #     echo "## Reproduce Results" >> report.md
