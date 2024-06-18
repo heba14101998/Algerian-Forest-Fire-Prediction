@@ -67,12 +67,13 @@ class DataPreprocessor:
         self.data = self.data.dropna()
         self.data[self.configs.target_column] = self.data[self.configs.target_column].str.strip()
         self.data[self.configs.target_column] = self.data[self.configs.target_column].map({'not fire': 0, 'fire': 1})
+        
         # Save the DataFrame as a CSV
         path = os.path.join(self.configs.processed_data_dir, f"cleaned_{self.configs.data_file_name}")
         save_artifact(path, self.data)
 
         return self.data
-
+        
     def select_features(self, X: pd.DataFrame, y: pd.Series):
         """
         Selects features using Recursive Feature Elimination (RFE).

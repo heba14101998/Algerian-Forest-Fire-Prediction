@@ -40,18 +40,18 @@ class DataIngestor:
         # Create the output directory if it doesn't exist
         os.makedirs(self.configs.raw_data_dir, exist_ok=True)
         try:
-            dataset_api = "nitinchoudhary012/algerian-forest-fires-dataset"
+            # dataset_api = "nitinchoudhary012/algerian-forest-fires-dataset"
             # dataset_api = os.environ.get("DATASET_API")
             # print(dataset_api)
-            if dataset_api is None:
+            if self.configs.dataset_api is None:
                 logging.error("DATASET_API environment variable is not set.")
                 sys.exit(1)
             else:
-                logging.info(f"Using dataset API: {dataset_api}")
+                logging.info(f"Using dataset API: {self.configs.dataset_api}")
 
             kaggle.api.authenticate()
             kaggle.api.dataset_download_files(
-                dataset_api,  # This is the full dataset URL
+                self.configs.dataset_api,  # This is the full dataset URL
                 self.configs.raw_data_dir,
                 unzip=True,
             )
