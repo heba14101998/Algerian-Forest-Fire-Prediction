@@ -33,7 +33,7 @@ jobs:
         # base64 .env
         echo "{\"username\": \"${{ vars.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > kaggle.json
         chmod 600 kaggle.json
-        mkdir ~/.kaggle
+        mkdir -p ~/.kaggle
         cp kaggle.json ~/.kaggle/kaggle.json
         
     - name: Set up DVC
@@ -43,6 +43,7 @@ jobs:
       run: |
         dvc remote add -d gdrive dvc://?token=${{ secrets.DRIVE_URL }}
         dvc remote default gdrive
+        dvc cache dir /home/runner/work/Algerian-Forest-Fire-Prediction/.dvc/cache
 
     - name: Create Conda environment
       uses: conda-incubator/setup-miniconda@v2
@@ -51,6 +52,8 @@ jobs:
 
     - name: Install dependencies
       run: |
+        conda create --name forest-fire-env python=${{ matrix.python-version }} -y
+        conda activate forest-fire-env
         python -m pip install --upgrade pip
         pip install --upgrade setuptools
         pip install -r requirements.txt
