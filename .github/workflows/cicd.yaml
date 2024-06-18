@@ -2,8 +2,8 @@
 name: CI/CD for Python Package and Pipeline
 
 on:
-  push:
-    branches:
+  release:
+    # branches:
 
 jobs:
   build_package:
@@ -21,17 +21,30 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+          pip install flak8 pytest
           pip install -r requirements.txt
+          pip install build
+
+      - name: Lint with flake8
+        run: |
+            # stop the build if there are Python syntax errors or undefined names
+            flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+            # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+            flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - name: Test with pytest
+        run: |
+          pytest -v 
 
       - name: Build Python package
         run: |
-          python setup.py sdist bdist_wheel
-
-      - name: Upload package to PyPI (optional)
-        uses: pypa/gh-action-pypi-publish@v1  # Use this if you want to publish to PyPI
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}  # Replace with your PyPI token
-          repository: forest-fire # Replace with the package name
+          # python setup.py sdist bdist_wheel
+          pip install build
+          
+      # - name: Publish package to PyPI
+      #   uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
+      #   with:
+      #     user: __token__
+      #     password: ${{ secrets.PYPI_API_TOKEN }}
 
   run_pipeline:
     needs: build_package  # This job depends on 'build_package'
@@ -52,25 +65,30 @@ jobs:
           pip install -r requirements.txt
           pip install -e .  # Install the package in editable mode
 
-      - name: Configure DVC Remote (optional)
+      - name: Set up DVC
+        uses: iterative/setup-dvc@v1
+  
+      - name: Configure DVC Remote
         run: |
-          # Replace with your GDrive URL
-          dvc remote add -d gdrive dvc://?token=<your-drive-url>
+          dvc remote add -d gdrive dvc://?token=${{ secrets.DRIVE_URL }}
           dvc remote default gdrive
+      
+      - name: Run project pipeline
+        run: |
+          python template.py
+          export PYTHONPATH=$PWD/src
+          dvc repro
 
-      - name: Run DVC pipeline
-        run: dvc repro
+      # - name: Upload artifacts to GDrive 
+      #   run: dvc push  # Use this if you want to push artifacts to GDrive
 
-      - name: Upload artifacts to GDrive (optional)
-        run: dvc push  # Use this if you want to push artifacts to GDrive
-
-      - name: Generate CML Report (optional)
+      - name: Generate CML Report 
         env:
           REPO_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
         run: |
           echo "## Reproduce Results" >> report.md
           echo "Use this parameters combination" >> report.md
-          dvc metrics diff main >> report.md
+          # dvc metrics diff main >> report.md
           cat artifacts/classification_report.txt >> report.md
           echo "![](./artifacts/confusion_matrix.png)" >> report.md
           echo "![](./artifacts/auc_plot.png)" >> report.md

@@ -96,7 +96,7 @@ class DataPreprocessor:
 
         logging.info(f"The selected features in feature selection process are: {list(selected_features)}")
         path = os.path.join(self.configs.artifacts_path, "selected_features.json")
-        save_artifact(path, {'selected_features': list(selected_features)})
+        save_artifact(file_path=path, artifact={'selected_features': list(selected_features)})
 
         return selected_features
 
