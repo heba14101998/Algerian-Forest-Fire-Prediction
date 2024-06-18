@@ -43,7 +43,8 @@ jobs:
       run: |
         dvc remote add -d gdrive dvc://?token=${{ secrets.DRIVE_URL }}
         dvc remote default gdrive
-        dvc cache dir /home/runner/work/Algerian-Forest-Fire-Prediction/.dvc/cache
+        dvc cache dir $PWD/.dvc/cache
+        sudo chmod -R a+rwx $PWD/.dvc/cache
 
     - name: Create Conda environment
       uses: conda-incubator/setup-miniconda@v2
@@ -55,6 +56,7 @@ jobs:
         # conda create --name forest-fire-env python=${{ matrix.python-version }} -y
         # conda init
         # conda activate forest-fire-env
+        
         python -m pip install --upgrade pip
         pip install --upgrade setuptools
         pip install -r requirements.txt
