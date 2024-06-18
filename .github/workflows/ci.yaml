@@ -11,7 +11,7 @@ permissions: write-all
 
 jobs:
   experiment:
-    runs-on: ubuntu-latest
+    runs-on: uubuntu-22.04 #buntu-latest
     strategy:
       matrix:
         python-version: ["3.9"]
@@ -25,8 +25,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Save .env file
-      run: echo ${{ secrets.env }} | base64 --decode > .env
+    # - name: Save .env file
+    #   run: echo ${{ secrets.env }} | base64 --decode > .env
 
     - name: Create kaggle.json file
       run: |
