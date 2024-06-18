@@ -11,7 +11,7 @@ permissions: write-all
 
 jobs:
   experiment:
-    runs-on: uubuntu-22.04 #buntu-latest
+    runs-on: ubuntu-22.04 #ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.9"]
