@@ -59,9 +59,7 @@ jobs:
     - name: Run Project Scripts
       run: |
         python template.py
-        dvc init
-        dvc add .
-        dvc pull data --run-cache
+        # dvc pull data --run-cache
         dvc repro
         # dvc cache dir $PWD/.dvc/cache
         # sudo chmod -R a+rwx $PWD/.dvc/cache
