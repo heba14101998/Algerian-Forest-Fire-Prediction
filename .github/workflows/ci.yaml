@@ -6,11 +6,9 @@ on:
       # - develop
       # - main
 permissions: write-all
-  # contents: read
-  # id-token: write
 
 jobs:
-  experiment:
+  setup:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -35,7 +33,7 @@ jobs:
         chmod 600 kaggle.json
         mkdir ~/.kaggle
         cp kaggle.json ~/.kaggle/kaggle.json
-        
+
     - name: Set up DVC
       uses: iterative/setup-dvc@v1
 
@@ -54,25 +52,40 @@ jobs:
         python -m pip install --upgrade pip
         pip install --upgrade setuptools
         pip install -r requirements.txt
-        # python setup.py sdist bdist_wheel
-        pip install -e . 
+        pip install -e .
+
+  run-scripts:
+    needs: setup
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
     - name: Run Project Scripts
       run: |
         python template.py
         export PYTHONPATH=$PWD/src
-        # echo $PYTHONPATH
         dvc repro
-        # dvc push
+
+  generate-report:
+    needs: run-scripts
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install CML
+      run: |
+        npm install -g @dvcorg/cml
 
     - name: Generate CML Report
       env:
-        # REPO_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "## Reproduce Results" >> report.md
         echo "Use this parameters combination" >> report.md
-        # dvc metrics diff master >> report.md
         cat artifacts/classification_report.txt >> report.md
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md
