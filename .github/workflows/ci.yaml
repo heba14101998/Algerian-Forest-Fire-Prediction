@@ -52,9 +52,9 @@ jobs:
 
     - name: Install dependencies
       run: |
-        conda create --name forest-fire-env python=${{ matrix.python-version }} -y
-        conda init
-        conda activate forest-fire-env
+        # conda create --name forest-fire-env python=${{ matrix.python-version }} -y
+        # conda init
+        # conda activate forest-fire-env
         python -m pip install --upgrade pip
         pip install --upgrade setuptools
         pip install -r requirements.txt
