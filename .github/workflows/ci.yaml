@@ -28,7 +28,7 @@ jobs:
     - name: Save .env file
       run: echo ${{ secrets.env }} | base64 --decode > .env
 
-    - name: Save kaggle.json file
+    - name: Create kaggle.json file
       run: |
         base64 .env
         echo "{\"username\": \"${{ vars.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > kaggle.json
@@ -54,15 +54,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install --upgrade setuptools
         pip install -r requirements.txt
-        python setup.py sdist bdist_wheel
-        pip install .
+        # python setup.py sdist bdist_wheel
+        pip install -e . 
 
     - name: Run Project Scripts
       run: |
         python template.py
         export PYTHONPATH=$PWD/src
         # echo $PYTHONPATH
-        # python -m src.components.data_ingestion
         dvc repro
         # dvc push
 
