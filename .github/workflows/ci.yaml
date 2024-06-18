@@ -30,7 +30,7 @@ jobs:
 
     - name: Create kaggle.json file
       run: |
-        base64 .env
+        # base64 .env
         echo "{\"username\": \"${{ vars.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > kaggle.json
         chmod 600 kaggle.json
         mkdir ~/.kaggle
