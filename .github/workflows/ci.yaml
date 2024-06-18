@@ -69,12 +69,12 @@ jobs:
       env:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        npm install -g @dvcorg/cml
+        # npm install -g @dvcorg/cml
         echo "## Reproduce Results" >> report.md
         echo "Use this parameters combination" >> report.md
-        # dvc metrics diff main >> report.md
+        dvc metrics diff main >> report.md
         cat artifacts/classification_report.txt >> report.md
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md
         echo "![](./artifacts/pr_curve.png)" >> report.md
-        cml comment create report.md --project https://studio.iterative.ai/user/heba14101998/projects/Algerian-Forest-Fire-Prediction-3ys0l7o09o
+        # cml comment create report.md --project https://studio.iterative.ai/user/heba14101998/projects/Algerian-Forest-Fire-Prediction-3ys0l7o09o
