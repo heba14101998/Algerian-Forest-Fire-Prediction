@@ -25,12 +25,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    # - name: Save .env file
-    #   run: echo ${{ secrets.env }} | base64 --decode > .env
-
     - name: Create kaggle.json file
       run: |
-        # base64 .env
         echo "{\"username\": \"${{ vars.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > kaggle.json
         chmod 600 kaggle.json
         mkdir -p ~/.kaggle
@@ -43,7 +39,6 @@ jobs:
       run: |
         dvc remote add -d gdrive dvc://?token=${{ secrets.DRIVE_URL }}
         dvc remote default gdrive
-
 
     - name: Create Conda environment
       uses: conda-incubator/setup-miniconda@v2
@@ -71,10 +66,12 @@ jobs:
         # sudo chmod -R a+rwx $PWD/.dvc/cache
         # dvc push
 
+    - name: Setup CML
+      uses: iterative/setup-cml@v1
+    
     - name: Install CML
-      run: |
-        npm install -g @dvcorg/cml
-
+      run: npm install -g @dvcorg/cml
+    
     - name: Generate CML Report
       env:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -86,4 +83,4 @@ jobs:
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md
         echo "![](./artifacts/pr_curve.png)" >> report.md
-        cml comment create report.md
+        cml comment create report.md --project <YOUR_CML_PROJECT_URL> 
