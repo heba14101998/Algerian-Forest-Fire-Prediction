@@ -67,9 +67,9 @@ jobs:
         python template.py
         export PYTHONPATH=$PWD/src
         dvc repro
-        dvc cache dir $PWD/.dvc/cache
-        sudo chmod -R a+rwx $PWD/.dvc/cache
-        dvc push
+        # dvc cache dir $PWD/.dvc/cache
+        # sudo chmod -R a+rwx $PWD/.dvc/cache
+        # dvc push
 
     - name: Install CML
       run: |
