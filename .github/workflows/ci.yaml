@@ -61,9 +61,8 @@ jobs:
       run: |
         python template.py
         export PYTHONPATH=$PWD/src
-        # echo $PYTHONPATH
         dvc repro
-        # dvc push
+        dvc push
 
     - name: Install CML
       run: |
