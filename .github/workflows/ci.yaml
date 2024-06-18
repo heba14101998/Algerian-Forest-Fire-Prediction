@@ -72,7 +72,7 @@ jobs:
         # npm install -g @dvcorg/cml
         echo "## Reproduce Results" >> report.md
         echo "Use this parameters combination" >> report.md
-        dvc metrics diff main >> report.md
+        # dvc metrics diff main >> report.md
         cat artifacts/classification_report.txt >> report.md
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md
