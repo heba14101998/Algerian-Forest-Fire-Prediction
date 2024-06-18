@@ -77,4 +77,5 @@ jobs:
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md
         echo "![](./artifacts/pr_curve.png)" >> report.md
-        cml comment create report.md --project <YOUR_CML_PROJECT_URL> 
+        cml comment create report.md 
+        # --project <YOUR_CML_PROJECT_URL> 
