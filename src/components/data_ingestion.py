@@ -28,8 +28,6 @@ class DataIngestor:
     def __init__(self, args):
 
         self.configs = args
-        # self.download_dataset()
-        print("constractor")
 
     def download_dataset(self):
         """
@@ -41,27 +39,22 @@ class DataIngestor:
         """
         # Create the output directory if it doesn't exist
         os.makedirs(self.configs.raw_data_dir, exist_ok=True)
-        print("makdir")
         try:
-            dataset_api = "nitinchoudhary012/algerian-forest-fires-dataset"
-            #os.environ.get("DATASET_API")
+            # dataset_api = "nitinchoudhary012/algerian-forest-fires-dataset"
+            os.environ.get("DATASET_API")
             print(dataset_api)
             if dataset_api is None:
                 logging.error("DATASET_API environment variable is not set.")
                 sys.exit(1)
-                print("if")
             else:
                 logging.info(f"Using dataset API: {dataset_api}")
-                print("else")
 
             kaggle.api.authenticate()
-            print("auth")
             kaggle.api.dataset_download_files(
                 dataset_api,  # This is the full dataset URL
                 self.configs.raw_data_dir,
                 unzip=True,
             )
-            print("download")
 
         except CustomException as e:
             logging.error(f"An unexpected error occurred during download: {e}")
@@ -69,6 +62,4 @@ class DataIngestor:
 if __name__ == '__main__':
     configs, _ = read_yaml('params.yaml')
     run = DataIngestor(configs)
-    print("main down")
     run.download_dataset()
-    print("hello")
