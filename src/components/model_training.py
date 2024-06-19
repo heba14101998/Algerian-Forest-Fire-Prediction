@@ -50,7 +50,8 @@ class ModelTrainer:
             logging.info(f"Model saved as pickle file in Artifacts")
         
         except Exception as e:
-            raise CustomException(e, sys)
+            raise CustomException(f"Error during training the model: {e}")
+
 
     def evaluate(self, X_test, y_test):
         """Evaluates the trained model on the test set."""
@@ -101,7 +102,8 @@ class ModelTrainer:
             logging.info(f"y_test and y_pred saved as CSV in Artifacts")
 
         except Exception as e:
-            raise CustomException(e, sys)
+            raise CustomException(f"Error during evaluating the model: {e}")
+
         
         return metrics, cm, classification_rep
 

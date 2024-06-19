@@ -1,5 +1,6 @@
 configs:
     raw_data_dir: ./data/raw
+    dataset_api: "nitinchoudhary012/algerian-forest-fires-dataset"
     data_file_name: Algerian_forest_fires_dataset.csv
     processed_data_dir: ./data/processed
     artifacts_path: ./artifacts

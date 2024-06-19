@@ -15,13 +15,6 @@ from src.utils import read_yaml
 from src.exception import CustomException
 from src.logger import logging
 
-# Load environment variables
-# Remove 'src.components.data_ingestion' from sys.modules if it exists:
-if 'src.components.data_ingestion' in sys.modules:
-    del sys.modules['src.components.data_ingestion']
-
-# from src.components import data_ingestion  # Import the package first
-
 load_dotenv()
 
 class DataIngestor:
@@ -35,7 +28,6 @@ class DataIngestor:
     def __init__(self, args):
 
         self.configs = args
-        self.download_dataset()
 
     def download_dataset(self):
         """
@@ -48,16 +40,18 @@ class DataIngestor:
         # Create the output directory if it doesn't exist
         os.makedirs(self.configs.raw_data_dir, exist_ok=True)
         try:
-            dataset_api = os.environ.get("DATASET_API")
-            if dataset_api is None:
+            # dataset_api = "nitinchoudhary012/algerian-forest-fires-dataset"
+            # dataset_api = os.environ.get("DATASET_API")
+            # print(dataset_api)
+            if self.configs.dataset_api is None:
                 logging.error("DATASET_API environment variable is not set.")
                 sys.exit(1)
             else:
-                logging.info(f"Using dataset API: {dataset_api}")
+                logging.info(f"Using dataset API: {self.configs.dataset_api}")
 
             kaggle.api.authenticate()
             kaggle.api.dataset_download_files(
-                dataset_api,  # This is the full dataset URL
+                self.configs.dataset_api,  # This is the full dataset URL
                 self.configs.raw_data_dir,
                 unzip=True,
             )
@@ -69,4 +63,3 @@ if __name__ == '__main__':
     configs, _ = read_yaml('params.yaml')
     run = DataIngestor(configs)
     run.download_dataset()
-    

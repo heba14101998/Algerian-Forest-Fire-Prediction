@@ -1,18 +1,16 @@
 name: CI Prediction Model
 
 on:
-  push:
-    branches:
-      - develop
-      - main
-
-permissions:
-  contents: read
-  id-token: write
+  branches:
+      # - develop
+      # - main
+permissions: write-all
+  # contents: read
+  # id-token: write
 
 jobs:
   experiment:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04 #ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.9"]
@@ -26,15 +24,15 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Save .env file
-      run: echo ${{ secrets.env }} | base64 --decode > .env
-
-    - name: Save kaggle.json file
+    - name: Setup CML
+      uses: iterative/setup-cml@v1
+    
+    - name: Handle Environment
       run: |
-        base64 .env
+        export PYTHONPATH=$PWD/src
         echo "{\"username\": \"${{ vars.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > kaggle.json
         chmod 600 kaggle.json
-        mkdir ~/.kaggle
+        mkdir -p ~/.kaggle
         cp kaggle.json ~/.kaggle/kaggle.json
         
     - name: Set up DVC
@@ -51,31 +49,29 @@ jobs:
         miniconda-version: 'latest'
 
     - name: Install dependencies
-      run: |
+      run: |        
         python -m pip install --upgrade pip
         pip install --upgrade setuptools
         pip install -r requirements.txt
-        pip install .
+        python setup.py sdist bdist_wheel
+        pip install -e . 
 
     - name: Run Project Scripts
       run: |
         python template.py
-        export PYTHONPATH=$PYTHONPATH:./src:$PWD
-        echo $PYTHONPATH
-        python -m src.components.data_ingestion
-
-        # dvc repro
-        dvc push
-
+        # dvc pull data --run-cache
+        dvc repro
+        # dvc cache dir $PWD/.dvc/cache
+        # sudo chmod -R a+rwx $PWD/.dvc/cache
+        # dvc push
+    
     - name: Generate CML Report
       env:
-        REPO_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "## Reproduce Results" >> report.md
-        echo "Use this parameters combination" >> report.md
-        dvc metrics diff main >> report.md
+        # dvc metrics diff main >> report.md
         cat artifacts/classification_report.txt >> report.md
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md
         echo "![](./artifacts/pr_curve.png)" >> report.md
-        cml comment create report.md
+        # cml comment create report.md --project https://studio.iterative.ai/user/heba14101998/projects/Algerian-Forest-Fire-Prediction-3ys0l7o09o

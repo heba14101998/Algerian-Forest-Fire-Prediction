@@ -1,7 +1,3 @@
-
-
-
-
 from src.utils import read_yaml
 
 CONFIGS, _ = read_yaml("params.yaml")
