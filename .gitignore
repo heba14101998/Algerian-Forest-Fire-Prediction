@@ -39,3 +39,4 @@ checkpoints/
 # Ignore assets folder and its contents
 /assets/
 /.kaggle/
+*loc
