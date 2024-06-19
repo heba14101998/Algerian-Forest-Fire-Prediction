@@ -29,7 +29,7 @@ checkpoints/
 
 # Ignore everything in artifacts, except for .gitkeep
 /artifacts/*
-!/artifacts/*.csv
+/artifacts/*.csv
 
 # Ignore the .vscode directory
 /.vscode/
