@@ -47,27 +47,42 @@ class DataPreprocessor:
         file_path = os.path.join(self.configs.raw_data_dir, self.configs.data_file_name)
         self.data = pd.read_csv(file_path)
 
-    def clean_data(self, df):
+    def clean_data(self) -> pd.DataFrame:
+        """
+        Cleans the data by handling missing values and inconsistencies. 
+        Steps:
+            1. Strip column names
+            2. Solve inconsistencies
+            3. Drop NULL values
+            4. Strip whitespace from target values
+            5. Map target column values
+        """
+        self.data.columns = self.data.columns.str.strip()
+        self.data.iloc[168, -2] = np.NaN
+        self.data.iloc[168, -1] = 'fire'
+        self.data['Region'] = np.NaN
+        self.data.loc[:122, "Region"] = 0
+        self.data.loc[125:, "Region"] = 1
 
-        """Cleans the data by handling missing values and inconsistencies."""
-        df.columns = df.columns.str.strip()
-        df.iloc[168,-2]=np.NaN
-        df.iloc[168,-1]='fire'
-        df['Region'] = np.NaN
-        df.loc[:122, "Region"]= 0
-        df.loc[125:, "Region"]= 1
-        df = df.dropna()
-        df[self.configs.target_column] = df[self.configs.target_column].str.strip()
-        df[self.configs.target_column] = df[self.configs.target_column].map({'not fire': 0, 'fire': 1})
+        self.data = self.data.dropna()
+        self.data[self.configs.target_column] = self.data[self.configs.target_column].str.strip()
+        self.data[self.configs.target_column] = self.data[self.configs.target_column].map({'not fire': 0, 'fire': 1})
         
         # Save the DataFrame as a CSV
         path = os.path.join(self.configs.processed_data_dir, f"cleaned_{self.configs.data_file_name}")
         save_artifact(path, self.data)
 
-        return df
+        
+    def select_features(self, X: pd.DataFrame, y: pd.Series):
+        """
+        Selects features using Recursive Feature Elimination (RFE).
 
-    def select_features(self, X, y):
-        """Selects features using Recursive Feature Elimination (RFE)."""
+        Args:
+            X (pd.DataFrame): The feature matrix.
+            y (pd.Series): The target variable.
+        Returns:
+            np.ndarray: An array of selected features.
+        """
         rfecv = RFECV(
             estimator=LogisticRegression(),
             step=1,
@@ -77,6 +92,11 @@ class DataPreprocessor:
         )
         rfecv.fit(X, y)
         selected_features = X.columns[rfecv.support_]
+
+        logging.info(f"The selected features in feature selection process are: {list(selected_features)}")
+        path = os.path.join(self.configs.artifacts_path, "selected_features.json")
+        save_artifact(file_path=path, artifact={'selected_features': list(selected_features)})
+
         return selected_features
 
     def create_pipeline(self) -> Pipeline:

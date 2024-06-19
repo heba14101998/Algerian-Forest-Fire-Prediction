@@ -1,0 +1,158 @@
+schema: '2.0'
+stages:
+  Ingestion:
+    cmd: python -m src.components.data_ingestion
+    deps:
+    - path: kaggle.json
+      hash: md5
+      md5: b9613b23978816b12d754fd229b711a6
+      size: 84
+    - path: params.yaml
+      hash: md5
+      md5: 8056289ed13836bf4a4611f28afea6ba
+      size: 1437
+    - path: src/components/data_ingestion.py
+      hash: md5
+      md5: f9de69c9ed2ccf1fd0aa5c2ad005d3f6
+      size: 2402
+    - path: src/exception.py
+      hash: md5
+      md5: e01a236fee3a43143eedd36c4c48a394
+      size: 2001
+    - path: src/logger.py
+      hash: md5
+      md5: 15b6a0280af2693891c8b6ee9eb269c4
+      size: 505
+    outs:
+    - path: data/raw/Algerian_forest_fires_dataset.csv
+      hash: md5
+      md5: 4b8bc2d26385c1da25972695477142fe
+      size: 14445
+  Prepare:
+    cmd: python -m src.components.data_factory
+    deps:
+    - path: data/raw/Algerian_forest_fires_dataset.csv
+      hash: md5
+      md5: 4b8bc2d26385c1da25972695477142fe
+      size: 14445
+    - path: params.yaml
+      hash: md5
+      md5: 8056289ed13836bf4a4611f28afea6ba
+      size: 1437
+    - path: src/components/data_factory.py
+      hash: md5
+      md5: 8dd8ed248246824ea825f1e89e01b85e
+      size: 6892
+    - path: src/exception.py
+      hash: md5
+      md5: e01a236fee3a43143eedd36c4c48a394
+      size: 2001
+    - path: src/logger.py
+      hash: md5
+      md5: 15b6a0280af2693891c8b6ee9eb269c4
+      size: 505
+    - path: src/utils.py
+      hash: md5
+      md5: 4b04a36c47f8c974cd65d7d9fcd3c1d7
+      size: 4868
+    outs:
+    - path: artifacts/selected_features.json
+      hash: md5
+      md5: 7ac713a3544b0f44367cce0066ccd026
+      size: 99
+      isexec: true
+    - path: checkpoints/preprocessor.pkl
+      hash: md5
+      md5: 03740c06b684cb5b8aa528a5011f873f
+      size: 1082
+      isexec: true
+    - path: data/processed/X_test.npy
+      hash: md5
+      md5: 3bd549d7fc753255917604a1f7389cb8
+      size: 3656
+      isexec: true
+    - path: data/processed/X_train.npy
+      hash: md5
+      md5: 156fb7a3e0d936e022ae905f8ae12fa8
+      size: 14096
+      isexec: true
+    - path: data/processed/y_test.npy
+      hash: md5
+      md5: f5935bae35d1c5f2e696ce51f37e1375
+      size: 520
+      isexec: true
+    - path: data/processed/y_train.npy
+      hash: md5
+      md5: dffa7e15cc495cf0981a26714f6f7c9a
+      size: 1680
+      isexec: true
+  Training:
+    cmd: python -m src.components.model_training
+    deps:
+    - path: data/processed/X_test.npy
+      hash: md5
+      md5: 3bd549d7fc753255917604a1f7389cb8
+      size: 3656
+    - path: data/processed/X_train.npy
+      hash: md5
+      md5: 156fb7a3e0d936e022ae905f8ae12fa8
+      size: 14096
+    - path: data/processed/y_test.npy
+      hash: md5
+      md5: f5935bae35d1c5f2e696ce51f37e1375
+      size: 520
+    - path: data/processed/y_train.npy
+      hash: md5
+      md5: dffa7e15cc495cf0981a26714f6f7c9a
+      size: 1680
+    - path: params.yaml
+      hash: md5
+      md5: 8056289ed13836bf4a4611f28afea6ba
+      size: 1437
+    - path: src/components/model_training.py
+      hash: md5
+      md5: b34de1e84989733f6a6c7bdb42daf271
+      size: 5757
+    - path: src/exception.py
+      hash: md5
+      md5: e01a236fee3a43143eedd36c4c48a394
+      size: 2001
+    - path: src/logger.py
+      hash: md5
+      md5: 15b6a0280af2693891c8b6ee9eb269c4
+      size: 505
+    - path: src/utils.py
+      hash: md5
+      md5: 4b04a36c47f8c974cd65d7d9fcd3c1d7
+      size: 4868
+    outs:
+    - path: artifacts/auc_plot.png
+      hash: md5
+      md5: def8f152a622e6d3f0357163f75797b9
+      size: 36923
+      isexec: true
+    - path: artifacts/classification_report.txt
+      hash: md5
+      md5: e780592248ee8ce322bf4fc98d06988b
+      size: 326
+      isexec: true
+    - path: artifacts/confusion_matrix.png
+      hash: md5
+      md5: 5dc2a2e30a35a2831636b5448acb909b
+      size: 15826
+      isexec: true
+    - path: artifacts/metrics.json
+      hash: md5
+      md5: 054a9851194b490718a51b5dcd745f22
+      size: 139
+      isexec: true
+    - path: artifacts/pr_curve.png
+      hash: md5
+      md5: 828decc26e591f5a0bcea571aa3fb6d6
+      size: 24405
+      isexec: true
+    - path: checkpoints/RandomForestClassifier.pkl
+      hash: md5
+      md5: 67ce34ef2e3135a331338b73dc4e86cc
+      size: 13169
+      isexec: true
