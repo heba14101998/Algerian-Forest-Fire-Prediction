@@ -40,3 +40,4 @@ checkpoints/
 /.kaggle/
 *loc
 *.csv
+*.yml
