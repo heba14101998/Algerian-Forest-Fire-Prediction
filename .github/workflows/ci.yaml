@@ -12,26 +12,23 @@ permissions: write-all
 jobs:
   experiment:
     runs-on: ubuntu-22.04 #ubuntu-latest
-    # strategy:
-    #   matrix:
-    #     python-version: ["3.9"]
 
     steps:
-    # - name: Checkout code
     - uses: actions/checkout@v3
-
-    # - name: Set up Python ${{ matrix.python-version }}
     - uses: actions/setup-python@v3
       with:
-        python-version: "3.9"
+        python-version: "3.9"  
     
-    # - name: Setup Node
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniconda-version: 'latest'
+
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-    # - name: Setup CML
     - uses: iterative/setup-cml@v1
-    
+    - uses: iterative/setup-dvc@v1
+
     - name: Handle Environment
       run: |
         export PYTHONPATH=$PWD/src
@@ -40,18 +37,10 @@ jobs:
         mkdir -p ~/.kaggle
         cp kaggle.json ~/.kaggle/kaggle.json
         
-    - name: Set up DVC
-      uses: iterative/stup-dvc@v1
-
     - name: Configure DVC Remote
       run: |
         dvc remote add -d gdrive dvc://?token=${{ secrets.DRIVE_URL }}
         dvc remote default gdrive
-
-    - name: Create Conda environment
-      uses: conda-incubator/setup-miniconda@v2
-      with:
-        miniconda-version: 'latest'
 
     - name: Install dependencies
       run: |        
