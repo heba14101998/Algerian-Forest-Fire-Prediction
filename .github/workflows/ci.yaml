@@ -12,21 +12,25 @@ permissions: write-all
 jobs:
   experiment:
     runs-on: ubuntu-22.04 #ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.9"]
+    # strategy:
+    #   matrix:
+    #     python-version: ["3.9"]
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    # - name: Checkout code
+    - uses: actions/checkout@v3
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+    # - name: Set up Python ${{ matrix.python-version }}
+    - uses: actions/setup-python@v3
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: "3.9"
     
-    - name: Setup CML
-      uses: iterative/setup-cml@v1
+    # - name: Setup Node
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 20
+    # - name: Setup CML
+    - uses: iterative/setup-cml@v1
     
     - name: Handle Environment
       run: |
@@ -37,7 +41,7 @@ jobs:
         cp kaggle.json ~/.kaggle/kaggle.json
         
     - name: Set up DVC
-      uses: iterative/setup-dvc@v1
+      uses: iterative/stup-dvc@v1
 
     - name: Configure DVC Remote
       run: |
@@ -58,9 +62,11 @@ jobs:
         pip install -e . 
 
     - name: Run Project Scripts
+      # env:
+      #   GDRIVE_CERDENTIAL_DATA: ${{secrets.GDRIVE_TOKEN}}
       run: |
         python template.py
-        # dvc pull data --run-cache
+        # dvc pull data 
         dvc repro
         # dvc cache dir $PWD/.dvc/cache
         # sudo chmod -R a+rwx $PWD/.dvc/cache
