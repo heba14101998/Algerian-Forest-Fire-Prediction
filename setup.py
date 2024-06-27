@@ -1,7 +1,5 @@
-import os
 from setuptools import setup, find_packages
 from dotenv import load_dotenv
-load_dotenv()  # Load environment variables from .env
 
 with open("README.md", 'r', encoding='utf-8') as file:
     long_description = file.read()
@@ -37,7 +35,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'train=src.pipeline.train_pipeline:main',  # Define your entry points
+            'train=src.pipeline.train_pipeline:main',
         ]
     },
 )
