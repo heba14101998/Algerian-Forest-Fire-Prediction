@@ -28,6 +28,7 @@ stages:
       hash: md5
       md5: 4b8bc2d26385c1da25972695477142fe
       size: 14445
+      isexec: true
   Prepare:
     cmd: python -m src.components.data_factory
     deps:
@@ -128,8 +129,8 @@ stages:
     outs:
     - path: artifacts/auc_plot.png
       hash: md5
-      md5: def8f152a622e6d3f0357163f75797b9
-      size: 36923
+      md5: a4903f99bc238a37260b87fa5af60bbc
+      size: 37545
       isexec: true
     - path: artifacts/classification_report.txt
       hash: md5
@@ -143,16 +144,16 @@ stages:
       isexec: true
     - path: artifacts/metrics.json
       hash: md5
-      md5: 054a9851194b490718a51b5dcd745f22
-      size: 139
+      md5: 88bea8ca27e9db9db3e52a10acb1cbaf
+      size: 154
       isexec: true
     - path: artifacts/pr_curve.png
       hash: md5
-      md5: 828decc26e591f5a0bcea571aa3fb6d6
-      size: 24405
+      md5: b0b2248b958c7776fe6d1ba75a0783c0
+      size: 24901
       isexec: true
     - path: checkpoints/RandomForestClassifier.pkl
       hash: md5
-      md5: 67ce34ef2e3135a331338b73dc4e86cc
-      size: 13169
+      md5: 1006726f1e10282242b58147e0789889
+      size: 14932
       isexec: true

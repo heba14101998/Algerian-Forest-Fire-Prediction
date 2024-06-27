@@ -1,7 +1,11 @@
 [core]
     autostage = true
-    hardlink_lock = true
     remote = drive
+[cache]
+    dir = /home/shared/dvc-cache
+    shared = group
+    type = "reflink,copy"
 ['remote "drive"']
     url = gdrive://1zkqgCdnxeSjvG_4KZaohKiTHn5OITJu1
-    gdrive_acknowledge_abuse = true
+    gdrive_use_service_account = true
+    gdrive_service_account_json_file_path = ../assets/service-account-token.json
