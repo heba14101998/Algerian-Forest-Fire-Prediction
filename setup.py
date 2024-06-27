@@ -1,7 +1,5 @@
-import os
 from setuptools import setup, find_packages
 from dotenv import load_dotenv
-load_dotenv()  # Load environment variables from .env
 
 with open("README.md", 'r', encoding='utf-8') as file:
     long_description = file.read()
@@ -16,14 +14,14 @@ with open('requirements.txt') as file:
     requirements = [line.strip() for line in file if not line.startswith('#') and line.strip()]
 
 setup(
-    name=os.environ.get("PAKAGE_NAME"),  
-    version=os.environ.get("APP_VERSION"), 
+    name="forest-fire",
+    version="0.1.2",
     description="Algerian Forest Fire Prediction Model",
-    # long_description=long_description, # Use read README.md
-    # long_description_content="text/markdown",
-    author=os.environ.get("PYPI_USERNAME"),
-    author_email=os.environ.get("EMAIL"),
-    url=os.environ.get("REMOTE_REPO"),  
+    long_description=long_description, # Use read README.md
+    long_description_content="text/markdown",
+    author="hebamohamed1998",
+    author_email="hebamohamed14101998@gmail.com" ,
+    url="https://github.com/heba14101998/Algerian-Forest-Fire-Prediction.git",
     package_dir={"": "src"},
     packages=find_packages(where=["src"]),
     install_requires=requirements,  # Use read requirements
@@ -37,7 +35,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'train=src.pipeline.train_pipeline:main',  # Define your entry points
+            'train=src.pipeline.train_pipeline:main',
         ]
     },
 )

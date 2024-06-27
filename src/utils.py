@@ -6,12 +6,12 @@ import pickle
 from types import SimpleNamespace
 import matplotlib.pyplot as plt
 import seaborn as sns
-import pandas as pd
+import numpy as np
 
 from src.exception import CustomException
 from src.logger import logging
 
-def read_yaml(file_path):
+def read_yaml(file_path: str) -> tuple[SimpleNamespace, dict]:
     """Reads YAML configuration file.
 
     Args:
@@ -21,18 +21,18 @@ def read_yaml(file_path):
         tuple: Configuration dictionary and model parameters dictionary.
     """
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, 'r', encoding="utf-8") as file:
             args = yaml.safe_load(file)
         logging.info(f"Configuration loaded successfully from {file_path}")
     except Exception as e:
-        raise CustomException(f"Error during loading configuration from {file_path}", e)
+        raise CustomException(f"Error during loading configuration from {file_path}: {e}")
 
     configs = SimpleNamespace(**args['configs'])
     logging.info(f"Configuration and Hyperparameters loaded successfully from {file_path}")
 
     return configs, args['model_params']
 
-def save_artifact(file_path, artifact, artifact_type="pkl"):
+def save_artifact(file_path: str, artifact: object) -> str:
     """Saves an artifact to disk based on the specified type.
 
     Args:
@@ -75,9 +75,9 @@ def save_artifact(file_path, artifact, artifact_type="pkl"):
         return os.path.basename(file_path)
 
     except Exception as e:
-        raise CustomException(e, sys)
+        raise CustomException(f"Error during saving {file_path}: {e}")
 
-def plot_confusion_matrix(cm, artifacts_path):
+def plot_confusion_matrix(cm: np.ndarray, artifacts_path: str) -> None:
     """Plots and saves a confusion matrix."""
     try:
         plt.figure(figsize=(8, 6))
@@ -85,12 +85,12 @@ def plot_confusion_matrix(cm, artifacts_path):
         plt.title("Confusion Matrix")
         plt.xlabel("Predicted Label")
         plt.ylabel("True Label")
-        save_artifact(os.path.join(artifacts_path, "confusion_matrix.png"), plt, artifact_type="png")
+        save_artifact(os.path.join(artifacts_path, "confusion_matrix.png"), plt)
         logging.info(f"Confusion Matrix saved to directory: {artifacts_path}/confusion_matrix.png")
     except Exception as e:
         raise CustomException(e, sys)
 
-def plot_roc_curve(fpr, tpr, auc, artifacts_path):
+def plot_roc_curve(fpr: np.ndarray, tpr: np.ndarray, auc: float, artifacts_path: str) -> None:
     """Plots and saves the Receiver Operating Characteristic (ROC) curve."""
     try:
         plt.figure(figsize=(8, 6))
@@ -100,23 +100,22 @@ def plot_roc_curve(fpr, tpr, auc, artifacts_path):
         plt.ylabel("True Positive Rate")
         plt.title("Receiver Operating Characteristic (ROC) Curve")
         plt.legend(loc="lower right")
-        save_artifact(os.path.join(artifacts_path, "auc_plot.png"), plt, artifact_type="png")
+        save_artifact(os.path.join(artifacts_path, "auc_plot.png"), plt)
         logging.info(f"ROC Curve saved to directory: {artifacts_path}/auc_plot.png")
     except Exception as e:
-        raise CustomException(e, sys)
+        raise CustomException(f"Error during plotng ROC Curve: {e}")
 
-def plot_precision_recall_curve(precision, recall, thresholds, artifacts_path):
+def plot_precision_recall_curve(precision: np.ndarray, recall: np.ndarray, thresholds: np.ndarray, artifacts_path: str) -> None:
     """Plots and saves the Precision-Recall curve."""
     try:
         plt.figure(figsize=(10, 4))
         plt.plot(thresholds, precision[1:], label="Precision")
         plt.plot(thresholds, recall[1:], label="Recall")
         plt.xlabel("Threshold")
-        plt.ylabel("Precsion/Recall")
+        plt.ylabel("Precision/Recall")
         plt.title("Precision-Recall Curve")
         plt.legend(loc="lower right")
-        save_artifact(os.path.join(artifacts_path, "pr_curve.png"), plt, artifact_type="png")
+        save_artifact(os.path.join(artifacts_path, "pr_curve.png"), plt)
         logging.info(f"Precision-Recall Curve saved to directory: {artifacts_path}/pr_curve.png")
     except Exception as e:
-        raise CustomException(e, sys)
-
+        raise CustomException(f"Error during plotng Precion Recall Threshold: {e}")

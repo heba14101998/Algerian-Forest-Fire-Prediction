@@ -20,7 +20,7 @@ stages:
       - params.yaml
       - data/raw/Algerian_forest_fires_dataset.csv
     outs:
-      - data/processed/cleaned_algerian_forest_fires_dataset.csv
+      # - data/processed/cleaned_algerian_forest_fires_dataset.csv
       - data/processed/X_train.npy
       - data/processed/X_test.npy
       - data/processed/y_train.npy
@@ -43,6 +43,10 @@ stages:
     outs:
       - checkpoints/${configs.model_name}.pkl
       - artifacts/classification_report.txt
+      - artifacts/pr_curve.png
+      - artifacts/auc_plot.png
+      - artifacts/confusion_matrix.png
+
     metrics:
       - artifacts/metrics.json
 

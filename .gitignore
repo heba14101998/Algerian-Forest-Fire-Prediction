@@ -28,8 +28,7 @@ data/
 checkpoints/
 
 # Ignore everything in artifacts, except for .gitkeep
-/artifacts/*
-!/artifacts/*.csv
+artifacts/
 
 # Ignore the .vscode directory
 /.vscode/
@@ -38,3 +37,6 @@ checkpoints/
 
 # Ignore assets folder and its contents
 /assets/
+/.kaggle/
+*.csv
+*.l

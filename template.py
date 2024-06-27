@@ -23,6 +23,7 @@ list_of_files = [
     "src/pipeline/inference_pipeline.py",
 
     "tests/__init__.py",
+    "tests/TestScenarios.md",
     "tests/unit/__init__.py",
     "tests/unit/unit_test.py",
     "tests/integration/__init__.py",
