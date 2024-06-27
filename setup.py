@@ -16,16 +16,16 @@ with open('requirements.txt') as file:
     requirements = [line.strip() for line in file if not line.startswith('#') and line.strip()]
 
 setup(
-    name=os.environ.get("PAKAGE_NAME"),
-    version=os.environ.get("APP_VERSION"),
+    name="forest-fire",
+    version="0.1.2",
     description="Algerian Forest Fire Prediction Model",
-    # long_description=long_description, # Use read README.md
-    # long_description_content="text/markdown",
-    author=os.environ.get("PYPI_USERNAME"),
-    author_email=os.environ.get("EMAIL"),
-    url=os.environ.get("REMOTE_REPO"),
-    package_dir={"": "src"},
-    packages=find_packages(where=["src"]),
+    long_description=long_description, # Use read README.md
+    long_description_content="text/markdown",
+    author="hebamohamed1998",
+    author_email="hebamohamed14101998@gmail.com" ,
+    url="https://github.com/heba14101998/Algerian-Forest-Fire-Prediction.git",
+    package_dir={"": "Algerian Forest Fire Prediction"},
+    packages=find_packages(where=["Algerian Forest Fire Prediction"]),
     install_requires=requirements,  # Use read requirements
     classifiers=[
         "Development Status :: 3 - Alpha", 
