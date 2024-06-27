@@ -1,119 +1,100 @@
----
-  name: CI Prediction Model
-  
-  on:
-    workflow_dispatch:
-    push:
-      branches:
-        - develop
-      paths:
-        - src/**
-    pull_request:
-      branches:
-        - develop
-      paths:
-        - src/**
-  
-  permissions: write-all
-    # contents: read
-    # id-token: write
-  
-  jobs:
-    experiment:
-      environment: env
-      runs-on: ubuntu-latest
-  
-      steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
-        with:
-          python-version: "3.9"
-  
-      - uses: conda-incubator/setup-miniconda@v2
-        with:
-          miniconda-version: 'latest'
-  
-      - uses: actions/cache@v3
-        id: cache-conda
-        with:
-          path: |
-            ~/.conda
-            ~/.cache/pip
-          key: ${{ runner.os }}-conda-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-conda-
-  
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-  
-      - uses: actions/cache@v3
-        id: cache-node
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-  
-      - uses: iterative/setup-cml@v1
-      - uses: iterative/setup-dvc@v1
-  
-      - name: Display username
-        run: whoami
-  
-      - name: Decode Kaggle Authentication Token file
-        env:
+name: CI Prediction Model
+
+on:
+  # workflow_dispatch:
+  push:
+    branches:
+      - develop
+    paths:
+      - src/**
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - src/**
+
+permissions: write-all
+  # contents: read
+  # id-token: write
+jobs:
+  experiment:
+    environment: env
+    runs-on: ubuntu-22.04 #ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+      with:
+        python-version: "3.9"  
+    
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniconda-version: 'latest'
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - uses: iterative/setup-cml@v1
+    - uses: iterative/setup-dvc@v1
+
+    - name: Display username
+      run: whoami
+      
+    - name: Decode Kaggle Authentication Token file
+      env:
           TOKEN_BASE64: ${{ secrets.KAGGLE_TOKEN_BASE64 }}
-        run: |
-          echo $TOKEN_BASE64 | base64 --decode > kaggle.json
-          mkdir -p ~/.kaggle
-          cp kaggle.json ~/.kaggle/kaggle.json
-          chmod 600 ~/.kaggle/kaggle.json
-  
-      - name: Decode service account token file
-        env:
-          TOKEN_BASE64: ${{ secrets.SERVICE_ACCOUNT_TOKEN_BASE64 }}
-        run: |
-          echo $TOKEN_BASE64 | base64 --decode > service-account-token.json
-  
-      - name: Configure GDrive Remote
-        run: |
-          dvc remote add -d gdrive gdrive://${{ secrets.DRIVE_URL }}
-          dvc remote default gdrive
-          dvc remote modify gdrive gdrive_use_service_account true
-          dvc remote modify gdrive --local gdrive_service_account_json_file_path service-account-token.json
-  
-      - name: Install Python Dependencies
-        run: |
-          pip install --upgrade pip
-          pip install --upgrade setuptools
-          pip install -r requirements.txt
-  
-      - name: Build My Package
-        run: |
-          export PYTHONPATH=$PWD/src
-          python setup.py sdist
-          pip install -e .
-          twine upload dist/*
-  
-      - name: Run Project Scripts
-        run: |
-          python template.py
-          dvc repro
-          dvc push
-  
-      # - name: tests
-      #   run: pytest
-  
-      # - name: Generate CML Report
-      #   env:
-      #     REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     echo "## Reproduce Results" >> report.md
-      #     echo "Use this parameters combination" >> report.md
-      #     cat artifacts/classification_report.txt >> report.md
-      #     echo "![](./artifacts/confusion_matrix.png)" >> report.md
-      #     echo "![](./artifacts/auc_plot.png)" >> report.md
-      #     echo "![](./artifacts/pr_curve.png)" >> report.md
-      #     cml comment create report.md
-  
+      run: |
+        # echo "{\"username\": \"${{ vars.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > kaggle.json
+        echo $TOKEN_BASE64 | base64 --decode > kaggle.json
+        mkdir -p ~/.kaggle
+        cp kaggle.json ~/.kaggle/kaggle.json
+        chmod 600 ~/.kaggle/kaggle.json
+          
+    - name: Decode service account token file
+      env:
+        TOKEN_BASE64: ${{ secrets.SERVICE_ACCOUNT_TOKEN_BASE64 }}
+      run: |
+        echo $TOKEN_BASE64 | base64 --decode > service-account-token.json
+
+    - name: Configure GDrive Remote
+      run: |
+        echo $TOKEN_BASE64 | base64 --decode > service-account-token.json
+        dvc remote add -d gdrive gdrive:// ${{ secrets.DRIVE_URL }}
+        dvc remote default gdrive
+        dvc remote modify gdrive gdrive_use_service_account true
+        dvc remote modify gdrive --local gdrive_service_account_json_file_path service-account-token.json
+
+    - name: Install dependencies
+      run: |        
+        export PYTHONPATH=$PWD/src
+        python -m pip install --upgrade pip
+        pip install --upgrade setuptools
+        pip install -r requirements.txt
+        python setup.py sdist bdist_wheel
+        pip install -e . 
+
+    - name: Run Project Scripts
+      run: |
+        python template.py
+        # dvc pull data 
+        dvc repro
+        # dvc cache dir $PWD/.dvc/cache
+        # sudo chmod -R a+rwx $PWD/.dvc/cache
+        dvc push
+        
+    # - name: tests
+    #   run: pytest
+
+    # - name: Generate CML Report
+    #   env:
+    #     REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   run: |
+    #     # npm install -g @dvcorg/cml
+    #     echo "## Reproduce Results" >> report.md
+    #     echo "Use this parameters combination" >> report.md
+    #     # dvc metrics diff main >> report.md
+    #     cat artifacts/classification_report.txt >> report.md
+    #     echo "![](./artifacts/confusion_matrix.png)" >> report.md
+    #     echo "![](./artifacts/auc_plot.png)" >> report.md
+    #     echo "![](./artifacts/pr_curve.png)" >> report.md
+    #     cml comment create report.md 
