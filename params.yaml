@@ -5,7 +5,7 @@ configs:
     processed_data_dir: ./data/processed
     artifacts_path: ./artifacts
     checkpoints: ./checkpoints
-    test_size: 0.2
+    test_size: 0.3
     target_column: Classes
     scoring: roc_auc
     cv: 5
