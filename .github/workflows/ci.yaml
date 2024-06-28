@@ -33,9 +33,6 @@ jobs:
     - uses: iterative/setup-cml@v1
     - uses: iterative/setup-dvc@v1
 
-    - name: Display username
-      run: whoami
-
     # - name: Create Conda environment
     #   uses: conda-incubator/setup-miniconda@v3
     #   with:
@@ -45,9 +42,15 @@ jobs:
       run: |
         mkdir -p ~/.kaggle
         echo ${{ secrets.KAGGLE_TOKEN_BASE64 }} | base64 --decode > ~/.kaggle/kaggle.json
-        chmod 600 ~/.kaggle/kaggle.json
-        cat ~/.kaggle/kaggle.json
-
+        sudo chmod 600 ~/.kaggle/kaggle.json
+        ls -al ~/.kaggle/kaggle.json
+        
+    - name: Configure DVC Cache
+      run: |
+        sudo usermod -aG dvcusers $(whoami)
+        sudo chmod 770 /home/shared/dvc-cache
+        ls -ld /home/shared/dvc-cache
+    
     - name: Configure GDrive Remote
       run: |
         echo ${{ secrets.SERVICE_ACCOUNT_TOKEN_BASE64 }} | base64 --decode > service-account-token.json
