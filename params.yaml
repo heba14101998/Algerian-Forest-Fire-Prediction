@@ -10,7 +10,7 @@ configs:
     scoring: roc_auc
     cv: 5
     scaling_method: minmax # or standard
-    model_name: DecisionTreeClassifier # Change this to the model you want to use
+    model_name: SVC # Change this to the model you want to use
 
 model_params:
     # RandomForestClassifier
@@ -19,29 +19,11 @@ model_params:
     # min_samples_split: 5
 
     # DecisionTreeClassifier
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     # criterion: "gini"
     # splitter: "best"
     # max_depth: 5
     # min_samples_split: 2
     # min_samples_leaf: 1
-=======
-=======
->>>>>>> 0dda454 (DT + Gini + minmax)
-    criterion: "gini"
-=======
-    criterion: "entropy"
->>>>>>> 58e4917 (DT + entropy + minmax)
-    splitter: "best"
-    max_depth: 5
-    min_samples_split: 5
-    min_samples_leaf: 5
-<<<<<<< HEAD
->>>>>>> 0dda454 (DT + Gini + minmax)
-=======
->>>>>>> 0dda454 (DT + Gini + minmax)
 
     # GradientBoostingClassifier
     # loss: "log_loss"
