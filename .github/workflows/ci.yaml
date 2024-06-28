@@ -49,7 +49,7 @@ jobs:
     - name: Configure GDrive Remote
       run: |
         echo ${{ secrets.SERVICE_ACCOUNT_TOKEN_BASE64 }} | base64 --decode > service-account-token.json
-        # echo ${{ secrets.DRIVE_URL }}
+        echo "${{ secrets.DRIVE_URL }}"
         # dvc init
         dvc remote add --default gdrive gdrive://${{ secrets.DRIVE_URL }}
         dvc remote modify gdrive gdrive_use_service_account true
