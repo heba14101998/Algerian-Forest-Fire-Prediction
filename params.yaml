@@ -10,7 +10,7 @@ configs:
     scoring: roc_auc
     cv: 5
     scaling_method: minmax # or standard
-    model_name: RandomForestClassifier # Change this to the model you want to use
+    model_name: LogisticRegression # Change this to the model you want to use
 
 model_params:
     # RandomForestClassifier
@@ -33,9 +33,9 @@ model_params:
     # random_state: 42
 
     # LogisticRegression
-    # C: 1.0
-    # penalty: "l2"
-    # solver: "lbfgs"
+    C: 1.0
+    penalty: "l2"
+    solver: "lbfgs"
 
     # SVC
     # C: 1.0
