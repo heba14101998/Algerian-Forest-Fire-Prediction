@@ -21,7 +21,7 @@ model_params:
     # DecisionTreeClassifier
     criterion: "gini"
     splitter: "best"
-    max_depth: None
+    max_depth: 5
     min_samples_split: 2
     min_samples_leaf: 1
 
