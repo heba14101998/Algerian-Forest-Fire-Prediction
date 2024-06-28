@@ -53,6 +53,7 @@ jobs:
         dvc remote add --default gdrive gdrive://${{ secrets.DRIVE_URL }}
         dvc remote modify gdrive gdrive_use_service_account true
         dvc remote modify gdrive --local gdrive_service_account_json_file_path service-account-token.json
+        cat service-account-token.json
 
     - name: Install dependencies
       run: |        
