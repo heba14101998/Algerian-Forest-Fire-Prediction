@@ -33,6 +33,7 @@ class CustomException(Exception):
             error_custom_msg (str): The custom error message.
             exp (Exception, optional): The exception object that occurred. Defaults to None.
         """
+        print("Hello from CustomException 'MOhamed' ")
         super().__init__()
         self.error_message = get_error_msg(error_custom_msg, exp)
         logging.error(self.error_message)

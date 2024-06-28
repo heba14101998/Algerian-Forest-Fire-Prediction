@@ -9,7 +9,7 @@ configs:
     target_column: Classes
     scoring: roc_auc
     cv: 5
-    scaling_method: minmax # or standard
+    scaling_method: standard # or standard
     model_name: DecisionTreeClassifier # Change this to the model you want to use
 
 model_params:
@@ -19,7 +19,7 @@ model_params:
     # min_samples_split: 5
 
     # DecisionTreeClassifier
-    criterion: "entropy"
+    criterion: "gini"
     splitter: "best"
     max_depth: 5
     min_samples_split: 5
