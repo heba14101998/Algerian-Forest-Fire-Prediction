@@ -5,12 +5,12 @@ configs:
     processed_data_dir: ./data/processed
     artifacts_path: ./artifacts
     checkpoints: ./checkpoints
-    test_size: 0.2
+    test_size: 0.3
     target_column: Classes
     scoring: roc_auc
     cv: 5
     scaling_method: minmax # or standard
-    model_name: DecisionTreeClassifier # Change this to the model you want to use
+    model_name: GradientBoostingClassifier # Change this to the model you want to use
 
 model_params:
     # RandomForestClassifier
@@ -19,18 +19,18 @@ model_params:
     # min_samples_split: 5
 
     # DecisionTreeClassifier
-    criterion: "gini"
-    splitter: "best"
-    max_depth: 5
-    min_samples_split: 2
-    min_samples_leaf: 1
+    # criterion: "gini"
+    # splitter: "best"
+    # max_depth: 5
+    # min_samples_split: 2
+    # min_samples_leaf: 1
 
     # GradientBoostingClassifier
-    # loss: "log_loss"
-    # learning_rate: 0.1
-    # n_estimators: 100
-    # max_depth: 4
-    # random_state: 42
+    loss: "log_loss"
+    learning_rate: 0.1
+    n_estimators: 100
+    max_depth: 4
+    random_state: 42
 
     # LogisticRegression
     # C: 1.0
