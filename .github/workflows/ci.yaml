@@ -47,7 +47,7 @@ jobs:
         
     - name: Configure DVC Cache
       run: |
-        sudo usermod -aG dvcusers $(whoami)
+        # sudo usermod -aG dvcusers $(whoami)
         sudo chmod 770 /home/shared/dvc-cache
         ls -ld /home/shared/dvc-cache
     
