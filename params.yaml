@@ -9,7 +9,7 @@ configs:
     target_column: Classes
     scoring: roc_auc
     cv: 5
-    scaling_method: standard # or standard
+    scaling_method: minmax # or standard
     model_name: RandomForestClassifier # Change this to the model you want to use
 
 model_params:
