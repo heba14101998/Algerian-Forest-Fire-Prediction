@@ -4,14 +4,14 @@ on:
   # workflow_dispatch:
   push:
     branches:
-      - develop
-    paths:
-      - src/**
-  pull_request:
-    branches:
-      - develop
-    paths:
-      - src/**
+  #     - develop
+  #   paths:
+  #     - src/**
+  # pull_request:
+  #   branches:
+  #     - develop
+  #   paths:
+  #     - src/**
 
 permissions: write-all
   # contents: read
@@ -19,7 +19,7 @@ permissions: write-all
 jobs:
   experiment:
     environment: env
-    runs-on: ubuntu-22.04 #ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -35,18 +35,14 @@ jobs:
 
     - name: Display username
       run: whoami
-      
+
     - name: Create Kaggle Authentication Token file
-      # env:
-          # TOKEN_BASE64: ${{ secrets.KAGGLE_TOKEN_BASE64 }}
       run: |
-        # echo "{\"username\": \"${{ vars.KAGGLE_USERNAME }}\", \"key\": \"${{ secrets.KAGGLE_KEY }}\"}" > kaggle.json
         mkdir -p ~/.kaggle
-        # echo $TOKEN_BASE64 | base64 --decode > ~/.kaggle/kaggle.json
         echo ${{ secrets.KAGGLE_TOKEN_BASE64 }} | base64 --decode > ~/.kaggle/kaggle.json
         # cp kaggle.json ~/.kaggle/kaggle.json
         chmod 600 ~/.kaggle/kaggle.json
-          
+
     - name: Configure GDrive Remote
       run: |
         echo ${{ secrets.SERVICE_ACCOUNT_TOKEN_BASE64 }} | base64 --decode > service-account-token.json
