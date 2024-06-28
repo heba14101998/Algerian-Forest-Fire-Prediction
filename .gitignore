@@ -40,3 +40,4 @@ artifacts/
 /.kaggle/
 *.csv
 *.l
+*.base64
