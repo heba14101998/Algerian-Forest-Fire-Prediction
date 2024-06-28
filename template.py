@@ -32,8 +32,6 @@ list_of_files = [
     ".github/workflows/ci.yaml",
     ".github/workflows/publish.yaml",
 
-    "assets/kaggle.json",
-
     "requirements.txt",
     "params.yaml",
     "dvc.yaml",
