@@ -20,17 +20,23 @@ model_params:
 
     # DecisionTreeClassifier
 <<<<<<< HEAD
+<<<<<<< HEAD
     # criterion: "gini"
     # splitter: "best"
     # max_depth: 5
     # min_samples_split: 2
     # min_samples_leaf: 1
 =======
+=======
+>>>>>>> 0dda454 (DT + Gini + minmax)
     criterion: "gini"
     splitter: "best"
     max_depth: 5
     min_samples_split: 5
     min_samples_leaf: 5
+<<<<<<< HEAD
+>>>>>>> 0dda454 (DT + Gini + minmax)
+=======
 >>>>>>> 0dda454 (DT + Gini + minmax)
 
     # GradientBoostingClassifier
