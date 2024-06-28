@@ -19,7 +19,7 @@ model_params:
     # min_samples_split: 5
 
     # DecisionTreeClassifier
-    criterion: "gini"
+    criterion: "entropy"
     splitter: "best"
     max_depth: 5
     min_samples_split: 5
