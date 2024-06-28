@@ -7,24 +7,27 @@ stages:
       hash: md5
       md5: 7f703fb9fdd79e4437a603bf869b8014
       size: 1433
+      isexec: true
     - path: src/components/data_ingestion.py
       hash: md5
       md5: 00bb7969bb2c73e9bbb82f40f6de97d7
       size: 2233
+      isexec: true
     - path: src/exception.py
       hash: md5
       md5: e01a236fee3a43143eedd36c4c48a394
       size: 2001
+      isexec: true
     - path: src/logger.py
       hash: md5
       md5: 15b6a0280af2693891c8b6ee9eb269c4
       size: 505
+      isexec: true
     outs:
     - path: data/raw/Algerian_forest_fires_dataset.csv
       hash: md5
       md5: 4b8bc2d26385c1da25972695477142fe
       size: 14445
-      isexec: true
   Prepare:
     cmd: python -m src.components.data_factory
     deps:
