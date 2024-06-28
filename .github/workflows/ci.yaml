@@ -36,6 +36,11 @@ jobs:
     - name: Display username
       run: whoami
 
+    - name: Create Conda environment
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        miniconda-version: 'latest'
+
     - name: Create Kaggle Authentication Token file
       run: |
         mkdir -p ~/.kaggle
@@ -51,17 +56,17 @@ jobs:
         dvc remote modify gdrive gdrive_use_service_account true
         dvc remote modify gdrive --local gdrive_service_account_json_file_path service-account-token.json
 
-    - name: Setup Miniconda
-      uses: conda-incubator/setup-miniconda@v2
-      with:
-        miniconda-version: 'latest'
-        activate-environment: test
-        auto-activate-base: true
-        auto-update-conda: false
-        remove-profiles: true
-        architecture: x64
-        clean-patched-environment-file: true
-        run-post: true
+    # - name: Setup Miniconda
+    #   uses: conda-incubator/setup-miniconda@v2
+    #   with:
+    #     miniconda-version: 'latest'
+    #     activate-environment: test
+    #     auto-activate-base: true
+    #     auto-update-conda: false
+    #     remove-profiles: true
+    #     architecture: x64
+    #     clean-patched-environment-file: true
+    #     run-post: true
 
     - name: Install dependencies
       run: |        
