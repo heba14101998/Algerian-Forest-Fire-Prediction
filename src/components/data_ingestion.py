@@ -9,13 +9,10 @@ It utilizes environment variables for authentication and reads configuration fro
 import os
 import sys
 import kaggle
-from dotenv import load_dotenv
 
 from src.utils import read_yaml
 from src.exception import CustomException
 from src.logger import logging
-
-load_dotenv()
 
 class DataIngestor:
     """
