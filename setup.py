@@ -15,7 +15,7 @@ with open('requirements.txt') as file:
 
 setup(
     name="forest-fire",
-    version="0.1.2",
+    version="0.1.5",
     description="Algerian Forest Fire Prediction Model",
     long_description=long_description, # Use read README.md
     long_description_content="text/markdown",

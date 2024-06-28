@@ -54,6 +54,7 @@ class DataIngestor:
             logging.error(f"An unexpected error occurred during download: {e}")
 
 if __name__ == '__main__':
+    
     configs, _ = read_yaml('params.yaml')
     run = DataIngestor(configs)
     run.download_dataset()

@@ -154,8 +154,10 @@ class DataPreprocessor:
         return X_train_arr, X_test_arr, np.array(y_train), np.array(y_test)
 
 if __name__ == '__main__':
+
     logging.info("Data Preparation")
     configs, _ = read_yaml('params.yaml')
     run = DataPreprocessor(configs)
     X_train, X_test, y_train, y_test = run.preprocess()
+
     

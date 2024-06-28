@@ -65,10 +65,7 @@ jobs:
     - name: Run Project Scripts
       run: |
         # python template.py
-        # dvc pull 
-        dvc repro
-        # dvc cache dir $PWD/.dvc/cache
-        # sudo chmod -R a+rwx $PWD/.dvc/cache
+        dvc exp run -n "CI experiment"
         dvc push
         
     # - name: tests
@@ -78,12 +75,26 @@ jobs:
       env:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        # npm install -g @dvcorg/cml
-        echo "## Reproduce Results" >> report.md
-        echo "Use this parameters combination" >> report.md
-        # dvc metrics diff main >> report.md
+        echo "# Experiment Results" >> report.md
+        echo "## Parameters Combination:" >> report.md
+        echo "```yaml" >> report.md
+        cat params.yaml >> report.md  # Assuming your parameters are in params.yaml
+        echo "```"p >> report.md
+        
+        echo "## Selected Features:" >> report.md
+        echo "```json" >> report.md
+        cat artifacts/selected_features.json >> report.md  # Assuming your parameters are in params.yaml
+        echo "```"p >> report.md
+
+        echo "```json" >> report.md
+        cat artifacts/metrics.json >> report.md  # Assuming your parameters are in params.yaml
+        echo "```"p >> report.md
+
+        echo "## Performence Diffrance with main**" >> report.md
+        dvc metrics diff main >> report.md 
+
         cat artifacts/classification_report.txt >> report.md
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md
         echo "![](./artifacts/pr_curve.png)" >> report.md
-        cml comment create report.md 
+        cml comment create report.md
