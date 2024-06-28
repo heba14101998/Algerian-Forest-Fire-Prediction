@@ -10,13 +10,13 @@ configs:
     scoring: roc_auc
     cv: 5
     scaling_method: standard # or standard
-    model_name: SVC # Change this to the model you want to use
+    model_name: RandomForestClassifier # Change this to the model you want to use
 
 model_params:
     # RandomForestClassifier
-    # n_estimators: 10
-    # max_depth: 5
-    # min_samples_split: 5
+    n_estimators: 10
+    max_depth: 5
+    min_samples_split: 5
 
     # DecisionTreeClassifier
     # criterion: "gini"
@@ -39,8 +39,8 @@ model_params:
 
     # SVC
     C: 1.0
-    kernel: 'rbf'
-    gamma: 'scale'
+    kernel: "rbf"
+    gamma: "scale"
     probability: True
 
     # KNeighborsClassifier
