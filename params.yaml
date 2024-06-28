@@ -21,6 +21,7 @@ model_params:
     # DecisionTreeClassifier
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     # criterion: "gini"
     # splitter: "best"
     # max_depth: 5
@@ -30,6 +31,9 @@ model_params:
 =======
 >>>>>>> 0dda454 (DT + Gini + minmax)
     criterion: "gini"
+=======
+    criterion: "entropy"
+>>>>>>> 58e4917 (DT + entropy + minmax)
     splitter: "best"
     max_depth: 5
     min_samples_split: 5
