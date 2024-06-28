@@ -42,10 +42,12 @@ jobs:
         echo ${{ secrets.KAGGLE_TOKEN_BASE64 }} | base64 --decode > ~/.kaggle/kaggle.json
         # cp kaggle.json ~/.kaggle/kaggle.json
         chmod 600 ~/.kaggle/kaggle.json
+        echo ~/.kaggle/kaggle.json
 
     - name: Configure GDrive Remote
       run: |
         echo ${{ secrets.SERVICE_ACCOUNT_TOKEN_BASE64 }} | base64 --decode > service-account-token.json
+        echo ${{ secrets.DRIVE_URL }}
         dvc remote add -d gdrive gdrive:// ${{ secrets.DRIVE_URL }}
         dvc remote default gdrive
         dvc remote modify gdrive gdrive_use_service_account true
