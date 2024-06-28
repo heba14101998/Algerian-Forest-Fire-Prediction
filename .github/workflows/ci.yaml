@@ -4,14 +4,14 @@ on:
   # workflow_dispatch:
   push:
     branches:
-  #     - develop
-  #   paths:
-  #     - src/**
-  # pull_request:
-  #   branches:
-  #     - develop
-  #   paths:
-  #     - src/**
+      - develop
+    paths:
+      - src/**
+  pull_request:
+    branches:
+      - develop
+    paths:
+      - src/**
 
 permissions: write-all
   # contents: read
@@ -60,17 +60,10 @@ jobs:
         dvc remote modify gdrive gdrive_use_service_account true
         dvc remote modify gdrive --local gdrive_service_account_json_file_path service-account-token.json
 
-    # - name: Create Conda environment
-    #   uses: conda-incubator/setup-miniconda@v2
-    #   with:
-    #     miniconda-version: 'latest'
-
-    - uses: s-weigand/setup-conda@v1
+    - name: Create Conda environment
+      uses: conda-incubator/setup-miniconda@v2
       with:
-        activate-conda: false
-    - run: conda --version
-    - run: which python
-    - run: whoami
+        miniconda-version: 'latest'
 
     - name: Install dependencies
       run: |        
