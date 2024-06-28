@@ -48,8 +48,8 @@ jobs:
     - name: Configure DVC Cache
       run: |
         # sudo usermod -aG dvcusers $(whoami)
-        sudo chmod 770 /home/shared/dvc-cache
-        ls -ld /home/shared/dvc-cache
+        sudo chmod 770 /home/shared
+        ls -ld /home/shared
     
     - name: Configure GDrive Remote
       run: |
