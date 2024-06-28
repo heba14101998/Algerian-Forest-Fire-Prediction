@@ -33,11 +33,6 @@ jobs:
     - uses: iterative/setup-cml@v1
     - uses: iterative/setup-dvc@v1
 
-    # - name: Create Conda environment
-    #   uses: conda-incubator/setup-miniconda@v3
-    #   with:
-    #     miniconda-version: 'latest'
-
     - name: Create Kaggle Authentication Token file
       run: |
         mkdir -p ~/.kaggle
@@ -45,11 +40,11 @@ jobs:
         sudo chmod 600 ~/.kaggle/kaggle.json
         ls -al ~/.kaggle/kaggle.json
         
-    - name: Configure DVC Cache
-      run: |
-        # sudo usermod -aG dvcusers $(whoami)
-        sudo chmod 770 /home/shared
-        ls -ld /home/shared
+    # - name: Configure DVC Cache
+    #   run: |
+    #     # sudo usermod -aG dvcusers $(whoami)
+    #     sudo chmod 770 /home/shared
+    #     ls -ld /home/shared
     
     - name: Configure GDrive Remote
       run: |
@@ -58,18 +53,6 @@ jobs:
         dvc remote add --default gdrive gdrive://${{ secrets.DRIVE_URL }}
         dvc remote modify gdrive gdrive_use_service_account true
         dvc remote modify gdrive --local gdrive_service_account_json_file_path service-account-token.json
-
-    # - name: Setup Miniconda
-    #   uses: conda-incubator/setup-miniconda@v2
-    #   with:
-    #     miniconda-version: 'latest'
-    #     activate-environment: test
-    #     auto-activate-base: true
-    #     auto-update-conda: false
-    #     remove-profiles: true
-    #     architecture: x64
-    #     clean-patched-environment-file: true
-    #     run-post: true
 
     - name: Install dependencies
       run: |        
@@ -83,7 +66,7 @@ jobs:
     - name: Run Project Scripts
       run: |
         python template.py
-        # dvc pull data 
+        dvc pull 
         dvc repro
         # dvc cache dir $PWD/.dvc/cache
         # sudo chmod -R a+rwx $PWD/.dvc/cache
