@@ -14,9 +14,9 @@ configs:
 
 model_params:
     # RandomForestClassifier
-    n_estimators: 10
-    max_depth: 5
-    min_samples_split: 5
+    # n_estimators: 10
+    # max_depth: 5
+    # min_samples_split: 5
 
     # DecisionTreeClassifier
     # criterion: 'gini'
