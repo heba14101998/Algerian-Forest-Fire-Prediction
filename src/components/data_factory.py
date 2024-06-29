@@ -56,9 +56,9 @@ class DataPreprocessor:
             5. Map target column values
         """
         self.data.columns = self.data.columns.str.strip()
-        self.data.iloc[168, -2] = np.NaN
+        self.data.iloc[168, -2] = np.nan
         self.data.iloc[168, -1] = 'fire'
-        self.data['Region'] = np.NaN
+        self.data['Region'] = np.nan
         self.data.loc[:122, "Region"] = 0
         self.data.loc[125:, "Region"] = 1
 

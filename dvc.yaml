@@ -77,8 +77,3 @@ plots:
         artifacts/pr_data.csv:
           - recall
           - precision
-
-artifacts:
-  DecisionTreeClassifier:
-    path: checkpoints/DecisionTreeClassifier.pkl
-    type: model
