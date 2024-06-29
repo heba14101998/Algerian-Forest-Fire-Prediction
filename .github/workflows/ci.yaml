@@ -83,16 +83,8 @@ jobs:
         cat params.yaml >> report.md  # Assuming your parameters are in params.yaml
         echo "```"p >> report.md
         
-        echo "## Selected Features:" >> report.md
-        echo "```json" >> report.md
-        cat artifacts/selected_features.json >> report.md  # Assuming your parameters are in params.yaml
-        echo "```"p >> report.md
-
         # dvc metrics diff main >> report.md 
         echo "## Model Performence**" >> report.md
-        echo "```json" >> report.md
-        cat artifacts/metrics.json >> report.md  # Assuming your parameters are in params.yaml
-        echo "```"p >> report.md
 
         cat artifacts/classification_report.txt >> report.md
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
