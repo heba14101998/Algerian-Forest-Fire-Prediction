@@ -44,9 +44,17 @@ stages:
       - artifacts/pr_curve.png
       - artifacts/auc_plot.png
       - artifacts/confusion_matrix.png
-
     metrics:
       - artifacts/metrics.json
+
+artifacts:
+  cv-classification: # artifact ID (name)
+    path: checkpoints/${configs.model_name}.pkl
+    type: model
+    desc: "CV classification model, ${configs.model_name}"
+    labels:
+      - ${configs.model_name}
+      - classification
 
 plots:
   - ROC Curve:
