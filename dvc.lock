@@ -5,6 +5,7 @@ stages:
     deps:
     - path: params.yaml
       hash: md5
+<<<<<<< HEAD
       md5: 8056289ed13836bf4a4611f28afea6ba
       size: 1437
     - path: src/components/data_ingestion.py
@@ -15,6 +16,18 @@ stages:
       hash: md5
       md5: e01a236fee3a43143eedd36c4c48a394
       size: 2001
+=======
+      md5: 400dee15f1819c57080271245a3794b3
+      size: 1432
+    - path: src/components/data_ingestion.py
+      hash: md5
+      md5: 1f1b9a43f386e9aa2bcbd96f594816db
+      size: 2193
+    - path: src/exception.py
+      hash: md5
+      md5: 9f1ccd66d7ece6eac4e920015d575e35
+      size: 2056
+>>>>>>> 1bb2725 (make exp run)
     - path: src/logger.py
       hash: md5
       md5: 15b6a0280af2693891c8b6ee9eb269c4
@@ -34,6 +47,7 @@ stages:
       size: 14445
     - path: params.yaml
       hash: md5
+<<<<<<< HEAD
       md5: 8056289ed13836bf4a4611f28afea6ba
       size: 1437
     - path: src/components/data_factory.py
@@ -44,6 +58,18 @@ stages:
       hash: md5
       md5: e01a236fee3a43143eedd36c4c48a394
       size: 2001
+=======
+      md5: 400dee15f1819c57080271245a3794b3
+      size: 1432
+    - path: src/components/data_factory.py
+      hash: md5
+      md5: eae2034d52b48b697c4b72d50ac3fadb
+      size: 6917
+    - path: src/exception.py
+      hash: md5
+      md5: 9f1ccd66d7ece6eac4e920015d575e35
+      size: 2056
+>>>>>>> 1bb2725 (make exp run)
     - path: src/logger.py
       hash: md5
       md5: 15b6a0280af2693891c8b6ee9eb269c4
@@ -60,17 +86,30 @@ stages:
       isexec: true
     - path: checkpoints/preprocessor.pkl
       hash: md5
+<<<<<<< HEAD
       md5: 03740c06b684cb5b8aa528a5011f873f
       size: 1082
       isexec: true
     - path: data/processed/X_test.npy
       hash: md5
       md5: 3bd549d7fc753255917604a1f7389cb8
+=======
+      md5: e6525dd845d06261f2bdef38099f0065
+      size: 907
+      isexec: true
+    - path: data/processed/X_test.npy
+      hash: md5
+      md5: 0c12f85989edf3270f55c185097e82d9
+>>>>>>> 1bb2725 (make exp run)
       size: 3656
       isexec: true
     - path: data/processed/X_train.npy
       hash: md5
+<<<<<<< HEAD
       md5: 156fb7a3e0d936e022ae905f8ae12fa8
+=======
+      md5: cb1d76ee1a6af22843d2c6db5bca5414
+>>>>>>> 1bb2725 (make exp run)
       size: 14096
       isexec: true
     - path: data/processed/y_test.npy
@@ -88,11 +127,19 @@ stages:
     deps:
     - path: data/processed/X_test.npy
       hash: md5
+<<<<<<< HEAD
       md5: 3bd549d7fc753255917604a1f7389cb8
       size: 3656
     - path: data/processed/X_train.npy
       hash: md5
       md5: 156fb7a3e0d936e022ae905f8ae12fa8
+=======
+      md5: 0c12f85989edf3270f55c185097e82d9
+      size: 3656
+    - path: data/processed/X_train.npy
+      hash: md5
+      md5: cb1d76ee1a6af22843d2c6db5bca5414
+>>>>>>> 1bb2725 (make exp run)
       size: 14096
     - path: data/processed/y_test.npy
       hash: md5
@@ -104,16 +151,26 @@ stages:
       size: 1680
     - path: params.yaml
       hash: md5
+<<<<<<< HEAD
       md5: 8056289ed13836bf4a4611f28afea6ba
       size: 1437
+=======
+      md5: 400dee15f1819c57080271245a3794b3
+      size: 1432
+>>>>>>> 1bb2725 (make exp run)
     - path: src/components/model_training.py
       hash: md5
       md5: cb156ae3f5d1ef1ad322fbb2b3f59fef
       size: 7654
     - path: src/exception.py
       hash: md5
+<<<<<<< HEAD
       md5: e01a236fee3a43143eedd36c4c48a394
       size: 2001
+=======
+      md5: 9f1ccd66d7ece6eac4e920015d575e35
+      size: 2056
+>>>>>>> 1bb2725 (make exp run)
     - path: src/logger.py
       hash: md5
       md5: 15b6a0280af2693891c8b6ee9eb269c4
@@ -125,8 +182,13 @@ stages:
     outs:
     - path: artifacts/auc_plot.png
       hash: md5
+<<<<<<< HEAD
       md5: 2d56e9f60c5fec93081c5a7adaaba9b8
       size: 37335
+=======
+      md5: 4bc35960698bca25edc535c5181f63c5
+      size: 37316
+>>>>>>> 1bb2725 (make exp run)
       isexec: true
     - path: artifacts/classification_report.txt
       hash: md5
@@ -140,11 +202,16 @@ stages:
       isexec: true
     - path: artifacts/metrics.json
       hash: md5
+<<<<<<< HEAD
       md5: 282e3663dc293641c1c9430fba64c40d
+=======
+      md5: 2adaf859b8121d272a38747bba71eba5
+>>>>>>> 1bb2725 (make exp run)
       size: 154
       isexec: true
     - path: artifacts/pr_curve.png
       hash: md5
+<<<<<<< HEAD
       md5: d359c04d0db5274e1e1a8bd13f0f4c5c
       size: 25016
       isexec: true
@@ -152,4 +219,13 @@ stages:
       hash: md5
       md5: b637730c901e06d8fa502fa94619fc9d
       size: 12683
+=======
+      md5: 260d76d05c10819aaf1147803e6e23f3
+      size: 26217
+      isexec: true
+    - path: checkpoints/DecisionTreeClassifier.pkl
+      hash: md5
+      md5: d3bb43443d5e157ca3525782912b4f78
+      size: 1700
+>>>>>>> 1bb2725 (make exp run)
       isexec: true
