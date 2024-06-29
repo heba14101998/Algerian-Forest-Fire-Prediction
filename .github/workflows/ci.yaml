@@ -39,12 +39,6 @@ jobs:
         echo ${{ secrets.KAGGLE_TOKEN_BASE64 }} | base64 --decode > ~/.kaggle/kaggle.json
         sudo chmod 600 ~/.kaggle/kaggle.json
         ls -al ~/.kaggle/kaggle.json
-        
-    # - name: Configure DVC Cache
-    #   run: |
-    #     # sudo usermod -aG dvcusers $(whoami)
-    #     sudo chmod 770 /home/shared
-    #     ls -ld /home/shared
     
     - name: Configure GDrive Remote
       run: |
@@ -65,7 +59,7 @@ jobs:
     - name: Run Project Scripts
       run: |
         # python template.py
-        dvc exp run -n "CI experiment"
+        dvc exp run 
         dvc push
         
     # - name: tests

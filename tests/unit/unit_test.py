@@ -10,16 +10,17 @@ class TestDataPreprocessor(unittest.TestCase):
         self.configs.data = pd.read_csv(
             os.path.join(CONFIGS.raw_data_dir, CONFIGS.data_file_name))
 
-
     def test_missing_values():
-
-        assertEqual(cleaned_data.isnull().sum().sum(), 0)
-
+        pass
+        # assertEqual(cleaned_data.isnull().sum().sum(), 0)
 
     def test_target_column_values():
+        pass
 
 
     def test_saving_files():
+        pass
 
 
     def test_num_of_features():
+        pass

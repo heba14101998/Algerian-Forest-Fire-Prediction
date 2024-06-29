@@ -41,3 +41,5 @@ artifacts/
 *.csv
 *.l
 *.base64
+dvc_plots/*
+/dvc_plots/
