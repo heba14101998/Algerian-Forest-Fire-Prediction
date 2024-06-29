@@ -48,10 +48,10 @@ stages:
       - artifacts/metrics.json
 
 artifacts:
-  cv-classification: # artifact ID (name)
+  classification-model:
     path: checkpoints/${configs.model_name}.pkl
     type: model
-    desc: "CV classification model, ${configs.model_name}"
+    desc: "classification model, ${configs.model_name}"
     labels:
       - ${configs.model_name}
       - classification
