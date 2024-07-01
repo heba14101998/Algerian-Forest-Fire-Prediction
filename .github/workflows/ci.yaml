@@ -84,7 +84,7 @@ jobs:
       run: |
         dvc push
         git add dvc.lock
-        git commit -m "Update dvc.lock for experiment"
+        git commit -m "Update dvc.lock form github actions"
         git push  
 
     - name: Generate CML Report
