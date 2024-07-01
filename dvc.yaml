@@ -75,17 +75,3 @@ artifacts:
 #       artifacts/pr_data.csv:
 #         - recall
 #         - precision
-metrics:
-  - dvclive/metrics.json
-plots:
-  - dvclive/plots/custom/ROC Curve.json:
-      template: linear
-      x: fpr
-      y: tpr
-  - dvclive/plots/sklearn/confusion_matrix.json:
-      template: confusion
-      x: actual
-      y: predicted
-      title: Confusion Matrix
-      x_label: True Label
-      y_label: Predicted Label
