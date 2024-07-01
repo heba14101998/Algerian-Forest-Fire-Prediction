@@ -20,21 +20,24 @@ algerian-forest-fire-predictor/
     │   ├── utils.py
     │   ├── logger.py
     │   └── exception.py
+    ├── notebooks/
+    │   └── EDA_and_Feature_Engineering.ipynb
     ├── data/
     │   ├── raw/
     │   └── processed/
-    ├── notebooks/
-    │   └── EDA_and_Feature_Engineering.ipynb
+    ├── docs/
+    |   ├── Methodology.md
+    |   └── dataset-description.md
     ├── requirements.txt
     ├── setup.py
+    ├── template.py
     ├── dvc.yaml
     ├── params.yaml
+    ├── .dvcignore
     ├── .gitignore
-
     ├── README.md
-    └── docs/
-        ├── Methodology.md
-        └── dataset-description.md
+    ├── LICENCE
+
 ```
 
 **Explanation of Files:**
