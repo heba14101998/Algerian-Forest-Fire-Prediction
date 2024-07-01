@@ -22,6 +22,7 @@ from src.logger import logging
 from src.exception import CustomException
 from src.utils import (save_artifact, read_yaml, plot_precision_recall_curve,
                          plot_roc_curve, plot_confusion_matrix)
+from dvclive import Live 
 
 class ModelTrainer:
     """
@@ -84,69 +85,82 @@ class ModelTrainer:
         y_pred = self.model.predict(X_test)
         y_pred_proba = self.model.predict_proba(X_test)[:, 1]  # For AUC calculation
 
-        # Calculate classification metrics
-        acc = accuracy_score(y_test, y_pred)
-        auc = roc_auc_score(y_test, y_pred_proba)
-        precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred, average="weighted")
-        # Make metrics in dict style
-        metrics = { "accuracy": acc,
-                    "auc": auc,
-                    "precision": precision,
-                    "recall": recall,
-                    "f1_score": f1_score}
-        # Save metrics as json file in local storage     
-        path = os.path.join(self.configs.artifacts_path, "metrics.json")
-        save_artifact(path, metrics)
-        
-        ################################## Basic Metrics ######################################
+        with Live() as live:
+            # Calculate classification metrics
+            acc = accuracy_score(y_test, y_pred)
+            auc = roc_auc_score(y_test, y_pred_proba)
+            precision, recall, f1_score, _ = precision_recall_fscore_support(y_test, y_pred, average="weighted")
+            # Make metrics in dict style
+            metrics = { "accuracy": acc,
+                        "auc": auc,
+                        "precision": precision,
+                        "recall": recall,
+                        "f1_score": f1_score}
 
-        # Calculate data for ROC curve
-        fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
-        # Make ROC curve data in dict style
-        roc_data = { "fpr": fpr.tolist(), 
-                        "tpr": tpr.tolist(),
-                        "thresholds": thresholds.tolist(), 
-                        "roc_auc": auc}
-        # Save ROC curve data as json in local storage  
-        path = os.path.join(self.configs.artifacts_path, "roc_data.csv")
-        save_artifact(path, pd.DataFrame(roc_data))
-        # Plotting ROC curve
-        plot_roc_curve(fpr, tpr, auc, self.configs.artifacts_path)
+            live.log_metric("accuracy", acc)
+            live.log_metric("auc", auc)
+            live.log_metric("f1_score", f1_score)
+            live.log_metric("precision", precision)
+            live.log_metric("recall", recall)
+            # Save metrics as json file in local storage     
+            path = os.path.join(self.configs.artifacts_path, "metrics.json")
+            save_artifact(path, metrics)
+            
+            ################################## Basic Metrics ######################################
 
-        #################################### Precision Recall ##################################
-        
-        # Calculate data for precision recall curve
-        precision, recall, thresholds = precision_recall_curve(y_test, y_pred_proba)
-        # Make precision recall curves data in dict style
-        pr_data = {"precision": precision.tolist()[1:],
-                    "recall": recall.tolist()[1:],
-                    "thresholds": thresholds.tolist()}
-        # Save precision recall curves data as json in local storage
-        path = os.path.join(self.configs.artifacts_path, "pr_data.csv")
-        save_artifact(path, pd.DataFrame(pr_data))
-        # Plot precision recall curves 
-        plot_precision_recall_curve(precision, recall, thresholds, self.configs.artifacts_path)
+            # Calculate data for ROC curve
+            fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba)
+            # Make ROC curve data in dict style
+            roc_data = { "fpr": fpr.tolist(), 
+                         "tpr": tpr.tolist(),
+                         "thresholds": thresholds.tolist(), 
+                         "roc_auc": auc}
+            # Save ROC curve data as json in local storage  
+            path = os.path.join(self.configs.artifacts_path, "roc_data.csv")
+            save_artifact(path, pd.DataFrame(roc_data))
+            # Plotting ROC curve
+            plot_roc_curve(fpr, tpr, auc, self.configs.artifacts_path)
+            # Plot in DVCLIve 
+            live.log_plot(name="ROC Curve",
+                         datapoints=pd.DataFrame(roc_data),
+                         template="linear", x="fpr", y="tpr")
 
-        ################################# Confusion Matrix #####################################
+            #################################### Precision Recall ##################################
+            
+            # Calculate data for precision recall curve
+            precision, recall, thresholds = precision_recall_curve(y_test, y_pred_proba)
+            # Make precision recall curves data in dict style
+            pr_data = {"precision": precision.tolist()[1:],
+                        "recall": recall.tolist()[1:],
+                        "thresholds": thresholds.tolist()}
+            # Save precision recall curves data as json in local storage
+            path = os.path.join(self.configs.artifacts_path, "pr_data.csv")
+            save_artifact(path, pd.DataFrame(pr_data))
+            # Plot precision recall curves 
+            plot_precision_recall_curve(precision, recall, thresholds, self.configs.artifacts_path)
 
-        # Calculate confusion matrix
-        cm = confusion_matrix(y_test, y_pred)
-        # Make confusion matrix in dict style
-        cm_data= {'actual': y_test.tolist(), 'predicted': y_pred.tolist()}
-        # Save confusion matrix data as json in local storage
-        path = os.path.join(self.configs.artifacts_path, 'cm_data.csv')
-        save_artifact(path, pd.DataFrame(cm_data))
-        # Plot confusion matrix
-        plot_confusion_matrix(cm, self.configs.artifacts_path)
+            ################################# Confusion Matrix #####################################
 
-        ################################# Classification Report ##################################
+            # Calculate confusion matrix
+            cm = confusion_matrix(y_test, y_pred)
+            # Make confusion matrix in dict style
+            cm_data= {'actual': y_test.tolist(), 'predicted': y_pred.tolist()}
+            # Save confusion matrix data as json in local storage
+            path = os.path.join(self.configs.artifacts_path, 'cm_data.csv')
+            save_artifact(path, pd.DataFrame(cm_data))
+            # Plot confusion matrix
+            plot_confusion_matrix(cm, self.configs.artifacts_path)
+             # Plot in DVCLIve 
+            live.log_sklearn_plot("confusion_matrix", y_test, y_pred)
 
-        # Calculate classification report
-        classification_rep = classification_report(y_test, y_pred)
-        # Save classification report as text file in local storage  
-        path = os.path.join(self.configs.artifacts_path, "classification_report.txt")
-        save_artifact(path, classification_rep)
-        
+            ################################# Classification Report ##################################
+
+            # Calculate classification report
+            classification_rep = classification_report(y_test, y_pred)
+            # Save classification report as text file in local storage  
+            path = os.path.join(self.configs.artifacts_path, "classification_report.txt")
+            save_artifact(path, classification_rep)
+            
         return metrics, cm, classification_rep
 
 if __name__=='__main__':

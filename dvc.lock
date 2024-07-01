@@ -5,8 +5,8 @@ stages:
     deps:
     - path: params.yaml
       hash: md5
-      md5: b083e4f04828d4c3581e7f012f78d7d2
-      size: 1435
+      md5: 047744008c2c0cc36c0314ec00a4e390
+      size: 1434
     - path: src/components/data_ingestion.py
       hash: md5
       md5: 1f1b9a43f386e9aa2bcbd96f594816db
@@ -24,6 +24,7 @@ stages:
       hash: md5
       md5: 4b8bc2d26385c1da25972695477142fe
       size: 14445
+      isexec: true
   Prepare:
     cmd: python -m src.components.data_factory
     deps:
@@ -33,8 +34,8 @@ stages:
       size: 14445
     - path: params.yaml
       hash: md5
-      md5: b083e4f04828d4c3581e7f012f78d7d2
-      size: 1435
+      md5: 047744008c2c0cc36c0314ec00a4e390
+      size: 1434
     - path: src/components/data_factory.py
       hash: md5
       md5: bd519e19fcde80a8c8f54ba49c4655c9
@@ -54,39 +55,45 @@ stages:
     outs:
     - path: artifacts/selected_features.json
       hash: md5
-      md5: c8eedf1accad5b7ea58cfc4606f48d73
-      size: 30
+      md5: 7d9c1c2b1770d5d47be5608403c38bed
+      size: 37
+      isexec: true
     - path: checkpoints/preprocessor.pkl
       hash: md5
-      md5: 0efe217ee8b130973f88bb55a5b96169
-      size: 653
+      md5: a7eda0c56c076697a95b30c2e5eb31b0
+      size: 684
+      isexec: true
     - path: data/processed/X_test.npy
       hash: md5
-      md5: cb171b21ecad28bec709cdc409f02a90
-      size: 712
+      md5: 9ef0a1041763fee304c122480b4bdf4a
+      size: 1296
+      isexec: true
     - path: data/processed/X_train.npy
       hash: md5
-      md5: 5979b0c820384b665d3cce50709dcc2e
-      size: 1488
+      md5: 3c22637e8ce4f3b1a5e364117a8c9d08
+      size: 2848
+      isexec: true
     - path: data/processed/y_test.npy
       hash: md5
       md5: 98dce2dcb3ea55640bc8ba90fc525419
       size: 712
+      isexec: true
     - path: data/processed/y_train.npy
       hash: md5
       md5: c1bd710b2e00e2642e863c5c7ccecde4
       size: 1488
+      isexec: true
   Training:
     cmd: python -m src.components.model_training
     deps:
     - path: data/processed/X_test.npy
       hash: md5
-      md5: cb171b21ecad28bec709cdc409f02a90
-      size: 712
+      md5: 9ef0a1041763fee304c122480b4bdf4a
+      size: 1296
     - path: data/processed/X_train.npy
       hash: md5
-      md5: 5979b0c820384b665d3cce50709dcc2e
-      size: 1488
+      md5: 3c22637e8ce4f3b1a5e364117a8c9d08
+      size: 2848
     - path: data/processed/y_test.npy
       hash: md5
       md5: 98dce2dcb3ea55640bc8ba90fc525419
@@ -97,12 +104,12 @@ stages:
       size: 1488
     - path: params.yaml
       hash: md5
-      md5: b083e4f04828d4c3581e7f012f78d7d2
-      size: 1435
+      md5: 047744008c2c0cc36c0314ec00a4e390
+      size: 1434
     - path: src/components/model_training.py
       hash: md5
-      md5: cb156ae3f5d1ef1ad322fbb2b3f59fef
-      size: 7654
+      md5: feaf26166f66951a0110c91f85aea0eb
+      size: 8461
     - path: src/exception.py
       hash: md5
       md5: 9f1ccd66d7ece6eac4e920015d575e35
@@ -118,25 +125,31 @@ stages:
     outs:
     - path: artifacts/auc_plot.png
       hash: md5
-      md5: 4edf39a70c8150c29ad05944c6584a2e
-      size: 36962
+      md5: 91ff614d60f320bc0a9bd9136dbdd8ac
+      size: 37153
+      isexec: true
     - path: artifacts/classification_report.txt
       hash: md5
-      md5: 520178320c39e14a84396fe12eca25f7
+      md5: 9b9bd77e7e95af5a81c2341a9a096ce7
       size: 326
+      isexec: true
     - path: artifacts/confusion_matrix.png
       hash: md5
-      md5: b66646f96228fb2296cd77183def8bde
-      size: 16978
+      md5: f91e7e1bec151331e2245c4da1be9f6f
+      size: 17314
+      isexec: true
     - path: artifacts/metrics.json
       hash: md5
-      md5: b3e6f878e2fd5b81c7788a76f0ea7f9c
+      md5: 1843cab852e196f1da0d3f5a256925cd
       size: 154
+      isexec: true
     - path: artifacts/pr_curve.png
       hash: md5
-      md5: b919605e45240ecd07f8175c3152461d
-      size: 25549
-    - path: checkpoints/RandomForestClassifier.pkl
+      md5: e6694d47e2490e2db54a6a1f2082cf40
+      size: 21561
+      isexec: true
+    - path: checkpoints/GradientBoostingClassifier.pkl
       hash: md5
-      md5: 177f4a005c7a24adae2399c04add7a4f
-      size: 5013
+      md5: 31ed923b6bde04e02f35c7ec6436c15d
+      size: 16917
+      isexec: true
