@@ -122,21 +122,21 @@ stages:
       size: 36962
     - path: artifacts/classification_report.txt
       hash: md5
-      md5: 9b9bd77e7e95af5a81c2341a9a096ce7
+      md5: 520178320c39e14a84396fe12eca25f7
       size: 326
     - path: artifacts/confusion_matrix.png
       hash: md5
-      md5: f91e7e1bec151331e2245c4da1be9f6f
-      size: 17314
+      md5: b66646f96228fb2296cd77183def8bde
+      size: 16978
     - path: artifacts/metrics.json
       hash: md5
-      md5: 0704c96411418c6b00641869b18142bb
+      md5: b3e6f878e2fd5b81c7788a76f0ea7f9c
       size: 154
     - path: artifacts/pr_curve.png
       hash: md5
-      md5: 20ee604ee34865eae32db99ea5c90aa8
-      size: 23014
+      md5: b919605e45240ecd07f8175c3152461d
+      size: 25549
     - path: checkpoints/RandomForestClassifier.pkl
       hash: md5
-      md5: 7c0059c5754dc35a3b009ec55596b0dd
-      size: 5973
+      md5: 177f4a005c7a24adae2399c04add7a4f
+      size: 5013
