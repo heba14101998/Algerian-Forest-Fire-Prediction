@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-from dotenv import load_dotenv
 
 with open("README.md", 'r', encoding='utf-8') as file:
     long_description = file.read()
