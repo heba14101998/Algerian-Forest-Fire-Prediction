@@ -57,32 +57,26 @@ stages:
       hash: md5
       md5: 7d9c1c2b1770d5d47be5608403c38bed
       size: 37
-      isexec: true
     - path: checkpoints/preprocessor.pkl
       hash: md5
       md5: a7eda0c56c076697a95b30c2e5eb31b0
       size: 684
-      isexec: true
     - path: data/processed/X_test.npy
       hash: md5
       md5: 9ef0a1041763fee304c122480b4bdf4a
       size: 1296
-      isexec: true
     - path: data/processed/X_train.npy
       hash: md5
       md5: 3c22637e8ce4f3b1a5e364117a8c9d08
       size: 2848
-      isexec: true
     - path: data/processed/y_test.npy
       hash: md5
       md5: 98dce2dcb3ea55640bc8ba90fc525419
       size: 712
-      isexec: true
     - path: data/processed/y_train.npy
       hash: md5
       md5: c1bd710b2e00e2642e863c5c7ccecde4
       size: 1488
-      isexec: true
   Training:
     cmd: python -m src.components.model_training
     deps:
