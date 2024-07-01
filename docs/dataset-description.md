@@ -1,7 +1,9 @@
 
 ## Dataset
 
-This dataset contains information about forest fires in Algeria, collected between June 2012 and September 2012, focusing on two distinct regions:
+This dataset contains information about forest fires in Algeria, collected between June 2012 and September 2012, focusing on two distinct regions: Bejaia and Sidi-Bel-Abbes. The dataset was compiled by the Algerian National Directorate of Forestry (DGF) and shared on Kaggle. 
+
+You can find the dataset and more details about it on the Kaggle page: [https://www.kaggle.com/datasets/nitinchoudhary012/algerian-forest-fires-dataset](https://www.kaggle.com/datasets/nitinchoudhary012/algerian-forest-fires-dataset) 
 
 * **Bejaia region:** Located in the northeast of Algeria.
 * **Sidi Bel-abbes region:** Located in the northwest of Algeria.
