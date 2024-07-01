@@ -57,23 +57,23 @@ artifacts:
       - classification
 
 plots:
-  - ROC Curve:
-      template: linear
-      x: fpr
-      y:
-        artifacts/roc_data.csv: tpr
+  # - ROC Curve:
+  #     template: linear
+  #     x: fpr
+  #     y:
+  #       artifacts/roc_data.csv: tpr
 
-  - confusion_matrix: # different x and y paths
-      y:
-        artifacts/cm_data.csv: predicted
-      x:
-        artifacts/cm_data.csv: actual
-      template: confusion
+  # - confusion_matrix: # different x and y paths
+  #     y:
+  #       artifacts/cm_data.csv: predicted
+  #     x:
+  #       artifacts/cm_data.csv: actual
+  #     template: confusion
 
-  - Precision vs Recall:
-      template: linear
-      x: thresholds
-      y:
-        artifacts/pr_data.csv:
-          - recall
-          - precision
+  # - Precision vs Recall:
+  #     template: linear
+  #     x: thresholds
+  #     y:
+  #       artifacts/pr_data.csv:
+  #         - recall
+  #         - precision
