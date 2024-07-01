@@ -17,10 +17,18 @@
 </head>
 <body>
     
-    <div id = "artifacts_roc_data_csv">
+    <div id = "dvclive_plots_custom_ROC_Curve_json">
         <script type = "text/javascript">
-            var spec = {"$schema": "https://vega.github.io/schema/vega-lite/v5.json", "data": {"values": [{"fpr": "0.0", "tpr": "0.0", "thresholds": "inf", "roc_auc": "0.9991582491582492", "step": 0, "rev": "workspace"}, {"fpr": "0.0", "tpr": "0.9629629629629629", "thresholds": "1.0", "roc_auc": "0.9991582491582492", "step": 1, "rev": "workspace"}, {"fpr": "0.045454545454545456", "tpr": "1.0", "thresholds": "0.4", "roc_auc": "0.9991582491582492", "step": 2, "rev": "workspace"}, {"fpr": "1.0", "tpr": "1.0", "thresholds": "0.0", "roc_auc": "0.9991582491582492", "step": 3, "rev": "workspace"}]}, "title": {"text": "artifacts/roc_data.csv", "anchor": "middle"}, "params": [{"name": "grid", "select": "interval", "bind": "scales"}], "width": 300, "height": 300, "mark": {"type": "line", "tooltip": {"content": "data"}}, "encoding": {"x": {"field": "step", "type": "quantitative", "title": "step"}, "y": {"field": "roc_auc", "type": "quantitative", "title": "roc_auc", "scale": {"zero": false}}, "color": {"field": "rev", "scale": {"domain": ["workspace"], "range": ["#945dd6"]}}, "strokeDash": {}, "tooltip": [{"field": "rev"}, {"field": "step"}, {"field": "roc_auc"}]}};
-            vegaEmbed('#artifacts_roc_data_csv', spec);
+            var spec = {};
+            vegaEmbed('#dvclive_plots_custom_ROC_Curve_json', spec);
+        </script>
+    </div>
+    
+
+    <div id = "dvclive_plots_sklearn_confusion_matrix_json">
+        <script type = "text/javascript">
+            var spec = {};
+            vegaEmbed('#dvclive_plots_sklearn_confusion_matrix_json', spec);
         </script>
     </div>
     

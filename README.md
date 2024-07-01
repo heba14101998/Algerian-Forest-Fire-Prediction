@@ -13,8 +13,6 @@ This repository contains a machine learning project focused on predicting forest
     - [Running the Project](#-running-the-project)
 - [Dataset](#-dataset)
 - [Methodology](#-dataset)
-- [Tools](#-dataset)
-- [Project Structure](#-project-structure)
 - [Contributing](#-contributions)
 - [License](#-license)
 - [Acknowledgments](#-acknowledgments)
@@ -166,14 +164,14 @@ for more explination read docs/dataset-description.md
 ## Methodology 
 for more explination read docs/Methodology.md
 
-### Contributions
+## Contributions
 
 Contributions to this project are welcome! Feel free to:
 
 * **Report issues:** If you encounter any bugs or have suggestions for improvement, please open an issue on the GitHub repository.
 * **Submit pull requests:** If you'd like to contribute code, fork the repository, make your changes, and submit a pull request.
 
-### License
+## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 

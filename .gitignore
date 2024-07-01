@@ -18,7 +18,6 @@ __pycache__/
 *.ipynb_checkpoints/
 
 # Ignore specific files
-.env
 .dvcignore
 
 # Ignore data files, if applicable
@@ -28,7 +27,6 @@ data/
 checkpoints/
 
 # Ignore everything in artifacts, except for .gitkeep
-artifacts/
 
 # Ignore the .vscode directory
 /.vscode/
@@ -37,10 +35,8 @@ artifacts/
 
 # Ignore assets folder and its contents
 /assets/
-tests/
 secrets/
-clear_experiments.sh
 
+!/dvclive/*/*
 *.csv
 *.l
-*.base64

@@ -78,8 +78,6 @@ artifacts:
 metrics:
   - dvclive/metrics.json
 plots:
-  - dvclive/plots/metrics:
-      x: step
   - dvclive/plots/custom/ROC Curve.json:
       template: linear
       x: fpr
