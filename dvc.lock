@@ -108,8 +108,8 @@ stages:
       size: 1423
     - path: src/components/model_training.py
       hash: md5
-      md5: feaf26166f66951a0110c91f85aea0eb
-      size: 8461
+      md5: 5406899d198600b18450f8717dd25f95
+      size: 8478
     - path: src/exception.py
       hash: md5
       md5: 9f1ccd66d7ece6eac4e920015d575e35
