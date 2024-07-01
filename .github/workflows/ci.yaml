@@ -56,21 +56,22 @@ jobs:
         dvc remote modify gdrive gdrive_use_service_account true
         dvc remote modify gdrive --local gdrive_service_account_json_file_path service-account-token.json
 
-    - name: Install dependencies
-      run: |        
-        python -m venv ./.venv  # Create virtual environment (only if cache doesn't exist)
-        source ./.venv/bin/activate  # Activate virtual environment
-        pip install --upgrade pip
-        pip install -r requirements.txt
-        python setup.py sdist bdist_wheel
-        pip install -e .
-      
     - name: Create Kaggle Authentication Token file
       run: |
         mkdir -p ~/.kaggle
         echo ${{ secrets.KAGGLE_TOKEN_BASE64 }} | base64 --decode > ~/.kaggle/kaggle.json
         sudo chmod 600 ~/.kaggle/kaggle.json
         ls -al ~/.kaggle/kaggle.json
+
+    - name: Install dependencies
+      run: |        
+        python -m venv ./.venv  # Create virtual environment (only if cache doesn't exist)
+        source ./.venv/bin/activate  # Activate virtual environment
+        pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install --upgrade setuptools
+        python setup.py sdist bdist_wheel
+        pip install -e .
 
     - name: Run Project Scripts
       run: |
