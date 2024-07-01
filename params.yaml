@@ -9,7 +9,7 @@ configs:
     target_column: Classes
     scoring: roc_auc
     cv: 5
-    scaling_method: minmax # or standard
+    scaling_method: standard # or standard
     model_name: AdaBoostClassifier # Change this to the model you want to use
 
 model_params:
@@ -51,7 +51,7 @@ model_params:
 
     # AdaBoostClassifier
     n_estimators: 50
-    learning_rate: 1.0
+    learning_rate: 0.01
     random_state: 42
 
     # LinearDiscriminantAnalysis
