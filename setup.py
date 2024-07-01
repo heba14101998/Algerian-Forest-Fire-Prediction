@@ -23,7 +23,7 @@ setup(
     author_email="hebamohamed14101998@gmail.com" ,
     url="https://github.com/heba14101998/Algerian-Forest-Fire-Prediction.git",
     package_dir={"": "src"},
-    packages=find_packages(where=["src"]),
+    packages=find_packages(where="src"),
     install_requires=requirements,  # Use read requirements
     classifiers=[
         "Development Status :: 3 - Alpha", 
