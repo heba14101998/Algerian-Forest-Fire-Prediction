@@ -2,49 +2,49 @@ stages:
   Ingestion:
     cmd: python -m src.components.data_ingestion
     deps:
-      - src/components/data_ingestion.py
-      - src/logger.py
-      - src/exception.py
-      - params.yaml
+    - src/components/data_ingestion.py
+    - src/logger.py
+    - src/exception.py
+    - params.yaml
     outs:
-      - data/raw/Algerian_forest_fires_dataset.csv
+    - data/raw/Algerian_forest_fires_dataset.csv
 
   Prepare:
     cmd: python -m src.components.data_factory
     deps:
-      - src/components/data_factory.py
-      - src/utils.py
-      - src/logger.py
-      - src/exception.py
-      - params.yaml
-      - data/raw/Algerian_forest_fires_dataset.csv
+    - src/components/data_factory.py
+    - src/utils.py
+    - src/logger.py
+    - src/exception.py
+    - params.yaml
+    - data/raw/Algerian_forest_fires_dataset.csv
     outs:
-      - data/processed/X_train.npy
-      - data/processed/X_test.npy
-      - data/processed/y_train.npy
-      - data/processed/y_test.npy
-      - checkpoints/preprocessor.pkl
-      - artifacts/selected_features.json
+    - data/processed/X_train.npy
+    - data/processed/X_test.npy
+    - data/processed/y_train.npy
+    - data/processed/y_test.npy
+    - checkpoints/preprocessor.pkl
+    - artifacts/selected_features.json
 
   Training:
     cmd: python -m src.components.model_training
     deps:
-      - src/components/model_training.py
-      - src/utils.py
-      - src/logger.py
-      - src/exception.py
-      - params.yaml
-      - data/processed/X_train.npy
-      - data/processed/X_test.npy
-      - data/processed/y_train.npy
-      - data/processed/y_test.npy
+    - src/components/model_training.py
+    - src/utils.py
+    - src/logger.py
+    - src/exception.py
+    - params.yaml
+    - data/processed/X_train.npy
+    - data/processed/X_test.npy
+    - data/processed/y_train.npy
+    - data/processed/y_test.npy
     outs:
-      - checkpoints/${configs.model_name}.pkl
-      - artifacts/classification_report.txt
-      - artifacts/pr_curve.png
-      - artifacts/auc_plot.png
-      - artifacts/confusion_matrix.png
-      - artifacts/metrics.json
+    - checkpoints/${configs.model_name}.pkl
+    - artifacts/classification_report.txt
+    - artifacts/pr_curve.png
+    - artifacts/auc_plot.png
+    - artifacts/confusion_matrix.png
+    - artifacts/metrics.json
 
 artifacts:
   classification-model:
@@ -52,26 +52,41 @@ artifacts:
     type: model
     desc: classification model, ${configs.model_name}
     labels:
-      - ${configs.model_name}
-      - classification
-# plots:
-# - ROC Curve:
-#     template: linear
-#     x: fpr
-#     y:
-#       artifacts/roc_data.csv: tpr
+    - ${configs.model_name}
+    - classification
+plots:
+- ROC Curve:
+    template: linear
+    x: fpr
+    y:
+      artifacts/roc_data.csv: tpr
 
-# - confusion_matrix: # different x and y paths
-#     y:
-#       artifacts/cm_data.csv: predicted
-#     x:
-#       artifacts/cm_data.csv: actual
-#     template: confusion
+- confusion_matrix:   # different x and y paths
+    y:
+      artifacts/cm_data.csv: predicted
+    x:
+      artifacts/cm_data.csv: actual
+    template: confusion
 
-# - Precision vs Recall:
-#     template: linear
-#     x: thresholds
-#     y:
-#       artifacts/pr_data.csv:
-#         - recall
-#         - precision
+- Precision vs Recall:
+    template: linear
+    x: thresholds
+    y:
+      artifacts/pr_data.csv:
+      - recall
+      - precision
+- dvclive/plots/metrics:
+    x: step
+- dvclive/plots/custom/ROC Curve.json:
+    template: linear
+    x: fpr
+    y: tpr
+- dvclive/plots/sklearn/confusion_matrix.json:
+    template: confusion
+    x: actual
+    y: predicted
+    title: Confusion Matrix
+    x_label: True Label
+    y_label: Predicted Label
+metrics:
+- dvclive/metrics.json

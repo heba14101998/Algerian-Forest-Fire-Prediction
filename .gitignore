@@ -32,6 +32,7 @@ checkpoints/
 
 # Ignore assets folder and its contents
 secrets/
+artifacts/
 
 !/dvclive/*/*
 *.csv
