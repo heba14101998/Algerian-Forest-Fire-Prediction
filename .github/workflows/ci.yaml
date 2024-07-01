@@ -31,13 +31,13 @@ jobs:
       with:
         node-version: 16
 
-    - uses: actions/cache@v3
-      with:
-        path: ./.venv # Adjust path if your virtual environment is in a different location
-        key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-          ${{ runner.os }}-
+    # - uses: actions/cache@v3
+    #   with:
+    #     path: ./.venv # Adjust path if your virtual environment is in a different location
+    #     key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-pip-
+    #       ${{ runner.os }}-
 
     - uses: iterative/setup-cml@v1
     - uses: iterative/setup-dvc@v1
@@ -65,8 +65,8 @@ jobs:
 
     - name: Install dependencies
       run: |        
-        python -m venv ./.venv  # Create virtual environment (only if cache doesn't exist)
-        source ./.venv/bin/activate  # Activate virtual environment
+        # python -m venv ./.venv  # Create virtual environment (only if cache doesn't exist)
+        # source ./.venv/bin/activate  # Activate virtual environment
         pip install --upgrade pip
         pip install -r requirements.txt
         pip install --upgrade setuptools
