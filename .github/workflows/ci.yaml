@@ -84,7 +84,7 @@ jobs:
         dvc push
         git add dvc.lock
         git commit -m "Update dvc.lock for experiment"
-        git push origin ci # Push the changes to your "ci" branch
+        git push  
 
     - name: Generate CML Report
       env:
