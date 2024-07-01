@@ -68,21 +68,19 @@ jobs:
         # python template.py
         dvc repro
         dvc exp run 
-        dvc push
         
-    # - name: tests
-    #   run: pytest
+    - name: Push changes to DVC
+      run: |
+        dvc push
+        git add dvc.lock
+        git commit -m "Update dvc.lock for experiment"
+        git push origin ci # Push the changes to your "ci" branch
 
     - name: Generate CML Report
       env:
         REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "# Experiment Results" >> report.md
-        echo "## Parameters Combination:" >> report.md
-        echo "```yaml" >> report.md
-        cat params.yaml >> report.md  # Assuming your parameters are in params.yaml
-        echo "```"p >> report.md        
-
+        echo "# Experiment Results" >> report.md        
         # dvc metrics diff main >> report.md 
         echo "## Model Performence" >> report.md
         cat artifacts/classification_report.txt >> report.md
