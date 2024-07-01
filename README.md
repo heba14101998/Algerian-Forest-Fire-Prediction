@@ -103,7 +103,7 @@ These instructions will get you a copy of the project up and running on your loc
 ##### Creating a Service Account
 
 1. **Create a Google Cloud Platform Project:**
-   - If you don't have one, create a Google Cloud Platform project (follow instructions at [https://cloud.google.com/](https://cloud.google.com/)).
+   - If you don't have one, create a Google Cloud Platform project (follow instructions [here](https://cloud.google.com/iam/docs/service-account-overview)), you can follow instraction from [DVC documentation](https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive#using-service-accounts).
 
 2. **Create a Service Account:**
    - Go to the IAM & Admin section in your Google Cloud Platform project.
@@ -120,9 +120,9 @@ These instructions will get you a copy of the project up and running on your loc
 4. **Store Service Account Key:**
    - Place this JSON file (e.g., `secrets/service-account-token.json`) in the root of your project directory.
 
-##### Setting up DVC with the Service Account
-
-1. **Add the Google Drive Remote:**
+##### **Add the Google Drive Remote:**
+* **Create a Google Drive folder:** Go to your Google Drive and create a new folder in your Google Drive to store your project's data and model artifacts (e.g., "Algerian Forest Fire Project").
+* **Obtain Drive Key:**  Go to the newly created Google Drive folder and get the folder's unique key from the URL (the part after `id=` in the URL).
    ```bash
    dvc remote add -d gdrive gdrive://?token=<your_drive_key>
    ```
