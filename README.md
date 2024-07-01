@@ -12,8 +12,8 @@ This repository contains a machine learning project focused on predicting forest
     - [Installation](#-installation)
     - [Running the Project](#-running-the-project)
 - [Dataset](#-dataset)
-    - [Key Features](#-key-features)
-    - [Attributes Description](#-attributes-description)
+- [Methodology](#-dataset)
+- [Tools](#-dataset)
 - [Project Structure](#-project-structure)
 - [Contributing](#-contributions)
 - [License](#-license)
@@ -74,7 +74,7 @@ These instructions will get you a copy of the project up and running on your loc
    ```
 ### Running the Project
 
-1) **Setup Kaggle API:**
+#### 1) **Setup Kaggle API:**
     * **Download `kaggle.json`:**  Download your Kaggle API credentials (username and API key) from your Kaggle account. put the file in the project direactory.
     ```json
     {
@@ -93,7 +93,7 @@ These instructions will get you a copy of the project up and running on your loc
         chmod 600 ~/.kaggle/kaggle.json
         ```
 
-2) **Configure DVC with Remote Storage:**
+#### 2) **Configure DVC with Remote Storage:**
     * **Create a Google Drive folder:** Go to your Google Drive and create a new folder in your Google Drive to store your project's data and model artifacts (e.g., "Algerian Forest Fire Project").
     * **Obtain Drive Key:**  Go to the newly created Google Drive folder and get the folder's unique key from the URL (the part after `id=` in the URL).
     * **Set up DVC remote:**
@@ -103,7 +103,7 @@ These instructions will get you a copy of the project up and running on your loc
         ```
         Replace `<your_drive_key>` with the Google Drive folder key you obtained in the previous step. 
 
-3) **Run the project:**
+#### 3) **Run the project:**
    ```bash
    $ python template.py
    $ dvc repro
@@ -119,109 +119,9 @@ This will guide you through the entire workflow from setting up your Kaggle API 
 
 ## Dataset
 
-This dataset contains information about forest fires in Algeria, focusing on two specific regions:
-
-* **Bejaia region:** Located in the northeast of Algeria.
-* **Sidi Bel-abbes region:** Located in the northwest of Algeria.
-
-The dataset includes data collected between **June 2012 and September 2012**.
-
-**Key Features:**
-
-* **Instances:** 244 (122 for each region)
-* **Attributes:** 11 attributes (features)
-* **Output Attribute:** 1 output attribute (class)
-* **Classes:**
-    * **Fire:** 138 instances
-    * **Not fire:** 106 instances
-
-**Attributes:**
-
-* **Date:** The date of the observation (DD/MM/YYYY).
-* **Temp:** Temperature in Celsius.
-* **RH:** Relative Humidity in percentage.
-* **Ws:** Wind speed in km/h.
-* **Rain:** Total amount of rainfall in mm.
-* **FFMC:** Fine Fuel Moisture Code, representing the moisture content of fine fuels (0-100).
-* **DMC:** Duff Moisture Code, representing the moisture content of decaying organic matter (0-100).
-* **DC:** Drought Code, representing the overall drought level (0-100).
-* **ISI:** Initial Spread Index, representing the ease of fire ignition (0-100).
-* **BUI:** Buildup Index, representing the total amount of fuel available (0-100).
-* **FWI:** Fire Weather Index, representing the overall fire danger (0-100).
-* **Classes:** The output class, indicating whether a fire occurred (1) or not (0).
-
-
-**Attributes Description:**
-
-| Feature           | Description                                          | Data Type |
-|--------------------|---------------------------------------------------|-----------|
-| **Classes**        | Fire or not fire (target variable)                 | Categorical |
-| **month**         | Month of the year (1-12)                            | Integer   |
-| **RH**            | Relative humidity (%)                               | Integer   |
-| **Temperature**    | Temperature (Celsius)                               | Integer   |
-| **Ws**            | Wind speed (km/h)                                   | Integer   |
-| **year**          | Year of the observation                              | Integer   |
-| **DC**            | Drought Code Index                                    | Float     |
-| **Rain**          | Total amount of precipitation (mm)                   | Float     |
-| **DMC**           | Drought Code Index                                    | Float     |
-| **FFMC**          | Fine Fuel Moisture Code                              | Float     |
-| **BUI**           | Buildup Index                                       | Float     |
-| **ISI**           | Initial Spread Index                                | Float     |
-| **FWI**           | Fire Weather Index                                   | Float     |
-| **day**           | Day of the month (1-31)                             | Integer   |
-
-
----
-
 ## Project Structure
 
-```
-.
-├── Notebooks
-│   └── EDA_and_Feature_Engineering.ipynb
-├── data
-│   ├── processed
-│   │   ├── X_test.npy
-│   │   ├── X_train.npy
-│   │   ├── cleaned_algerian_forest_fires_dataset.csv
-│   │   ├── y_test.npy
-│   │   └── y_train.npy
-│   └── raw
-│       └── Algerian_forest_fires_dataset.csv
-├── src
-│   ├── __init__.py
-│   ├── components
-│   │   ├── __init__.py
-│   │   ├── data_factory.py
-│   │   ├── data_ingestion.py
-│   │   └── model_training.py
-│   ├── exception.py
-│   ├── logger.py
-│   ├── pipeline
-│   │   ├── __init__.py
-│   │   ├── inference_pipeline.py
-│   │   └── train_pipeline.py
-│   └── utils.py
-└── tests
-|   ├── __init__.py
-|   ├── integration
-|   │   ├── __init__.py
-|   │   └── init_test.py
-|   └── unit
-|       ├── __init__.py
-|       └── unit_test.py
-├── template.py
-├── dvc.lock
-├── dvc.yaml
-├── params.yaml
-├── requirements.txt
-├── setup.py
-├── README.md
-```
-
----
-## Tools 
-
+## Methodology 
 
 
 ### Contributions

@@ -37,10 +37,10 @@ artifacts/
 
 # Ignore assets folder and its contents
 /assets/
-/.kaggle/
+tests/
+secrets/
+clear_experiments.sh
+
 *.csv
 *.l
 *.base64
-dvc_plots/
-/dvc_plots
-dvc_plots

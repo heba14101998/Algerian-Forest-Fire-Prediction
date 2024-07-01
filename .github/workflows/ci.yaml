@@ -81,11 +81,10 @@ jobs:
         echo "## Parameters Combination:" >> report.md
         echo "```yaml" >> report.md
         cat params.yaml >> report.md  # Assuming your parameters are in params.yaml
-        echo "```"p >> report.md
-        
-        # dvc metrics diff main >> report.md 
-        echo "## Model Performence**" >> report.md
+        echo "```"p >> report.md        
 
+        # dvc metrics diff main >> report.md 
+        echo "## Model Performence" >> report.md
         cat artifacts/classification_report.txt >> report.md
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md

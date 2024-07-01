@@ -4,4 +4,4 @@
 ['remote "drive"']
     url = gdrive://1zkqgCdnxeSjvG_4KZaohKiTHn5OITJu1
     gdrive_use_service_account = true
-    gdrive_service_account_json_file_path = ../assets/service-account-token.json
+    gdrive_service_account_json_file_path = ../secrets/service-account-token.json
