@@ -74,8 +74,9 @@ These instructions will get you a copy of the project up and running on your loc
    ```
 ### Running the Project
 
-#### 1) **Setup Kaggle API:**
-    * **Download `kaggle.json`:**  Download your Kaggle API credentials (username and API key) from your Kaggle account. put the file in the project direactory.
+#### Step 1: Setup Kaggle API
+
+* **Download `kaggle.json`:** Download your Kaggle API credentials (username and API key) from your Kaggle account. Put the file in the project directory.
     ```json
     {
       "username": "your_username",
@@ -83,46 +84,87 @@ These instructions will get you a copy of the project up and running on your loc
     }
     ```
 
-    * **Configure Kaggle:** Run these commands in your terminal to copy the `kaggle.json` file in a spacific directory.
-        ```bash
-        mkdir -p ~/.kaggle
-        cp kaggle.json ~/.kaggle/kaggle.json
-        ```
-    * **Set Permissions:** Make sure the file is only accessible to you:
-        ```bash
-        chmod 600 ~/.kaggle/kaggle.json
-        ```
+* **Configure Kaggle:** Run these commands in your terminal to copy the `kaggle.json` file in a specific directory. 
+    ```bash
+    mkdir -p secrets
+    ```
+    Then put your Kaggle token in the `secrets` directory.
+    ```bash
+    mkdir -p ~/.kaggle
+    cp secrets/kaggle.json ~/.kaggle/kaggle.json
+    ```
+* **Set Permissions:** Make sure the file is only accessible to you:
+    ```bash
+    chmod 600 ~/.kaggle/kaggle.json
+    ```
 
-#### 2) **Configure DVC with Remote Storage:**
-    * **Create a Google Drive folder:** Go to your Google Drive and create a new folder in your Google Drive to store your project's data and model artifacts (e.g., "Algerian Forest Fire Project").
-    * **Obtain Drive Key:**  Go to the newly created Google Drive folder and get the folder's unique key from the URL (the part after `id=` in the URL).
-    * **Set up DVC remote:**
-        ```bash
-        dvc remote add -d gdrive dvc://?token=<your_drive_key>
-        dvc remote default gdrive
-        ```
-        Replace `<your_drive_key>` with the Google Drive folder key you obtained in the previous step. 
+#### Step 2: Configure DVC with Remote Storage
 
-#### 3) **Run the project:**
+##### Creating a Service Account
+
+1. **Create a Google Cloud Platform Project:**
+   - If you don't have one, create a Google Cloud Platform project (follow instructions at [https://cloud.google.com/](https://cloud.google.com/)).
+
+2. **Create a Service Account:**
+   - Go to the IAM & Admin section in your Google Cloud Platform project.
+   - Click "Service Accounts" and then "Create Service Account."
+   - Give your service account a name and description.
+   - In the "Roles" section, select "Storage Object Viewer" or "Storage Object Admin" (depending on your needs).
+   - Click "Create."
+
+3. **Generate Key:**
+   - On the service account's detail page, click "Keys" and then "Add Key."
+   - Choose "JSON" as the key type. 
+   - Click "Create." This will download a JSON file containing your service account's credentials. 
+
+4. **Store Service Account Key:**
+   - Place this JSON file (e.g., `secrets/service-account-token.json`) in the root of your project directory.
+
+##### Setting up DVC with the Service Account
+
+1. **Add the Google Drive Remote:**
+   ```bash
+   dvc remote add -d gdrive gdrive://?token=<your_drive_key>
+   ```
+   Replace `<your_drive_key>` with the Google Drive folder key you obtained in the previous step (after `id=` in the URL of your Drive folder).
+
+2. **Set the Default Remote:**
+   ```bash
+   dvc remote default gdrive
+   ```
+
+3. **Configure Service Account for DVC:**
+   ```bash
+   dvc remote modify gdrive gdrive_use_service_account true
+   dvc remote modify gdrive --local gdrive_service_account_json_file_path secrets/service-account-token.json
+   ```
+
+#### Step 3: Run the Project
+
+1. **Run the project's setup script:**
    ```bash
    $ python template.py
-   $ dvc repro
    ```
-   These commands will execute the project's pipeline, including:
+
+2. **Run the DVC pipeline:**
+   ```bash
+   $ dvc repro
+   $ dvc push
+   ```
+
+   This will execute the project's pipeline:
    - **Data Ingestion:** Download the dataset directly from Kaggle using the Kaggle API you just configured.
    - **Preprocessing:** Clean, transform, and prepare the data for model training.
    - **Model Training:** Train a machine learning model based on the chosen algorithm and hyperparameters.
    - **Model Evaluation:** Evaluate the trained model's performance using various metrics.
    - **Artifact Saving:** Save the trained model, evaluation results, and other important artifacts for future use or analysis.
 
-This will guide you through the entire workflow from setting up your Kaggle API to running the project and generating valuable results.
+   The artifacts will be uploaded to your Google Drive using the service account.
 
 ## Dataset
-
-## Project Structure
-
+for more explination read docs/dataset-description.md
 ## Methodology 
-
+for more explination read docs/Methodology.md
 
 ### Contributions
 

@@ -77,7 +77,7 @@ jobs:
       run: |
         # python template.py
         export PYTHONPATH=$PWD/src
-        dvc repro
+        # dvc repro
         dvc exp run 
         
     - name: Push changes to DVC
@@ -85,6 +85,8 @@ jobs:
         dvc push
         git add dvc.lock
         git commit -m "Update dvc.lock form github actions"
+        git fetch
+        git reset --hard origin/main
         git push  
 
     - name: Generate CML Report
