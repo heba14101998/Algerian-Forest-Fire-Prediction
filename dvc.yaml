@@ -44,9 +44,7 @@ stages:
       - artifacts/pr_curve.png
       - artifacts/auc_plot.png
       - artifacts/confusion_matrix.png
-
-metrics:
-  - artifacts/metrics.json
+      - artifacts/exp_metrics.json
 
 artifacts:
   Algeria-dataset:
@@ -102,3 +100,8 @@ plots:
         artifacts/pr_data.csv:
           - recall
           - precision
+
+  - artifacts/plots/metrics:
+      x: step
+metrics:
+  - artifacts/metrics.json
