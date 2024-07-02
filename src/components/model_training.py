@@ -95,12 +95,14 @@ class ModelTrainer:
                     "recall": recall,
                     "f1_score": f1_score}
 
-        # live.log_metric("accuracy", acc)
-        # live.log_metric("auc", auc)
-        # live.log_metric("f1_score", f1_score)
-        # live.log_metric("precision", precision)
-        # live.log_metric("recall", recall)
-        
+        live = Live("artifacts")
+
+        live.log_metric("accuracy", acc)
+        live.log_metric("auc", auc)
+        live.log_metric("f1_score", f1_score)
+        live.log_metric("precision", precision)
+        live.log_metric("recall", recall)
+    
         # Save metrics as json file in local storage 
         path = os.path.join(self.configs.artifacts_path, "metrics.json")
         save_artifact(path, metrics)
