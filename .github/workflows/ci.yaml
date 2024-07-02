@@ -96,7 +96,6 @@ jobs:
         echo "# Experiment Results" >> report.md        
         # dvc metrics diff main >> report.md 
         echo "## Model Performence" >> report.md
-        dvc metrics show --show--md >> report.md
         cat artifacts/classification_report.txt >> report.md
         echo "![](./artifacts/confusion_matrix.png)" >> report.md
         echo "![](./artifacts/auc_plot.png)" >> report.md
