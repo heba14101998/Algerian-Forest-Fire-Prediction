@@ -33,9 +33,9 @@ model_params:
     # random_state: 42
 
     # LR
-    C: 1.0
-    penalty: "l1"
-    solver: "lbfgs"
+    # C: 1.0
+    # penalty: "l1"
+    # solver: "lbfgs"
 
     # SVC
     # C: 1.0
