@@ -10,7 +10,7 @@ configs:
     scoring: roc_auc
     cv: 5
     scaling_method: standard # minmax or standard
-    model_name: KNN # Change this to the model you want to use
+    model_name: LDA # Change this to the model you want to use
 
 model_params:
     # RF
@@ -44,10 +44,10 @@ model_params:
     # probability: True
 
     # KNN
-    n_neighbors: 5
-    weights: "uniform"
-    algorithm: "auto"
-    leaf_size: 15
+    # n_neighbors: 5
+    # weights: "uniform"
+    # algorithm: "auto"
+    # leaf_size: 15
 
     # AdaBoost
     # n_estimators: 10
@@ -55,9 +55,9 @@ model_params:
     # random_state: 42
 
     # LDA
-    # solver: "svd"
-    # store_covariance: True
-    # tol: 0.0001
+    solver: "svd"
+    store_covariance: True
+    tol: 0.0001
 
     # QDA
     # reg_param: 0.0

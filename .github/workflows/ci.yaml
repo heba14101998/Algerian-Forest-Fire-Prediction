@@ -77,7 +77,7 @@ jobs:
       run: |
         # python template.py
         export PYTHONPATH=$PWD/src
-        dvc repro
+        # dvc repro
         dvc exp run 
         
     - name: Push changes to DVC
