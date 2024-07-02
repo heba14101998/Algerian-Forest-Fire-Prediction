@@ -44,7 +44,7 @@ stages:
       - artifacts/pr_curve.png
       - artifacts/auc_plot.png
       - artifacts/confusion_matrix.png
-      - artifacts/exp_metrics.json
+      # - artifacts/metrics.json
 
 metrics:
   - artifacts/metrics.json
