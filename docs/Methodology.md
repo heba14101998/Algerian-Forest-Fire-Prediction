@@ -118,7 +118,7 @@ algerian-forest-fire-predictor/
     - Use DVC Studio (a web-based interface for managing and visualizing DVC projects) to track project's data, code, and experiments.
     - Visualize the relationships between files and stages.
     - Analyze metrics and compare experiment results.
-    - **Link to my DVC Studio project:** [heba14101998/projects/Algerian-Forest-Fire-Prediction-dbktmtjctl](https://studio.dvc.ai/user/heba14101998/projects/Algerian-Forest-Fire-Prediction-dbktmtjctl)
+    - **Link to my DVC Studio project:** [heba14101998/projects/Algerian-Forest-Fire-Prediction-3jk3t62d23](https://studio.dvc.ai/user/heba14101998/projects/Algerian-Forest-Fire-Prediction-3jk3t62d23)
 3. **Continuous Integration:**
    -  Set up a CI pipeline (e.g., on GitHub Actions) to:
      -  Run tests automatically when changes are made.
