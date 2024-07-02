@@ -77,12 +77,12 @@ jobs:
       run: |
         # python template.py
         export PYTHONPATH=$PWD/src
-        # dvc repro
+        dvc repro
         dvc exp run 
         
     - name: Push changes to DVC
       run: |
-        # dvc pull
+        dvc pull
         dvc push
         git add dvc.lock
         git commit -m "Update dvc.lock form github actions"
