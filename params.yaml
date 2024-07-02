@@ -10,7 +10,7 @@ configs:
     scoring: roc_auc
     cv: 5
     scaling_method: minmax # minmax or standard
-    model_name: SVC # Change this to the model you want to use
+    model_name: KNN # Change this to the model you want to use
 
 model_params:
     # RF
@@ -38,16 +38,16 @@ model_params:
     # solver: "lbfgs"
 
     # SVC
-    C: 1.0
-    kernel: "linear"
-    gamma: "scale"
-    probability: True
+    # C: 1.0
+    # kernel: "linear"
+    # gamma: "scale"
+    # probability: True
 
     # KNN
-    # n_neighbors: 5
-    # weights: "uniform"
-    # algorithm: "auto"
-    # leaf_size: 15
+    n_neighbors: 5
+    weights: "uniform"
+    algorithm: "auto"
+    leaf_size: 15
 
     # AdaBoost
     # n_estimators: 10
