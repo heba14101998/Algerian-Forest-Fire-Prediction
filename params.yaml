@@ -34,7 +34,7 @@ model_params:
 
     # LR
     C: 1.0
-    penalty: "l1"
+    penalty: "l2"
     solver: "lbfgs"
 
     # SVC
