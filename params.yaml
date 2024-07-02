@@ -9,8 +9,8 @@ configs:
     target_column: Classes
     scoring: roc_auc
     cv: 5
-    scaling_method: minmax # or standard
-    model_name: AdaBoostClassifier # Change this to the model you want to use
+    scaling_method: standard # or standard
+    model_name: KNeighborsClassifier # Change this to the model you want to use
 
 model_params:
     # RandomForestClassifier
@@ -39,23 +39,23 @@ model_params:
 
     # SVC
     # C: 1.0
-    # kernel: "rbf"
+    # kernel: "linear"
     # gamma: "scale"
     # probability: True
 
     # KNeighborsClassifier
-    # n_neighbors: 5
-    # weights: 'uniform'
-    # algorithm: 'auto'
-    # leaf_size: 30
+    n_neighbors: 5
+    weights: "uniform"
+    algorithm: "auto"
+    leaf_size: 30
 
     # AdaBoostClassifier
-    n_estimators: 50
-    learning_rate: 1.0
-    random_state: 42
+    # n_estimators: 10
+    # learning_rate: 0.01
+    # random_state: 42
 
     # LinearDiscriminantAnalysis
-    # solver: 'svd'
+    # solver: "svd"
     # store_covariance: True
     # tol: 0.0001
 

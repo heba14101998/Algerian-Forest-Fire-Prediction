@@ -46,37 +46,64 @@ stages:
     - artifacts/confusion_matrix.png
     - artifacts/metrics.json
 
+metrics:
+- dvclive/metrics.json
 artifacts:
+artifacts:
+  Algeria-dataset:
+    path: data/raw/Algerian_forest_fires_dataset.csv
+    type: dataset
+    desc: Initial CSV dataset Ingested from kaggle (raw data).
+    labels:
+    - raw
+    - Ingested
+    - kaggle
+
+  cleaned-dataset:
+    path: data/preocessed/cleaned_Algerian_forest_fires_dataset.csv
+    type: dataset
+    desc: datast after cleaning and encoding.
+    labels:
+    - clean
+    - processed
+
+  splitted-datasets:
+    path: data/preocessed/
+    desc: dataset after splitting in NumPy format
+    type: dataset
+    labels:
+    - train_sets
+    - test_sets
+
   classification-model:
     path: checkpoints/${configs.model_name}.pkl
     type: model
     desc: classification model, ${configs.model_name}
     labels:
     - ${configs.model_name}
-    - classification
+    - classifier
 plots:
-- ROC Curve:
-    template: linear
-    x: fpr
-    y:
-      artifacts/roc_data.csv: tpr
+  # - ROC Curve:
+  #     template: linear
+  #     x: fpr
+  #     y:
+  #       artifacts/roc_data.csv: tpr
 
-- confusion_matrix:   # different x and y paths
-    y:
-      artifacts/cm_data.csv: predicted
-    x:
-      artifacts/cm_data.csv: actual
-    template: confusion
+  # - confusion_matrix:   # different x and y paths
+  #     y:
+  #       artifacts/cm_data.csv: predicted
+  #     x:
+  #       artifacts/cm_data.csv: actual
+  #     template: confusion
 
-- Precision vs Recall:
-    template: linear
-    x: thresholds
-    y:
-      artifacts/pr_data.csv:
-      - recall
-      - precision
-- dvclive/plots/metrics:
-    x: step
+  # - Precision vs Recall:
+  #     template: linear
+  #     x: thresholds
+  #     y:
+  #       artifacts/pr_data.csv:
+  #       - recall
+  #       - precision
+
 - dvclive/plots/custom/ROC Curve.json:
     template: linear
     x: fpr
@@ -88,5 +115,3 @@ plots:
     title: Confusion Matrix
     x_label: True Label
     y_label: Predicted Label
-metrics:
-- dvclive/metrics.json

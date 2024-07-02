@@ -4,6 +4,7 @@ This repository contains a machine learning project focused on predicting forest
 
 ## 🚩 Table of Contents
 
+
 - [Project Overview](#-project-overview)
     - [Problem Statement](#-problem-statement)
     - [Project Goals](#-project-goals)
@@ -11,8 +12,13 @@ This repository contains a machine learning project focused on predicting forest
     - [Prerequisites](#-prerequisites)
     - [Installation](#-installation)
     - [Running the Project](#-running-the-project)
+        - [Step 1: Setup Kaggle API](#-step-1-setup-kaggle-api)
+        - [Step 2: Configure DVC with Remote Storage](#-step-2-configure-dvc-with-remote-storage)
+        - [Step 3: Run the Project](#-step-3-run-the-project)
 - [Dataset](#-dataset)
-- [Methodology](#-dataset)
+- [Methodology](#-methodology)
+- [Tools](#-tools)
+- [Project Structure](#-project-structure)
 - [Contributing](#-contributions)
 - [License](#-license)
 - [Acknowledgments](#-acknowledgments)
@@ -45,6 +51,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 - Python 3.9 (or compatible)
 - Conda (optional, but recommended)
+- DVC (Data Version Control): [https://dvc.org/](https://dvc.org/)
+- A Google Cloud Platform project with a Google Drive account
 
 ### Installation
 
@@ -160,9 +168,9 @@ These instructions will get you a copy of the project up and running on your loc
    The artifacts will be uploaded to your Google Drive using the service account.
 
 ## Dataset
-for more explination read docs/dataset-description.md
+for more explination read [docs/dataset-description.md](https://github.com/heba14101998/Algerian-Forest-Fire-Prediction/blob/main/docs/dataset-description.md)
 ## Methodology 
-for more explination read docs/Methodology.md
+for more explination read [docs/Methodology.md](https://github.com/heba14101998/Algerian-Forest-Fire-Prediction/blob/main/docs/Methodology.md)
 
 ## Contributions
 
@@ -173,10 +181,15 @@ Contributions to this project are welcome! Feel free to:
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT [License](https://github.com/heba14101998/Algerian-Forest-Fire-Prediction/blob/main/LICENSE). See the LICENSE file for details.
 
 ## Acknowledgments
 
-<!-- - [Dataset Source] - For providing the Algerian forest fire dataset.
-- [Library Name] - For providing the machine learning library used. -->
+This project would not have been possible without the contributions of the following:
+
+- **Nitin Choudhary:** For sharing the valuable Algerian Forest Fires Dataset on Kaggle.
+- **The DVC team:** For creating and maintaining the powerful Data Version Control tool with an excellent [documentation](https://dvc.org/doc).
+- **The Scikit-learn team:** For providing a comprehensive machine learning library.
+- **The Kaggle community:** For inspiring and supporting data science projects.
+
 ``` 

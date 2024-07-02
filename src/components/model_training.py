@@ -85,7 +85,7 @@ class ModelTrainer:
         y_pred = self.model.predict(X_test)
         y_pred_proba = self.model.predict_proba(X_test)[:, 1]  # For AUC calculation
 
-        with Live() as live:
+        with Live(save_dvc_exp=True) as live:
             # Calculate classification metrics
             acc = accuracy_score(y_test, y_pred)
             auc = roc_auc_score(y_test, y_pred_proba)
@@ -120,10 +120,8 @@ class ModelTrainer:
             save_artifact(path, pd.DataFrame(roc_data))
             # Plotting ROC curve
             plot_roc_curve(fpr, tpr, auc, self.configs.artifacts_path)
-            # Plot in DVCLIve 
-            live.log_plot(name="ROC Curve",
-                         datapoints=pd.DataFrame(roc_data),
-                         template="linear", x="fpr", y="tpr")
+            # Plot in DVCLive 
+            live.log_sklearn_plot("roc", y_test, y_pred, name="ROC Curve")
 
             #################################### Precision Recall ##################################
             
@@ -138,6 +136,10 @@ class ModelTrainer:
             save_artifact(path, pd.DataFrame(pr_data))
             # Plot precision recall curves 
             plot_precision_recall_curve(precision, recall, thresholds, self.configs.artifacts_path)
+            # Plot Using DVCLive
+            live.log_sklearn_plot("precision_recall", y_test, y_pred, 
+                                    name="Precision Recall Curve",
+                                    drop_intermediate=True)
 
             ################################# Confusion Matrix #####################################
 
@@ -151,7 +153,7 @@ class ModelTrainer:
             # Plot confusion matrix
             plot_confusion_matrix(cm, self.configs.artifacts_path)
              # Plot in DVCLIve 
-            live.log_sklearn_plot("confusion_matrix", y_test, y_pred)
+            live.log_sklearn_plot("confusion_matrix", y_test, y_pred, name="Confusion Matrix")
 
             ################################# Classification Report ##################################
 
