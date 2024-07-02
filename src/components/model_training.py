@@ -22,7 +22,6 @@ from src.logger import logging
 from src.exception import CustomException
 from src.utils import (save_artifact, read_yaml, plot_precision_recall_curve,
                          plot_roc_curve, plot_confusion_matrix)
-from dvclive import Live 
 
 class ModelTrainer:
     """
