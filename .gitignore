@@ -5,6 +5,7 @@
 *.sln
 *.tmp
 *.log
+*.npy
 
 # Ignore build artifacts
 build/

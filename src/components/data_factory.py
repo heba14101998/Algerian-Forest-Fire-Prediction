@@ -71,6 +71,7 @@ class DataPreprocessor:
         path = os.path.join(self.configs.processed_data_dir, 
                             f"cleaned_{self.configs.data_file_name}")
         save_artifact(path, self.data)
+        # live.log_artifact(, type="data", labels=["cleaned", "encoded", "processed"])
 
 
     def select_features(self, X: pd.DataFrame, y: pd.Series):
@@ -157,6 +158,8 @@ if __name__ == '__main__':
 
     logging.info("Data Preparation")
     configs, _ = read_yaml('params.yaml')
+    
+    # with Live("data/raw", save_dvc_exp=True) as live:
     run = DataPreprocessor(configs)
     X_train, X_test, y_train, y_test = run.preprocess()
 
