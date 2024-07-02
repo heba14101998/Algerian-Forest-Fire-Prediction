@@ -9,7 +9,7 @@ configs:
     target_column: Classes
     scoring: roc_auc
     cv: 5
-    scaling_method: minmax # minmax or standard
+    scaling_method: standard # minmax or standard
     model_name: GradientBoost # Change this to the model you want to use
 
 model_params:
