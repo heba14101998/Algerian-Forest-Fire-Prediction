@@ -10,7 +10,7 @@ configs:
     scoring: roc_auc
     cv: 5
     scaling_method: standard # minmax or standard
-    model_name: GradientBoost # Change this to the model you want to use
+    model_name: LR # Change this to the model you want to use
 
 model_params:
     # RF
@@ -26,16 +26,16 @@ model_params:
     # min_samples_leaf: 5
 
     # GradientBoost
-    loss: "log_loss"
-    learning_rate: 0.1
-    n_estimators: 10
-    max_depth: 4
-    random_state: 42
+    # loss: "log_loss"
+    # learning_rate: 0.1
+    # n_estimators: 10
+    # max_depth: 4
+    # random_state: 42
 
     # LR
-    # C: 1.0
-    # penalty: "l1"
-    # solver: "lbfgs"
+    C: 1.0
+    penalty: "l1"
+    solver: "lbfgs"
 
     # SVC
     # C: 1.0
