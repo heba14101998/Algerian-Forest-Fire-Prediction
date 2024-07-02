@@ -10,7 +10,7 @@ configs:
     scoring: roc_auc
     cv: 5
     scaling_method: minmax # minmax or standard
-    model_name: SVC # Change this to the model you want to use
+    model_name: LR # Change this to the model you want to use
 
 model_params:
     # RF
@@ -33,15 +33,15 @@ model_params:
     # random_state: 42
 
     # LR
-    # C: 1.0
-    # penalty: "l2"
-    # solver: "lbfgs"
+    C: 1.0
+    penalty: "l1"
+    solver: "lbfgs"
 
     # SVC
-    C: 1.0
-    kernel: "linear"
-    gamma: "scale"
-    probability: True
+    # C: 1.0
+    # kernel: "linear"
+    # gamma: "scale"
+    # probability: True
 
     # KNN
     # n_neighbors: 5
